@@ -7,7 +7,7 @@
 <h1 class="text-center"></h1>
 <div class="row">
     <div class="offset-9 col-3 mb-3">
-        <a asp-action="Crear" asp-controller="Inicio" class="btn btn-secondary d-block mx-auto btn-lg">Nuevo Computador
+        <a asp-action="Crear" asp-controller="Inicio" class="btn d-block mx-auto btn-lg" style="background-color: #5F51F3; border-color: #5F51F3; color: #ffffff;">Nuevo Computador</a>
         </a>
     </div>
 </div>
@@ -45,9 +45,9 @@
                                         <td>@Html.DisplayFor(m => item.Departamento)</td>
                                         <td>@Html.DisplayFor(m => item.DireccionIp)</td>
                                         <td>
-                                            <a class="btn btn-warning" asp-action="Editar" asp-route-id="@item.Id">Editar</a>
-                                            <a class="btn btn-secondary" asp-action="Detalle" asp-route-id="@item.Id">Detalle</a>
-                                            <a class="btn btn-danger" asp-action="Borrar" asp-route-id="@item.Id">Borrar</a>
+                                            <a class="btn" asp-action="Editar" asp-route-id="@item.Id" style="background-color: #ffc107; border-color: #ffc107; color: #212529;">Editar</a>
+                                            <a class="btn" asp-action="Detalle" asp-route-id="@item.Id" style="background-color: #17202A; border-color: #17202A; color: #ffffff;">Detalles</a>
+                                            <a class="btn" asp-action="Borrar" asp-route-id="@item.Id" style="background-color: #D41B1B; border-color: #D41B1B; color: #ffffff;">Borrar</a>
 
                                         </td>
                                     </tr>    

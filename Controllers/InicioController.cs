@@ -344,52 +344,44 @@ namespace InventarioComputadoras.Controllers
                         return NotFound();
                     }
 
-                    if (sinNombreAnterior)
+                    bool nombreCambiado = computadoraExistente.Departamento != computadora.Departamento ||
+                                          computadoraExistente.Oficina != computadora.Oficina;
+
+                    if (nombreCambiado)
                     {
-                        computadoraExistente.NombreAnterior = "Sin nombre anterior";
-                    }
-                    else if (computadoraExistente.NombreNuevo != computadoraExistente.NombreAnterior)
-                    {
+                        string nombreBase = computadora.Departamento.Substring(0, 4) + computadora.Oficina.Substring(0, 3);
+
+                        var ultimaComputadora = await _contexto.Computadoras
+                            .Where(c => c.NombreNuevo.StartsWith(nombreBase))
+                            .OrderByDescending(c => c.NombreNuevo)
+                            .FirstOrDefaultAsync();
+
+                        int ultimoNumero = 0;
+                        if (ultimaComputadora != null)
+                        {
+                            string ultimoNumeroStr = ultimaComputadora.NombreNuevo.Substring(nombreBase.Length).Trim();
+                            int.TryParse(ultimoNumeroStr, out ultimoNumero);
+                            ultimoNumero++;
+                        }
+
+                        string nombreNuevo = nombreBase + " " + (ultimoNumero);
+
                         computadoraExistente.NombreAnterior = computadoraExistente.NombreNuevo;
+                        computadoraExistente.NombreNuevo = nombreNuevo;
                     }
 
-                    if (sinDireccionIP)
+                    computadoraExistente.Departamento = computadora.Departamento;
+                    computadoraExistente.Oficina = computadora.Oficina;
+
+                    if (!sinDireccionIP)
+                    {
+                        computadoraExistente.DireccionIp = computadora.DireccionIp;
+                    }
+                    else
                     {
                         computadoraExistente.DireccionIp = "Sin Direccion IP";
                     }
 
-                    if (!sinDireccionIP)
-                    {
-                        var ipExistente = await _contexto.Computadoras
-                            .AnyAsync(c => c.Id != computadora.Id && c.DireccionIp == computadora.DireccionIp);
-
-                        if (ipExistente)
-                        {
-                            ModelState.AddModelError("DireccionIp", "Esta dirección IP ya está en uso.");
-                            return View(computadora);
-                        }
-                    }
-
-                    string nombreBase = computadora.Departamento.Substring(0, 4) + computadora.Oficina.Substring(0, 3);
-
-                    var ultimaComputadora = await _contexto.Computadoras
-                        .Where(c => c.NombreNuevo.StartsWith(nombreBase))
-                        .OrderByDescending(c => c.NombreNuevo)
-                        .FirstOrDefaultAsync();
-
-                    int ultimoNumero = 0;
-                    if (ultimaComputadora != null)
-                    {
-                        string ultimoNumeroStr = ultimaComputadora.NombreNuevo.Substring(nombreBase.Length).Trim();
-                        int.TryParse(ultimoNumeroStr, out ultimoNumero);
-                        ultimoNumero++;
-                    }
-
-                    string nombreNuevo = nombreBase + " " + (ultimoNumero + 1);
-
-                    computadoraExistente.NombreNuevo = nombreNuevo;
-
-                    _contexto.Update(computadoraExistente);
                     await _contexto.SaveChangesAsync();
 
                     return RedirectToAction(nameof(Index));
@@ -484,6 +476,56 @@ namespace InventarioComputadoras.Controllers
             if (computador == null)
             {
                 return NotFound();
+            }
+
+            Dictionary<string, string> zonas = new Dictionary<string, string>
+    {
+        { "TUL", "Tulcán" },
+        { "MUL", "Multiplaza" },
+        { "AMA", "Amazonas" },
+        { "MAY", "Mayorista" },
+        { "ATU", "Atuntaqui" },
+        { "SAG", "San Gabriel" },
+        { "BOL", "Bolívar" },
+        { "QUI", "Quito" },
+        { "IBA", "Ibarra" },
+        { "LAG", "Nuevo Lago" },
+        { "MIR", "Mira" }
+    };
+
+            Dictionary<string, string> departamentos = new Dictionary<string, string>
+    {
+        { "ATEN", "Atención al Cliente" },
+        { "AUDI", "Auditoria" },
+        { "CAJA", "Cajas" },
+        { "CALL", "CallCenter" },
+        { "COBR", "Cobranzas" },
+        { "CONT", "Contabilidad" },
+        { "CRED", "Crédito" },
+        { "CUMP", "Cumplimiento" },
+        { "GERE", "Gerencia General" },
+        { "INVE", "Inversiones" },
+        { "JURI", "Jurídico" },
+        { "MARK", "Mercadeo" },
+        { "MERC", "Marketing" },
+        { "OPER", "Jefe de Operaciones y Procesos" },
+        { "PROS", "Oficial de Operaciones y Procesos" },
+        { "RIES", "Riesgos" },
+        { "SECR", "Secretaria" },
+        { "SEGU", "Seguridad" },
+        { "SMED", "Servicio Médico" },
+        { "SUBG", "SubGerencia" },
+        { "TECN", "T.I" },
+        { "TTHH", "Talento Humano" }
+    };
+
+            if (zonas.ContainsKey(computador.Oficina))
+            {
+                computador.Oficina = zonas[computador.Oficina];
+            }
+            if (departamentos.ContainsKey(computador.Departamento))
+            {
+                computador.Departamento = departamentos[computador.Departamento];
             }
 
             return View(computador);
