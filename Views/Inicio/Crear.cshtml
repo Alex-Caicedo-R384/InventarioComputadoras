@@ -1,0 +1,131 @@
+﻿@model InventarioComputadoras.Models.Computadora
+@{
+    ViewData["Title"] = "Crear Nuevo Computador";
+}
+
+<h1>Computadoras </h1>
+<div class="row">
+    <div class="offset-12">
+        <div class="card border">
+            <div class="card-header bg-dark">
+                <h3 class="text-white"><strong> Crear Computador </strong></h3>
+            </div>
+            <div class="card-body">
+                <form asp-action="Crear" method="POST">
+                    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+                    <div class="form-group">
+                        <label asp-for="Oficina" class="control-label"></label>
+                        <select asp-for="Oficina" asp-items="ViewBag.Zonas" class="form-control"></select>
+                        <span asp-validation-for="Oficina" class="text-danger"></span>
+                    </div>
+
+                    <div class="form-group">
+                        <label asp-for="NombreAnterior" class="control-label"></label>
+                        <input asp-for="NombreAnterior" class="form-control" placeholder="Ingresa el Nombre Anterior" />
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" id="sinNombreAnteriorCheck">
+                            <label class="form-check-label" for="sinNombreAnteriorCheck">
+                                Sin nombre anterior
+                            </label>
+                        </div>
+                        <input type="hidden" asp-for="SinNombreAnterior" id="sinNombreAnteriorHidden">
+                        <span asp-validation-for="NombreAnterior" class="text-danger"></span>
+                    </div>
+
+
+                    <div class="form-group">
+                        <label asp-for="Departamento" class="control-label"></label>
+                        <select asp-for="Departamento" asp-items="ViewBag.Departamentos" class="form-control"></select>
+                        <span asp-validation-for="Departamento" class="text-danger"></span>
+                    </div>
+
+                    <div class="form-group">
+                        <label asp-for="DireccionIp" class="control-label"></label>
+                        <input asp-for="DireccionIp" class="form-control" placeholder="Ingresa la Dirección IP" />
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" id="sinDireccionIPCheck">
+                            <label class="form-check-label" for="sinDireccionIPCheck">
+                                Sin Direccion IP
+                            </label>
+                        </div>
+                        <input type="hidden" asp-for="SinDireccionIP" id="sinDireccionIPHidden">
+                        <span asp-validation-for="DireccionIp" class="text-danger"></span>
+                    </div>
+
+                    <div class="form-group mt-3">
+                        <button type="submit" class="btn btn-secondary d-block mx-auto">Crear Computador</button>
+                    </div>
+
+                </form>
+                <a asp-controller="Inicio" asp-action="Index">Volver</a>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            var sinNombreAnteriorCheck = document.getElementById('sinNombreAnteriorCheck');
+            var nombreAnteriorInput = document.getElementById('NombreAnterior');
+            var sinNombreAnteriorHidden = document.getElementById('sinNombreAnteriorHidden');
+
+            if (!sinNombreAnteriorCheck.checked) {
+                nombreAnteriorInput.disabled = false;
+                sinNombreAnteriorHidden.value = 'false';
+            } else {
+                nombreAnteriorInput.disabled = true;
+                nombreAnteriorInput.value = "Sin nombre anterior";
+                sinNombreAnteriorHidden.value = 'true';
+            }
+        });
+        document.getElementById('sinNombreAnteriorCheck').addEventListener('change', function () {
+            var nombreAnteriorInput = document.getElementById('NombreAnterior');
+            var sinNombreAnteriorHidden = document.getElementById('sinNombreAnteriorHidden');
+
+            if (this.checked) {
+                nombreAnteriorInput.disabled = true;
+                nombreAnteriorInput.value = "Sin nombre anterior";
+                sinNombreAnteriorHidden.value = 'true';
+            } else {
+                nombreAnteriorInput.disabled = false;
+                nombreAnteriorInput.value = "";
+                sinNombreAnteriorHidden.value = 'false';
+            }
+        });
+
+        document.addEventListener('DOMContentLoaded', function () {
+            var sinDireccionIPCheck = document.getElementById('sinDireccionIPCheck');
+            var DireccionIpInput = document.getElementById('DireccionIp');
+            var sinDireccionIPHidden = document.getElementById('sinDireccionIPHidden');
+
+            if (!sinDireccionIPCheck.checked) {
+                DireccionIpInput.disabled = false;
+                sinDireccionIPHidden.value = 'false';
+            } else {
+                DireccionIpInput.disabled = true;
+                DireccionIpInput.value = "Sin Direccion IP";
+                sinDireccionIPHidden.value = 'true';
+            }
+        });
+
+        document.getElementById('sinDireccionIPCheck').addEventListener('change', function () {
+            var DireccionIPInput = document.getElementById('DireccionIp');
+            var sinDireccionIPHidden = document.getElementById('sinDireccionIPHidden');
+
+            if (this.checked) {
+                DireccionIPInput.disabled = true;
+                DireccionIPInput.value = "Sin Direccion IP";
+                sinDireccionIPHidden.value = 'true';
+            } else {
+                DireccionIPInput.disabled = false;
+                DireccionIPInput.value = "";
+                sinDireccionIPHidden.value = 'false';
+            }
+
+
+        });
+    </script>
+}
+

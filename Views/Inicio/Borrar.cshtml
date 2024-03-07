@@ -1,0 +1,58 @@
+﻿@model InventarioComputadoras.Models.Computadora
+@{
+    ViewData["Title"] = "Borrar Computador";
+}
+
+<h1>Computadoras </h1>
+<div class="row">
+    <div class="offset-12">
+        <div class="card border">
+            <div class="card-header bg-dark">
+                <h3 class="text-white"><strong> Borrar Computador </strong></h3>
+            </div>
+            <div class="card-body">
+                <form asp-action="Borrar">
+
+                    <input type="hidden" asp-for="DireccionIp" />
+
+
+                    <div class="form-group">
+                        <label asp-for="Oficina" class="control-label"></label>
+                        <input asp-for="Oficina" class="form-control" readonly/>
+                        <span asp-validation-for="Oficina" class="text-danger"></span>
+                    </div>
+
+                    <div class="form-group">
+                        <label asp-for="NombreAnterior" class="control-label"></label>
+                        <input asp-for="NombreAnterior" class="form-control" readonly/>
+                        <span asp-validation-for="NombreAnterior" class="text-danger"></span>
+                    </div>
+
+                    <div class="form-group">
+                        <label asp-for="NombreNuevo" class="control-label"></label>
+                        <input asp-for="NombreNuevo" class="form-control" readonly/>
+                        <span asp-validation-for="NombreNuevo" class="text-danger"></span>
+                    </div>
+
+                    <div class="form-group">
+                        <label asp-for="Departamento" class="control-label"></label>
+                        <input asp-for="Departamento" class="form-control" readonly/>
+                        <span asp-validation-for="Departamento" class="text-danger"></span>
+                    </div>
+
+                    <div class="form-group">
+                        <label asp-for="DireccionIp" class="control-label"></label>
+                        <input asp-for="DireccionIp" class="form-control" readonly/>
+                        <span asp-validation-for="DireccionIp" class="text-danger"></span>
+                    </div>
+
+                    <div class="form-group mt-3">
+                        <button type="submit" class="btn btn-primary d-block mx-auto">Borrar Computador</button>
+                    </div>
+
+                </form>
+                <a asp-controller="Inicio" asp-action="Index">Volver</a>
+            </div>
+        </div>
+    </div>
+</div>
