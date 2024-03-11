@@ -14,11 +14,13 @@
                 <form asp-action="Crear" method="POST">
                     <div asp-validation-summary="ModelOnly" class="text-danger"></div>
 
+                    
                     <div class="form-group">
                         <label asp-for="Oficina" class="control-label"></label>
                         <select asp-for="Oficina" asp-items="ViewBag.Zonas" class="form-control"></select>
                         <span asp-validation-for="Oficina" class="text-danger"></span>
                     </div>
+
 
                     <div class="form-group">
                         <label asp-for="NombreAnterior" class="control-label"></label>
@@ -33,11 +35,20 @@
                         <span asp-validation-for="NombreAnterior" class="text-danger"></span>
                     </div>
 
+
+                    <div class="form-group">
+                        <label asp-for="Usuario" class="control-label"></label>
+                        <input asp-for="Usuario" class="form-control" placeholder="Ingresa el Usuario" />
+                        <span asp-validation-for="Usuario" class="text-danger"></span>
+                    </div>
+
+
                     <div class="form-group">
                         <label asp-for="Departamento" class="control-label"></label>
                         <select asp-for="Departamento" asp-items="ViewBag.Departamentos" class="form-control"></select>
                         <span asp-validation-for="Departamento" class="text-danger"></span>
                     </div>
+
 
                     <div class="form-group">
                         <label asp-for="DireccionIp" class="control-label"></label>
@@ -51,6 +62,7 @@
                         <input type="hidden" asp-for="SinDireccionIP" id="sinDireccionIPHidden">
                         <span asp-validation-for="DireccionIp" class="text-danger"></span>
                         </div>
+
 
                         <div class="form-group">
                             <label asp-for="LicenciaSO" class="control-label"></label>
@@ -71,12 +83,85 @@
                             </div>
                             <span asp-validation-for="LicenciaSO" class="text-danger"></span>
                         </div>
-
                         <div class="form-group" id="sistemaOperativoDiv" style="display:none;">
                             <label asp-for="SistemaOperativo" class="control-label"></label>
                             <select asp-for="SistemaOperativo" asp-items="ViewBag.sistemaoperativo" class="form-control"></select>
                             <span asp-validation-for="SistemaOperativo" class="text-danger"></span>
                         </div>
+
+
+                    <div class="form-group">
+                        <label asp-for="Office" class="control-label"></label>
+                        <div>
+                            <input asp-for="Office" class="form-control" id="officeText" readonly placeholder="Elija una opción" />
+                        </div>
+                        <div class="form-check mt-2">
+                            <input asp-for="ConLicenciaOffice" type="checkbox" class="form-check-input" id="conLicenciaOfficeCheck">
+                            <label class="form-check-label" for="conLicenciaOfficeCheck">
+                                Con licencia de Office
+                            </label>
+                        </div>
+                        <div class="form-check">
+                            <input asp-for="SinLicenciaOffice" type="checkbox" class="form-check-input" id="sinLicenciaOfficeCheck">
+                            <label class="form-check-label" for="sinLicenciaOfficeCheck">
+                                Sin licencia de Office
+                            </label>
+                        </div>
+                        <span asp-validation-for="Office" class="text-danger"></span>
+                    </div>
+                    <div class="form-group" id="verofficeDiv" style="display:none;">
+                        <label asp-for="VersionOffice" class="control-label"></label>
+                        <select asp-for="VersionOffice" asp-items="ViewBag.office" class="form-control"></select>
+                        <span asp-validation-for="VersionOffice" class="text-danger"></span>
+                    </div>
+
+
+                    <div class="form-group" id="fechaofficeDiv" style="display:none;">
+                        <label asp-for="FechaOffice" class="control-label"></label>
+                        <input asp-for="FechaOffice" class="form-control" type="date" />
+                        <span asp-validation-for="FechaOffice" class="text-danger"></span>
+                    </div>
+
+
+                    <div class="form-group">
+                        <label asp-for="LicenciaAntivirus" class="control-label"></label>
+                        <div>
+                            <input asp-for="LicenciaAntivirus" class="form-control" id="antivirusText" readonly placeholder="Elija una opción" />
+                        </div>
+                        <div class="form-check mt-2">
+                            <input asp-for="ConAntivirus" type="checkbox" class="form-check-input" id="conAntivirusCheck">
+                            <label class="form-check-label" for="conAntivirusCheck">
+                                Con licencia de Antivirus
+                            </label>
+                        </div>
+                        <div class="form-check">
+                            <input asp-for="SinAntivirus" type="checkbox" class="form-check-input" id="sinAntivirusCheck">
+                            <label class="form-check-label" for="sinAntivirusCheck">
+                                Sin licencia de Antivirus
+                            </label>
+                        </div>
+                        <span asp-validation-for="LicenciaAntivirus" class="text-danger"></span>
+                    </div>
+                    <div class="form-group" id="antivirusDiv" style="display:none;">
+                        <label asp-for="VersionAntivirus" class="control-label"></label>
+                        <select asp-for="VersionAntivirus" asp-items="ViewBag.antivirus" class="form-control"></select>
+                        <span asp-validation-for="VersionAntivirus" class="text-danger"></span>
+                    </div>
+
+
+                    <div class="form-group">
+                        <label asp-for="Dominio" class="control-label"></label>
+                        <select asp-for="Dominio" asp-items="ViewBag.dominio" class="form-control"></select>
+                        <span asp-validation-for="Dominio" class="text-danger"></span>
+                    </div>
+
+
+                    <div class="form-group">
+                        <label asp-for="CodigoConstitucional" class="control-label"></label>
+                        <input asp-for="CodigoConstitucional" class="form-control" placeholder="Ingresa el Código Constitucional" />
+                        <span asp-validation-for="CodigoConstitucional" class="text-danger"></span>
+                    </div>
+
 
                     <div class="form-group mt-3">
                         <button id="btnEditar" type="submit" class="btn btn-secondary d-block mx-auto" style="background-color: #5F51F3; border-color: #5F51F3; color: #ffffff;">Crear  Computador</button>
@@ -91,6 +176,7 @@
 
 @section Scripts {
     <script>
+        //----------SIN NOMBRE SCRIPT------------/
         document.addEventListener('DOMContentLoaded', function () {
             var sinNombreAnteriorCheck = document.getElementById('sinNombreAnteriorCheck');
             var nombreAnteriorInput = document.getElementById('NombreAnterior');
@@ -120,7 +206,9 @@
                 sinNombreAnteriorHidden.value = 'false';
             }
         });
+        //-------------------------------------------------------------------------------------------------------//
 
+        //----------SIN DIRECCION IP------------/
         document.addEventListener('DOMContentLoaded', function () {
             var sinDireccionIPCheck = document.getElementById('sinDireccionIPCheck');
             var DireccionIpInput = document.getElementById('DireccionIp');
@@ -148,8 +236,9 @@
                 sinDireccionIPHidden.value = 'false';
             }
         });
+        //-------------------------------------------------------------------------------------------------------//
 
-
+        //----------LICENCIA SISTEMA OPERATIVO------------/
         document.addEventListener('DOMContentLoaded', function () {
             var conLicenciaSOCheck = document.getElementById('conLicenciaSOCheck');
             var sinLicenciaSOCheck = document.getElementById('sinLicenciaSOCheck');
@@ -158,7 +247,7 @@
             conLicenciaSOCheck.addEventListener('change', function () {
                 if (this.checked) {
                     sinLicenciaSOCheck.checked = false;
-                    licenciaSOText.value = "Con Licencia de Sistema Operativo";
+                    licenciaSOText.value = "Si";
                 } else {
                     licenciaSOText.value = "";
                 }
@@ -167,7 +256,7 @@
             sinLicenciaSOCheck.addEventListener('change', function () {
                 if (this.checked) {
                     conLicenciaSOCheck.checked = false;
-                    licenciaSOText.value = "Sin Licencia de Sistema Operativo";
+                    licenciaSOText.value = "No";
                 } else {
                     licenciaSOText.value = "";
                 }
@@ -197,6 +286,139 @@
                 }
             });
         });
+        //-------------------------------------------------------------------------------------------------------//
+
+       //----------LICENCIA OFFICE------------//
+            document.addEventListener('DOMContentLoaded', function () {
+            var conLicenciaOfficeCheck = document.getElementById('conLicenciaOfficeCheck');
+            var sinLicenciaOfficeCheck = document.getElementById('sinLicenciaOfficeCheck');
+            var officeText = document.getElementById('officeText');
+
+            conLicenciaOfficeCheck.addEventListener('change', function () {
+                if (this.checked) {
+                    sinLicenciaOfficeCheck.checked = false;
+                    officeText.value = "Si";
+                } else {
+                    officeText.value = "";
+                }
+            });
+
+            sinLicenciaOfficeCheck.addEventListener('change', function () {
+                if (this.checked) {
+                    conLicenciaOfficeCheck.checked = false;
+                    officeText.value = "No";
+                } else {
+                    officeText.value = "";
+                }
+            });
+        });
+
+        document.addEventListener('DOMContentLoaded', function () {
+            var conLicenciaOfficeCheck = document.getElementById('conLicenciaOfficeCheck');
+            var sinLicenciaSOCheck = document.getElementById('sinLicenciaOfficeCheck');
+            var verofficeDiv = document.getElementById('verofficeDiv');
+
+            conLicenciaOfficeCheck.addEventListener('change', function () {
+                if (this.checked) {
+                    verofficeDiv.style.display = 'block';
+                } else {
+                    verofficeDiv.style.display = 'none';
+                }
+            });
+
+            sinLicenciaOfficeCheck.addEventListener('change', function () {
+                if (this.checked) {
+                    verofficeDiv.style.display = 'none';
+                } else {
+                    if (conLicenciaOfficeCheck.checked) {
+                        verofficeDiv.style.display = 'block';
+                    }
+                }
+            });
+        });
+
+        document.addEventListener('DOMContentLoaded', function () {
+            var conLicenciaOfficeCheck = document.getElementById('conLicenciaOfficeCheck');
+            var sinLicenciaSOCheck = document.getElementById('sinLicenciaOfficeCheck');
+            var fechaofficeDiv = document.getElementById('fechaofficeDiv');
+
+            conLicenciaOfficeCheck.addEventListener('change', function () {
+                if (this.checked) {
+                    fechaofficeDiv.style.display = 'block';
+                } else {
+                    fechaofficeDiv.style.display = 'none';
+                }
+            });
+
+            sinLicenciaOfficeCheck.addEventListener('change', function () {
+                if (this.checked) {
+                    fechaofficeDiv.style.display = 'none';
+                } else {
+                    if (conLicenciaOfficeCheck.checked) {
+                        fechaofficeDiv.style.display = 'block';
+                    }
+                }
+            });
+        });
+        //-------------------------------------------------------------------------------------------------------//
+
+        //----------LICENCIA ANTIVIRUS------------//
+        document.addEventListener('DOMContentLoaded', function () {
+            var conAntivirusCheck = document.getElementById('conAntivirusCheck');
+            var sinAntivirusCheck = document.getElementById('sinAntivirusCheck');
+            var antivirusText = document.getElementById('antivirusText');
+
+            conAntivirusCheck.addEventListener('change', function () {
+                if (this.checked) {
+                    sinAntivirusCheck.checked = false;
+                    antivirusText.value = "Si";
+                } else {
+                    antivirusText.value = "";
+                }
+            });
+
+            sinAntivirusCheck.addEventListener('change', function () {
+                if (this.checked) {
+                    conAntivirusCheck.checked = false;
+                    antivirusText.value = "No";
+                } else {
+                    antivirusText.value = "";
+                }
+            });
+        });
+
+        document.addEventListener('DOMContentLoaded', function () {
+            var conAntivirusCheck = document.getElementById('conAntivirusCheck');
+            var sinAntivirusCheck = document.getElementById('sinAntivirusCheck');
+            var antivirusDiv = document.getElementById('antivirusDiv');
+
+            conAntivirusCheck.addEventListener('change', function () {
+                if (this.checked) {
+                    antivirusDiv.style.display = 'block';
+                } else {
+                    antivirusDiv.style.display = 'none';
+                }
+            });
+
+            sinAntivirusCheck.addEventListener('change', function () {
+                if (this.checked) {
+                    antivirusDiv.style.display = 'none';
+                } else {
+                    if (conAntivirusCheck.checked) {
+                        antivirusDiv.style.display = 'block';
+                    }
+                }
+            });
+        });
+        //-------------------------------------------------------------------------------------------------------//
+
+        //----------USUARIO------------//
+
+
+        //-------------------------------------------------------------------------------------------------------//
+
+
+
     </script>
 }
 

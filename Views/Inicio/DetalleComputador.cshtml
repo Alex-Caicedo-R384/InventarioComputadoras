@@ -1,23 +1,23 @@
 ﻿@model InventarioComputadoras.Models.Computadora
 @{
-    ViewData["Title"] = "Detalle Computador";
+    ViewData["Title"] = "Detalle  de Computador";
 }
 
-<h1>Computadoras </h1>
 <div class="row">
     <div class="offset-12">
         <div class="card border">
             <div class="card-header bg-dark">
-                <h3 class="text-white"><strong> Detalle Computador </strong></h3>
+                <h3 class="text-white"><strong> Detalles de Computador </strong></h3>
             </div>
             <div class="card-body">
                <ul class="list-group">
-                    <li class="list-group-item"><strong>Oficina: </strong> @Html.DisplayFor(m => m.Oficina)</li>
                     <li class="list-group-item"><strong>Nombre: </strong> @Html.DisplayFor(m => m.NombreNuevo)</li>
                     <li class="list-group-item"><strong>Departamento: </strong> @Html.DisplayFor(m => m.Departamento)</li>
+                    <li class="list-group-item"><strong>Oficina: </strong> @Html.DisplayFor(m => m.Oficina)</li>
+                    <li class="list-group-item"><strong>Usuario: </strong> @Html.DisplayFor(m => m.Usuario)</li>
                     <li class="list-group-item"><strong>Dirección IP: </strong> @Html.DisplayFor(m => m.DireccionIp)</li>
-                    <li class="list-group-item"><strong>Estado de Licencia: </strong> @Html.DisplayFor(m => m.LicenciaSO)</li>
-                    <li class="list-group-item"><strong>Sistema Operativo: </strong> @Html.DisplayFor(m => m.SistemaOperativo)</li>
+                    <li class="list-group-item"><strong>¿Se encuentra en Dominio?: </strong> @Html.DisplayFor(m => m.Dominio)</li>
+                    <li class="list-group-item"><strong>Codigo Constitucional: </strong> @Html.DisplayFor(m => m.CodigoConstitucional)</li>
                </ul> 
                 <a asp-controller="Inicio" asp-action="Index">Volver</a>
             </div>

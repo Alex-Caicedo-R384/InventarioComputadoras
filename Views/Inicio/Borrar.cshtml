@@ -15,23 +15,16 @@
 
                     <input type="hidden" asp-for="DireccionIp" />
 
+                    <div class="form-group">
+                        <label asp-for="NombreNuevo" class="control-label"></label>
+                        <input asp-for="NombreNuevo" class="form-control" readonly />
+                        <span asp-validation-for="NombreNuevo" class="text-danger"></span>
+                    </div>
 
                     <div class="form-group">
                         <label asp-for="Oficina" class="control-label"></label>
                         <input asp-for="Oficina" class="form-control" readonly/>
                         <span asp-validation-for="Oficina" class="text-danger"></span>
-                    </div>
-
-                    <div class="form-group">
-                        <label asp-for="NombreAnterior" class="control-label"></label>
-                        <input asp-for="NombreAnterior" class="form-control" readonly/>
-                        <span asp-validation-for="NombreAnterior" class="text-danger"></span>
-                    </div>
-
-                    <div class="form-group">
-                        <label asp-for="NombreNuevo" class="control-label"></label>
-                        <input asp-for="NombreNuevo" class="form-control" readonly/>
-                        <span asp-validation-for="NombreNuevo" class="text-danger"></span>
                     </div>
 
                     <div class="form-group">
@@ -46,20 +39,8 @@
                         <span asp-validation-for="DireccionIp" class="text-danger"></span>
                     </div>
 
-                    <div class="form-group">
-                        <label asp-for="LicenciaSO" class="control-label"></label>
-                        <input asp-for="LicenciaSO" class="form-control" readonly />
-                        <span asp-validation-for="LicenciaSO" class="text-danger"></span>
-                    </div>
-
-                    <div class="form-group">
-                        <label asp-for="SistemaOperativo" class="control-label"></label>
-                        <input asp-for="SistemaOperativo" class="form-control" readonly />
-                        <span asp-validation-for="SistemaOperativo" class="text-danger"></span>
-                    </div>
-
                     <div class="form-group mt-3">
-                        <button id="btnEditar" type="submit" class="btn btn-secondary d-block mx-auto" style="background-color: #D41B1B; border-color: #D41B1B; color: #ffffff;">Borrar Computador</button>
+                        <button id="btnBorrar" type="submit" class="btn btn-secondary d-block mx-auto" style="background-color: #D41B1B; border-color: #D41B1B; color: #ffffff;">Borrar Computador</button>
                     </div>
 
                 </form>

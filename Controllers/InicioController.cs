@@ -13,6 +13,138 @@ namespace InventarioComputadoras.Controllers
         private readonly Dictionary<string, string> zonas;
         private readonly Dictionary<string, string> departamentos;
 
+        private List<SelectListItem> ObtenerZonas()
+        {
+            return new List<SelectListItem>
+        {
+            new SelectListItem { Value = "Tulcán", Text = "Tulcán" },
+            new SelectListItem { Value = "Multiplaza", Text = "Multiplaza" },
+            new SelectListItem { Value = "Amazonas", Text = "Amazonas" },
+            new SelectListItem { Value = "Mayorista", Text = "Mayorista" },
+            new SelectListItem { Value = "Atuntaqui", Text = "Atuntaqui" },
+            new SelectListItem { Value = "San Gabriel", Text = "San Gabriel" },
+            new SelectListItem { Value = "Bolívar", Text = "Bolívar" },
+            new SelectListItem { Value = "Quito", Text = "Quito" },
+            new SelectListItem { Value = "Ibarra", Text = "Ibarra" },
+            new SelectListItem { Value = "Nuevo Lago", Text = "Nuevo Lago" },
+            new SelectListItem { Value = "Mira", Text = "Mira" }
+        };
+        }
+
+        private List<SelectListItem> ObtenerDepartamentos()
+        {
+            return new List<SelectListItem>
+        {
+            new SelectListItem { Value = "Atención al Cliente", Text = "Atención al Cliente" },
+            new SelectListItem { Value = "Auditoria", Text = "Auditoria" },
+            new SelectListItem { Value = "Cajas", Text = "Cajas" },
+            new SelectListItem { Value = "CallCenter", Text = "CallCenter" },
+            new SelectListItem { Value = "Cobranzas", Text = "Cobranzas" },
+            new SelectListItem { Value = "Contabilidad", Text = "Contabilidad" },
+            new SelectListItem { Value = "Crédito", Text = "Crédito" },
+            new SelectListItem { Value = "Cumplimiento", Text = "Cumplimiento" },
+            new SelectListItem { Value = "Gerencia General", Text = "Gerencia General" },
+            new SelectListItem { Value = "Inversiones", Text = "Inversiones" },
+            new SelectListItem { Value = "Jurídico", Text = "Jurídico" },
+            new SelectListItem { Value = "Mercadeo", Text = "Mercadeo" },
+            new SelectListItem { Value = "Marketing", Text = "Marketing" },
+            new SelectListItem { Value = "Jefe de Operaciones y Procesos", Text = "Jefe de Operaciones y Procesos" },
+            new SelectListItem { Value = "Oficial de Operaciones y Procesos", Text = "Oficial de Operaciones y Procesos" },
+            new SelectListItem { Value = "Riesgos", Text = "Riesgos" },
+            new SelectListItem { Value = "Secretaria", Text = "Secretaria" },
+            new SelectListItem { Value = "Seguridad", Text = "Seguridad" },
+            new SelectListItem { Value = "Servicio Médico", Text = "Servicio Médico" },
+            new SelectListItem { Value = "SubGerencia", Text = "SubGerencia" },
+            new SelectListItem { Value = "T.I", Text = "T.I" },
+            new SelectListItem { Value = "Talento Humano", Text = "Talento Humano" }
+        };
+        }
+
+        private List<SelectListItem> ObtenerSistemaOperativo()
+        {
+            return new List<SelectListItem>
+        {
+            new SelectListItem { Value = "Windows 7", Text = "Windows 7" },
+            new SelectListItem { Value = "Windows 8", Text = "Windows 8" },
+            new SelectListItem { Value = "Windows 10", Text = "Windows 10" },
+            new SelectListItem { Value = "Windows 11", Text = "Windows 11" }
+        };
+        }
+
+        private List<SelectListItem> ObtenerOffice()
+        {
+            return new List<SelectListItem>
+        {
+            new SelectListItem { Value = "Office 2019", Text = "Office 2019" },
+            new SelectListItem { Value = "Office 2021", Text = "Office 2021" },
+            new SelectListItem { Value = "Office 365", Text = "Office 365" }
+        };
+        }
+
+        private List<SelectListItem> ObtenerAntivirus()
+        {
+            return new List<SelectListItem>
+        {
+            new SelectListItem { Value = "Fortinet", Text = "Fortinet" }
+        };
+        }
+
+        private List<SelectListItem> ObtenerDominio()
+        {
+            return new List<SelectListItem>
+        {
+            new SelectListItem { Value = "Si", Text = "Si" },
+            new SelectListItem { Value = "No", Text = "No" }
+        };
+        }
+
+        private Dictionary<string, string> ObtenerZonas2()
+        {
+            return new Dictionary<string, string>
+        {
+            { "TUL", "Tulcán" },
+            { "MUL", "Multiplaza" },
+            { "AMA", "Amazonas" },
+            { "MAY", "Mayorista" },
+            { "ATU", "Atuntaqui" },
+            { "SAG", "San Gabriel" },
+            { "BOL", "Bolívar" },
+            { "QUI", "Quito" },
+            { "IBA", "Ibarra" },
+            { "LAG", "Nuevo Lago" },
+            { "MIR", "Mira" }
+        };
+        }
+
+        private Dictionary<string, string> ObtenerDepartamentos2()
+        {
+            return new Dictionary<string, string>
+        {
+            { "ATEN", "Atención al Cliente" },
+            { "AUDI", "Auditoria" },
+            { "CAJA", "Cajas" },
+            { "CALL", "CallCenter" },
+            { "COBR", "Cobranzas" },
+            { "CONT", "Contabilidad" },
+            { "CRED", "Crédito" },
+            { "CUMP", "Cumplimiento" },
+            { "GERE", "Gerencia General" },
+            { "INVE", "Inversiones" },
+            { "JURI", "Jurídico" },
+            { "MARK", "Mercadeo" },
+            { "MERC", "Marketing" },
+            { "OPER", "Jefe de Operaciones y Procesos" },
+            { "PROS", "Oficial de Operaciones y Procesos" },
+            { "RIES", "Riesgos" },
+            { "SECR", "Secretaria" },
+            { "SEGU", "Seguridad" },
+            { "SMED", "Servicio Médico" },
+            { "SUBG", "SubGerencia" },
+            { "TECN", "T.I" },
+            { "TTHH", "Talento Humano" }
+        };
+        }
+
         public InicioController(AppDBContext contexto)
         {
             _contexto = contexto;
@@ -60,6 +192,7 @@ namespace InventarioComputadoras.Controllers
 
         }
 
+
         private void ConvertirAbreviaciones(Computadora computadora)
         {
             if (zonas.ContainsKey(computadora.Oficina))
@@ -83,46 +216,8 @@ namespace InventarioComputadoras.Controllers
         [HttpGet]
         public async Task<IActionResult> Index()
         {
-            Dictionary<string, string> zonas = new Dictionary<string, string>
-                {
-                    { "TUL", "Tulcán" },
-                    { "MUL", "Multiplaza" },
-                    { "AMA", "Amazonas" },
-                    { "MAY", "Mayorista" },
-                    { "ATU", "Atuntaqui" },
-                    { "SAG", "San Gabriel" },
-                    { "BOL", "Bolívar" },
-                    { "QUI", "Quito" },
-                    { "IBA", "Ibarra" },
-                    { "LAG", "Nuevo Lago" },
-                    { "MIR", "Mira" }
-                };
-
-            Dictionary<string, string> departamentos = new Dictionary<string, string>
-                {
-                    { "ATEN", "Atención al Cliente" },
-                    { "AUDI", "Auditoria" },
-                    { "CAJA", "Cajas" },
-                    { "CALL", "CallCenter" },
-                    { "COBR", "Cobranzas" },
-                    { "CONT", "Contabilidad" },
-                    { "CRED", "Crédito" },
-                    { "CUMP", "Cumplimiento" },
-                    { "GERE", "Gerencia General" },
-                    { "INVE", "Inversiones" },
-                    { "JURI", "Jurídico" },
-                    { "MARK", "Mercadeo" },
-                    { "MERC", "Marketing" },
-                    { "OPER", "Jefe de Operaciones y Procesos" },
-                    { "PROS", "Oficial de Operaciones y Procesos" },
-                    { "RIES", "Riesgos" },
-                    { "SECR", "Secretaria" },
-                    { "SEGU", "Seguridad" },
-                    { "SMED", "Servicio Médico" },
-                    { "SUBG", "SubGerencia" },
-                    { "TECN", "T.I" },
-                    { "TTHH", "Talento Humano" }
-                };
+            var zonas = ObtenerZonas2();
+            var departamentos = ObtenerDepartamentos2();
 
             var computadoras = await _contexto.Computadoras.ToListAsync();
 
@@ -145,128 +240,38 @@ namespace InventarioComputadoras.Controllers
         [HttpGet]
         public IActionResult Crear()
         {
-            List<SelectListItem> zonas = new List<SelectListItem>
-                {
-                    new SelectListItem { Value = "Tulcán", Text = "Tulcán" },
-                    new SelectListItem { Value = "Multiplaza", Text = "Multiplaza" },
-                    new SelectListItem { Value = "Amazonas", Text = "Amazonas" },
-                    new SelectListItem { Value = "Mayorista", Text = "Mayorista" },
-                    new SelectListItem { Value = "Atuntaqui", Text = "Atuntaqui" },
-                    new SelectListItem { Value = "San Gabriel", Text = "San Gabriel" },
-                    new SelectListItem { Value = "Bolívar", Text = "Bolívar" },
-                    new SelectListItem { Value = "Quito", Text = "Quito" },
-                    new SelectListItem { Value = "Ibarra", Text = "Ibarra" },
-                    new SelectListItem { Value = "Nuevo Lago", Text = "Nuevo Lago" },
-                    new SelectListItem { Value = "Mira", Text = "Mira" }
-                };
-
-            List<SelectListItem> departamentos = new List<SelectListItem>
-                {
-                    new SelectListItem { Value = "Atención al Cliente", Text = "Atención al Cliente" },
-                    new SelectListItem { Value = "Auditoria", Text = "Auditoria" },
-                    new SelectListItem { Value = "Cajas", Text = "Cajas" },
-                    new SelectListItem { Value = "CallCenter", Text = "CallCenter" },
-                    new SelectListItem { Value = "Cobranzas", Text = "Cobranzas" },
-                    new SelectListItem { Value = "Contabilidad", Text = "Contabilidad" },
-                    new SelectListItem { Value = "Crédito", Text = "Crédito" },
-                    new SelectListItem { Value = "Cumplimiento", Text = "Cumplimiento" },
-                    new SelectListItem { Value = "Gerencia General", Text = "Gerencia General" },
-                    new SelectListItem { Value = "Inversiones", Text = "Inversiones" },
-                    new SelectListItem { Value = "Jurídico", Text = "Jurídico" },
-                    new SelectListItem { Value = "Mercadeo", Text = "Mercadeo" },
-                    new SelectListItem { Value = "Marketing", Text = "Marketing" },
-                    new SelectListItem { Value = "Jefe de Operaciones y Procesos", Text = "Jefe de Operaciones y Procesos" },
-                    new SelectListItem { Value = "Oficial de Operaciones y Procesos", Text = "Oficial de Operaciones y Procesos" },
-                    new SelectListItem { Value = "Riesgos", Text = "Riesgos" },
-                    new SelectListItem { Value = "Secretaria", Text = "Secretaria" },
-                    new SelectListItem { Value = "Seguridad", Text = "Seguridad" },
-                    new SelectListItem { Value = "Servicio Médico", Text = "Servicio Médico" },
-                    new SelectListItem { Value = "SubGerencia", Text = "SubGerencia" },
-                    new SelectListItem { Value = "T.I", Text = "T.I" },
-                    new SelectListItem { Value = "Talento Humano", Text = "Talento Humano" }
-                };
-
-            List<SelectListItem> sistemaoperativo = new List<SelectListItem>
-                {
-                    new SelectListItem { Value = "Windows 7", Text = "Windows 7" },
-                    new SelectListItem { Value = "Windows 8", Text = "Windows 8" },
-                    new SelectListItem { Value = "Windows 10", Text = "Windows 10" },
-                    new SelectListItem { Value = "Windows 11", Text = "Windows 11" }
-                };
-
-            ViewBag.Zonas = zonas;
-            ViewBag.Departamentos = departamentos;
-            ViewBag.sistemaoperativo = sistemaoperativo;
+            ViewBag.Zonas = ObtenerZonas();
+            ViewBag.Departamentos = ObtenerDepartamentos();
+            ViewBag.sistemaoperativo = ObtenerSistemaOperativo();
+            ViewBag.office = ObtenerOffice();
+            ViewBag.antivirus = ObtenerAntivirus();
+            ViewBag.dominio = ObtenerDominio();
 
             return View();
         }
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Crear(Computadora computadora, bool sinNombreAnterior, bool sinDireccionIP, bool sinLicenciaSO, bool conLicenciaSO)
+        public async Task<IActionResult> Crear(Computadora computadora, bool sinNombreAnterior, bool sinDireccionIP, bool sinLicenciaSO, bool conLicenciaSO, bool sinLicenciaOffice, bool conLicenciaOffice, bool sinAntivirus, bool conAntivirus)
         {
-                List<SelectListItem> zonas = new List<SelectListItem>
-        {
-            new SelectListItem { Value = "Tulcán", Text = "Tulcán" },
-            new SelectListItem { Value = "Multiplaza", Text = "Multiplaza" },
-            new SelectListItem { Value = "Amazonas", Text = "Amazonas" },
-            new SelectListItem { Value = "Mayorista", Text = "Mayorista" },
-            new SelectListItem { Value = "Atuntaqui", Text = "Atuntaqui" },
-            new SelectListItem { Value = "San Gabriel", Text = "San Gabriel" },
-            new SelectListItem { Value = "Bolívar", Text = "Bolívar" },
-            new SelectListItem { Value = "Quito", Text = "Quito" },
-            new SelectListItem { Value = "Ibarra", Text = "Ibarra" },
-            new SelectListItem { Value = "Nuevo Lago", Text = "Nuevo Lago" },
-            new SelectListItem { Value = "Mira", Text = "Mira" }
-        };
+            ViewBag.Zonas = ObtenerZonas();
+            ViewBag.Departamentos = ObtenerDepartamentos();
+            ViewBag.sistemaoperativo = ObtenerSistemaOperativo();
+            ViewBag.office = ObtenerOffice();
+            ViewBag.antivirus = ObtenerAntivirus();
 
-                List<SelectListItem> departamentos = new List<SelectListItem>
-        {
-            new SelectListItem { Value = "Atención al Cliente", Text = "Atención al Cliente" },
-            new SelectListItem { Value = "Auditoria", Text = "Auditoria" },
-            new SelectListItem { Value = "Cajas", Text = "Cajas" },
-            new SelectListItem { Value = "CallCenter", Text = "CallCenter" },
-            new SelectListItem { Value = "Cobranzas", Text = "Cobranzas" },
-            new SelectListItem { Value = "Contabilidad", Text = "Contabilidad" },
-            new SelectListItem { Value = "Crédito", Text = "Crédito" },
-            new SelectListItem { Value = "Cumplimiento", Text = "Cumplimiento" },
-            new SelectListItem { Value = "Gerencia General", Text = "Gerencia General" },
-            new SelectListItem { Value = "Inversiones", Text = "Inversiones" },
-            new SelectListItem { Value = "Jurídico", Text = "Jurídico" },
-            new SelectListItem { Value = "Mercadeo", Text = "Mercadeo" },
-            new SelectListItem { Value = "Marketing", Text = "Marketing" },
-            new SelectListItem { Value = "Jefe de Operaciones y Procesos", Text = "Jefe de Operaciones y Procesos" },
-            new SelectListItem { Value = "Oficial de Operaciones y Procesos", Text = "Oficial de Operaciones y Procesos" },
-            new SelectListItem { Value = "Riesgos", Text = "Riesgos" },
-            new SelectListItem { Value = "Secretaria", Text = "Secretaria" },
-            new SelectListItem { Value = "Seguridad", Text = "Seguridad" },
-            new SelectListItem { Value = "Servicio Médico", Text = "Servicio Médico" },
-            new SelectListItem { Value = "SubGerencia", Text = "SubGerencia" },
-            new SelectListItem { Value = "T.I", Text = "T.I" },
-            new SelectListItem { Value = "Talento Humano", Text = "Talento Humano" }
-        };
-
-                List<SelectListItem> sistemaoperativo = new List<SelectListItem>
-        {
-            new SelectListItem { Value = "Windows 7", Text = "Windows 7" },
-            new SelectListItem { Value = "Windows 8", Text = "Windows 8" },
-            new SelectListItem { Value = "Windows 10", Text = "Windows 10" },
-            new SelectListItem { Value = "Windows 11", Text = "Windows 11" }
-        };
-
-                ViewBag.Zonas = zonas;
-                ViewBag.Departamentos = departamentos;
-                ViewBag.sistemaoperativo = sistemaoperativo;
 
             if (computadora.SinNombreAnterior)
             {
                 computadora.NombreAnterior = "Sin nombre anterior";
             }
 
+
             if (computadora.SinDireccionIP)
             {
                 computadora.DireccionIp = "Sin Direccion IP";
             }
+
 
             if (computadora.SinLicenciaSO && computadora.ConLicenciaSO)
             {
@@ -275,11 +280,41 @@ namespace InventarioComputadoras.Controllers
             }
             else if (computadora.SinLicenciaSO)
             {
-                computadora.LicenciaSO = "Sin Licencia del Sistema Operativo";
+                computadora.LicenciaSO = "No";
             }
             else if (computadora.ConLicenciaSO)
             {
-                computadora.LicenciaSO = "Con Licencia del Sistema Operativo";
+                computadora.LicenciaSO = "Si";
+            }
+
+
+            if (computadora.SinLicenciaOffice && computadora.ConLicenciaOffice)
+            {
+                ModelState.AddModelError("ConLicenciaOffice", "Debe seleccionar una opción para la licencia.");
+                return View(computadora);
+            }
+            else if (computadora.SinLicenciaOffice)
+            {
+                computadora.Office = "No";
+            }
+            else if (computadora.ConLicenciaOffice)
+            {
+                computadora.Office = "Si";
+            }
+
+
+            if (computadora.SinAntivirus && computadora.ConAntivirus)
+            {
+                ModelState.AddModelError("ConAntivitus", "Debe seleccionar una opción para el antivirus.");
+                return View(computadora);
+            }
+            else if (computadora.SinAntivirus)
+            {
+                computadora.LicenciaAntivirus = "No";
+            }
+            else if (computadora.ConAntivirus)
+            {
+                computadora.LicenciaAntivirus = "Si";
             }
 
             if (ModelState.IsValid)
@@ -335,49 +370,14 @@ namespace InventarioComputadoras.Controllers
             {
                 return NotFound();
             }
-            List<SelectListItem> zonas = new List<SelectListItem>
-            {
-                new SelectListItem { Value = "TUL", Text = "Tulcán" },
-                new SelectListItem { Value = "MUL", Text = "Multiplaza" },
-                new SelectListItem { Value = "AMA", Text = "Amazonas" },
-                new SelectListItem { Value = "MAY", Text = "Mayorista" },
-                new SelectListItem { Value = "ATU", Text = "Atuntaqui" },
-                new SelectListItem { Value = "SAG", Text = "San Gabriel" },
-                new SelectListItem { Value = "BOL", Text = "Bolívar" },
-                new SelectListItem { Value = "QUI", Text = "Quito" },
-                new SelectListItem { Value = "IBA", Text = "Ibarra" },
-                new SelectListItem { Value = "LAG", Text = "Nuevo Lago" },
-                new SelectListItem { Value = "MIR", Text = "Mira" }
-            };
 
-            List<SelectListItem> departamentos = new List<SelectListItem>
-        {
-            new SelectListItem { Value = "ATEN", Text = "Atención al Cliente" },
-            new SelectListItem { Value = "AUDI", Text = "Auditoria" },
-            new SelectListItem { Value = "CAJA", Text = "Cajas" },
-            new SelectListItem { Value = "CALL", Text = "CallCenter" },
-            new SelectListItem { Value = "COBR", Text = "Cobranzas" },
-            new SelectListItem { Value = "CONT", Text = "Contabilidad" },
-            new SelectListItem { Value = "CRED", Text = "Crédito" },
-            new SelectListItem { Value = "CUMP", Text = "Cumplimiento" },
-            new SelectListItem { Value = "GERE", Text = "Gerencia General" },
-            new SelectListItem { Value = "INVE", Text = "Inversiones" },
-            new SelectListItem { Value = "JURI", Text = "Jurídico" },
-            new SelectListItem { Value = "MARK", Text = "Mercadeo" },
-            new SelectListItem { Value = "MERC", Text = "Marketing" },
-            new SelectListItem { Value = "OPER", Text = "Jefe de Operaciones y Procesos" },
-            new SelectListItem { Value = "PROS", Text = "Oficial de Operaciones y Procesos" },
-            new SelectListItem { Value = "RIES", Text = "Riesgos" },
-            new SelectListItem { Value = "SECR", Text = "Secretaria" },
-            new SelectListItem { Value = "SEGU", Text = "Seguridad" },
-            new SelectListItem { Value = "SMED", Text = "Servicio Médico" },
-            new SelectListItem { Value = "SUBG", Text = "SubGerencia" },
-            new SelectListItem { Value = "TECN", Text = "T.I" },
-            new SelectListItem { Value = "TTHH", Text = "Talento Humano" }
-        };
+            ViewBag.Zonas = ObtenerZonas();
+            ViewBag.Departamentos = ObtenerDepartamentos();
+            ViewBag.sistemaoperativo = ObtenerSistemaOperativo();
+            ViewBag.office = ObtenerOffice();
+            ViewBag.antivirus = ObtenerAntivirus();
+            ViewBag.dominio = ObtenerDominio();
 
-            ViewBag.Zonas = zonas;
-            ViewBag.Departamentos = departamentos;
 
             return View(computador);
 
@@ -387,49 +387,11 @@ namespace InventarioComputadoras.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Editar(Computadora computadora, bool sinNombreAnterior, bool sinDireccionIP)
         {
-            List<SelectListItem> zonas = new List<SelectListItem>
-            {
-                new SelectListItem { Value = "TUL", Text = "Tulcán" },
-                new SelectListItem { Value = "MUL", Text = "Multiplaza" },
-                new SelectListItem { Value = "AMA", Text = "Amazonas" },
-                new SelectListItem { Value = "MAY", Text = "Mayorista" },
-                new SelectListItem { Value = "ATU", Text = "Atuntaqui" },
-                new SelectListItem { Value = "SAG", Text = "San Gabriel" },
-                new SelectListItem { Value = "BOL", Text = "Bolívar" },
-                new SelectListItem { Value = "QUI", Text = "Quito" },
-                new SelectListItem { Value = "IBA", Text = "Ibarra" },
-                new SelectListItem { Value = "LAG", Text = "Nuevo Lago" },
-                new SelectListItem { Value = "MIR", Text = "Mira" }
-            };
-
-            List<SelectListItem> departamentos = new List<SelectListItem>
-            {
-                new SelectListItem { Value = "ATEN", Text = "Atención al Cliente" },
-                new SelectListItem { Value = "AUDI", Text = "Auditoria" },
-                new SelectListItem { Value = "CAJA", Text = "Cajas" },
-                new SelectListItem { Value = "CALL", Text = "CallCenter" },
-                new SelectListItem { Value = "COBR", Text = "Cobranzas" },
-                new SelectListItem { Value = "CONT", Text = "Contabilidad" },
-                new SelectListItem { Value = "CRED", Text = "Crédito" },
-                new SelectListItem { Value = "CUMP", Text = "Cumplimiento" },
-                new SelectListItem { Value = "GERE", Text = "Gerencia General" },
-                new SelectListItem { Value = "INVE", Text = "Inversiones" },
-                new SelectListItem { Value = "JURI", Text = "Jurídico" },
-                new SelectListItem { Value = "MARK", Text = "Mercadeo" },
-                new SelectListItem { Value = "MERC", Text = "Marketing" },
-                new SelectListItem { Value = "OPER", Text = "Jefe de Operaciones y Procesos" },
-                new SelectListItem { Value = "PROS", Text = "Oficial de Operaciones y Procesos" },
-                new SelectListItem { Value = "RIES", Text = "Riesgos" },
-                new SelectListItem { Value = "SECR", Text = "Secretaria" },
-                new SelectListItem { Value = "SEGU", Text = "Seguridad" },
-                new SelectListItem { Value = "SMED", Text = "Servicio Médico" },
-                new SelectListItem { Value = "SUBG", Text = "SubGerencia" },
-                new SelectListItem { Value = "TECN", Text = "T.I" },
-                new SelectListItem { Value = "TTHH", Text = "Talento Humano" }
-            };
-
-            ViewBag.Zonas = zonas;
-            ViewBag.Departamentos = departamentos;
+            ViewBag.Zonas = ObtenerZonas();
+            ViewBag.Departamentos = ObtenerDepartamentos();
+            ViewBag.sistemaoperativo = ObtenerSistemaOperativo();
+            ViewBag.office = ObtenerOffice();
+            ViewBag.antivirus = ObtenerAntivirus();
 
             if (ModelState.IsValid)
             {
@@ -495,7 +457,7 @@ namespace InventarioComputadoras.Controllers
 
 
         [HttpGet]
-        public async Task<IActionResult> Detalle(int? id)
+        public async Task<IActionResult> DetalleComputador(int? id)
         {
             if (id == null)
             {
@@ -508,46 +470,8 @@ namespace InventarioComputadoras.Controllers
                 return NotFound();
             }
 
-            Dictionary<string, string> zonas = new Dictionary<string, string>
-    {
-        { "TUL", "Tulcán" },
-        { "MUL", "Multiplaza" },
-        { "AMA", "Amazonas" },
-        { "MAY", "Mayorista" },
-        { "ATU", "Atuntaqui" },
-        { "SAG", "San Gabriel" },
-        { "BOL", "Bolívar" },
-        { "QUI", "Quito" },
-        { "IBA", "Ibarra" },
-        { "LAG", "Nuevo Lago" },
-        { "MIR", "Mira" }
-    };
-
-            Dictionary<string, string> departamentos = new Dictionary<string, string>
-    {
-        { "ATEN", "Atención al Cliente" },
-        { "AUDI", "Auditoria" },
-        { "CAJA", "Cajas" },
-        { "CALL", "CallCenter" },
-        { "COBR", "Cobranzas" },
-        { "CONT", "Contabilidad" },
-        { "CRED", "Crédito" },
-        { "CUMP", "Cumplimiento" },
-        { "GERE", "Gerencia General" },
-        { "INVE", "Inversiones" },
-        { "JURI", "Jurídico" },
-        { "MARK", "Mercadeo" },
-        { "MERC", "Marketing" },
-        { "OPER", "Jefe de Operaciones y Procesos" },
-        { "PROS", "Oficial de Operaciones y Procesos" },
-        { "RIES", "Riesgos" },
-        { "SECR", "Secretaria" },
-        { "SEGU", "Seguridad" },
-        { "SMED", "Servicio Médico" },
-        { "SUBG", "SubGerencia" },
-        { "TECN", "T.I" },
-        { "TTHH", "Talento Humano" }
-    };
+            var zonas = ObtenerZonas2();
+            var departamentos = ObtenerDepartamentos2();
 
             if (zonas.ContainsKey(computador.Oficina))
             {
@@ -563,6 +487,28 @@ namespace InventarioComputadoras.Controllers
 
 
         [HttpGet]
+        public async Task<IActionResult> DetalleSoftware(int? id)
+        {
+            if (id == null)
+            {
+                return NotFound();
+            }
+
+            var computador = await _contexto.Computadoras.FindAsync(id);
+            if (computador == null)
+            {
+                return NotFound();
+            }
+
+            if (computador.FechaOffice.HasValue)
+            {
+                computador.FechaOffice = computador.FechaOffice.Value.Date;
+            }
+
+            return View(computador);
+        }
+
+        [HttpGet]
         public IActionResult Borrar(int? id)
         {
             if (id == null)
@@ -576,46 +522,8 @@ namespace InventarioComputadoras.Controllers
                 return NotFound();
             }
 
-            Dictionary<string, string> zonas = new Dictionary<string, string>
-    {
-        { "TUL", "Tulcán" },
-        { "MUL", "Multiplaza" },
-        { "AMA", "Amazonas" },
-        { "MAY", "Mayorista" },
-        { "ATU", "Atuntaqui" },
-        { "SAG", "San Gabriel" },
-        { "BOL", "Bolívar" },
-        { "QUI", "Quito" },
-        { "IBA", "Ibarra" },
-        { "LAG", "Nuevo Lago" },
-        { "MIR", "Mira" }
-    };
-
-            Dictionary<string, string> departamentos = new Dictionary<string, string>
-    {
-        { "ATEN", "Atención al Cliente" },
-        { "AUDI", "Auditoria" },
-        { "CAJA", "Cajas" },
-        { "CALL", "CallCenter" },
-        { "COBR", "Cobranzas" },
-        { "CONT", "Contabilidad" },
-        { "CRED", "Crédito" },
-        { "CUMP", "Cumplimiento" },
-        { "GERE", "Gerencia General" },
-        { "INVE", "Inversiones" },
-        { "JURI", "Jurídico" },
-        { "MARK", "Mercadeo" },
-        { "MERC", "Marketing" },
-        { "OPER", "Jefe de Operaciones y Procesos" },
-        { "PROS", "Oficial de Operaciones y Procesos" },
-        { "RIES", "Riesgos" },
-        { "SECR", "Secretaria" },
-        { "SEGU", "Seguridad" },
-        { "SMED", "Servicio Médico" },
-        { "SUBG", "SubGerencia" },
-        { "TECN", "T.I" },
-        { "TTHH", "Talento Humano" }
-    };
+            var zonas = ObtenerZonas2();
+            var departamentos = ObtenerDepartamentos2();
 
             if (zonas.ContainsKey(computador.Oficina))
             {
