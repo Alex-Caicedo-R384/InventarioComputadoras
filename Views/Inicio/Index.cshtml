@@ -31,6 +31,7 @@
                                     <th>@Html.DisplayNameFor(m => m.NombreNuevo)</th>
                                     <th>@Html.DisplayNameFor(m => m.Departamento)</th>
                                     <th>@Html.DisplayNameFor(m => m.DireccionIp)</th>
+                                    <th>@Html.DisplayNameFor(m => m.LicenciaSO)</th>
                                     <th>Acciones</th>
                                 </tr>
                             </thead>
@@ -44,6 +45,7 @@
                                         <td>@Html.DisplayFor(m => item.NombreNuevo)</td>
                                         <td>@Html.DisplayFor(m => item.Departamento)</td>
                                         <td>@Html.DisplayFor(m => item.DireccionIp)</td>
+                                        <td>@Html.DisplayFor(m => item.LicenciaSO)</td>
                                         <td>
                                             <a class="btn" asp-action="Editar" asp-route-id="@item.Id" style="background-color: #ffc107; border-color: #ffc107; color: #212529;">Editar</a>
                                             <a class="btn" asp-action="Detalle" asp-route-id="@item.Id" style="background-color: #17202A; border-color: #17202A; color: #ffffff;">Detalles</a>

@@ -50,7 +50,33 @@
                         </div>
                         <input type="hidden" asp-for="SinDireccionIP" id="sinDireccionIPHidden">
                         <span asp-validation-for="DireccionIp" class="text-danger"></span>
-                    </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label asp-for="LicenciaSO" class="control-label"></label>
+                            <div>
+                                <input asp-for="LicenciaSO" class="form-control" id="licenciaSOText" readonly placeholder="Elija una opción" />
+                            </div>
+                            <div class="form-check mt-2">
+                            <input asp-for="ConLicenciaSO" type="checkbox" class="form-check-input" id="conLicenciaSOCheck">
+                            <label class="form-check-label" for="conLicenciaSOCheck">
+                                    Con licencia de sistema operativo
+                                </label>
+                            </div>
+                            <div class="form-check">
+                            <input asp-for="SinLicenciaSO" type="checkbox" class="form-check-input" id="sinLicenciaSOCheck">
+                            <label class="form-check-label" for="sinLicenciaSOCheck">
+                                    Sin licencia de sistema operativo
+                                </label>
+                            </div>
+                            <span asp-validation-for="LicenciaSO" class="text-danger"></span>
+                        </div>
+
+                        <div class="form-group" id="sistemaOperativoDiv" style="display:none;">
+                            <label asp-for="SistemaOperativo" class="control-label"></label>
+                            <select asp-for="SistemaOperativo" asp-items="ViewBag.sistemaoperativo" class="form-control"></select>
+                            <span asp-validation-for="SistemaOperativo" class="text-danger"></span>
+                        </div>
 
                     <div class="form-group mt-3">
                         <button id="btnEditar" type="submit" class="btn btn-secondary d-block mx-auto" style="background-color: #5F51F3; border-color: #5F51F3; color: #ffffff;">Crear  Computador</button>
@@ -79,6 +105,7 @@
                 sinNombreAnteriorHidden.value = 'true';
             }
         });
+
         document.getElementById('sinNombreAnteriorCheck').addEventListener('change', function () {
             var nombreAnteriorInput = document.getElementById('NombreAnterior');
             var sinNombreAnteriorHidden = document.getElementById('sinNombreAnteriorHidden');
@@ -98,7 +125,6 @@
             var sinDireccionIPCheck = document.getElementById('sinDireccionIPCheck');
             var DireccionIpInput = document.getElementById('DireccionIp');
             var sinDireccionIPHidden = document.getElementById('sinDireccionIPHidden');
-
             if (!sinDireccionIPCheck.checked) {
                 DireccionIpInput.disabled = false;
                 sinDireccionIPHidden.value = 'false';
@@ -112,7 +138,6 @@
         document.getElementById('sinDireccionIPCheck').addEventListener('change', function () {
             var DireccionIPInput = document.getElementById('DireccionIp');
             var sinDireccionIPHidden = document.getElementById('sinDireccionIPHidden');
-
             if (this.checked) {
                 DireccionIPInput.disabled = true;
                 DireccionIPInput.value = "Sin Direccion IP";
@@ -122,8 +147,55 @@
                 DireccionIPInput.value = "";
                 sinDireccionIPHidden.value = 'false';
             }
+        });
 
 
+        document.addEventListener('DOMContentLoaded', function () {
+            var conLicenciaSOCheck = document.getElementById('conLicenciaSOCheck');
+            var sinLicenciaSOCheck = document.getElementById('sinLicenciaSOCheck');
+            var licenciaSOText = document.getElementById('licenciaSOText');
+
+            conLicenciaSOCheck.addEventListener('change', function () {
+                if (this.checked) {
+                    sinLicenciaSOCheck.checked = false;
+                    licenciaSOText.value = "Con Licencia de Sistema Operativo";
+                } else {
+                    licenciaSOText.value = "";
+                }
+            });
+
+            sinLicenciaSOCheck.addEventListener('change', function () {
+                if (this.checked) {
+                    conLicenciaSOCheck.checked = false;
+                    licenciaSOText.value = "Sin Licencia de Sistema Operativo";
+                } else {
+                    licenciaSOText.value = "";
+                }
+            });
+        });
+        
+        document.addEventListener('DOMContentLoaded', function () {
+            var conLicenciaSOCheck = document.getElementById('conLicenciaSOCheck');
+            var sinLicenciaSOCheck = document.getElementById('sinLicenciaSOCheck');
+            var sistemaOperativoDiv = document.getElementById('sistemaOperativoDiv');
+
+            conLicenciaSOCheck.addEventListener('change', function () {
+                if (this.checked) {
+                    sistemaOperativoDiv.style.display = 'block';
+                } else {
+                    sistemaOperativoDiv.style.display = 'none';
+                }
+            });
+
+            sinLicenciaSOCheck.addEventListener('change', function () {
+                if (this.checked) {
+                    sistemaOperativoDiv.style.display = 'none';
+                } else {
+                    if (conLicenciaSOCheck.checked) {
+                        sistemaOperativoDiv.style.display = 'block';
+                    }
+                }
+            });
         });
     </script>
 }

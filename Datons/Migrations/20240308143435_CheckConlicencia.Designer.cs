@@ -3,16 +3,19 @@ using InventarioComputadoras.Datos;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
 
-namespace InventarioComputadoras.Datos.Migrations
+namespace InventarioComputadoras.Datons.Migrations
 {
     [DbContext(typeof(AppDBContext))]
-    partial class AppDBContextModelSnapshot : ModelSnapshot
+    [Migration("20240308143435_CheckConlicencia")]
+    partial class CheckConlicencia
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -60,9 +63,6 @@ namespace InventarioComputadoras.Datos.Migrations
 
                     b.Property<bool>("SinNombreAnterior")
                         .HasColumnType("bit");
-
-                    b.Property<string>("SistemaOperativo")
-                        .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
 

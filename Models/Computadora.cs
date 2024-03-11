@@ -24,8 +24,17 @@ namespace InventarioComputadoras.Models
         [Display(Name = "Dirección IP")]
         public string? DireccionIp { get; set; }
 
+        [Display(Name = "Licencia Sistema Operativo")]
+        public string? LicenciaSO { get; set; }
+
+        [Display(Name = "Sistema Operativo")]
+        public string? SistemaOperativo { get; set; }
+
         public bool SinNombreAnterior { get; set; }
         public bool SinDireccionIP { get; set; }
+
+        public bool SinLicenciaSO { get; set; }
+        public bool ConLicenciaSO { get; set; }
 
     }
 }
