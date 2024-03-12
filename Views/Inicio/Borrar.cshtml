@@ -3,6 +3,51 @@
     ViewData["Title"] = "Borrar Computador";
 }
 
+<style>
+    body {
+        background-color: #d9d9d9;
+    }
+
+    .card-body {
+        background-color: #565656; /* Cambiar el color del fondo la tablas */
+        color: #1985a1; /* Cambiar el color del texto dentro del card body */
+        font-weight: bold; /* Hacer que el texto dentro del cuerpo de la tarjeta sea negrita */
+    }
+
+    .form-control {
+        background-color: #333333; /* Cambiar el color de fondo de los campos de texto */
+        color: #ffffff; /* Cambiar el color del texto dentro de los campos de texto */
+        border: 0px solid #ffffff; /* Añadir borde a los campos de texto */
+    }
+
+        .form-control:disabled {
+            background-color: #777777; /* Cambiar el color de fondo de los campos de texto deshabilitados */
+            color: #ffffffff; /* Cambiar el color del texto dentro de los campos de texto deshabilitados */
+        }
+
+        .form-control:focus {
+            background-color: #333333; /* Cambiar el color de fondo de los campos de texto deshabilitados */
+            border: 0px solid #ffffff; /* Añadir borde a los campos de texto */
+            outline: 0; /* Eliminar contorno al enfocar */
+            box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.25); /* Sombra al enfocar */
+        }
+
+    select.form-control {
+        background-color: #333333; /* Cambiar el color de fondo del combo box */
+        color: #ffffff !important; /* Cambiar el color del texto dentro del combo box */
+    }
+
+    .form-control:focus {
+        color: #ffffff; /* Cambiar el color del texto cuando el campo de texto está enfocado */
+    }
+
+    .form-control:read-only{
+        background-color: #777777; /* Cambiar el color de fondo de los campos de texto deshabilitados */
+        color: #ffffffff; /* Cambiar el color del texto dentro de los campos de texto deshabilitados */
+    }
+
+</style>
+
 <h1>Computadoras </h1>
 <div class="row">
     <div class="offset-12">

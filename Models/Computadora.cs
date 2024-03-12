@@ -54,6 +54,12 @@ namespace InventarioComputadoras.Models
         [Display(Name = "Código Constitucional")]
         public string? CodigoConstitucional { get; set; }
 
+        [Display(Name = "Fecha de Adquisición")]
+        public DateTime? FechaAdquisicion { get; set; }
+
+        [Display(Name = "Estado")]
+        public string? Estado { get; set; }
+
         public bool SinNombreAnterior { get; set; }
         public bool SinDireccionIP { get; set; }
 

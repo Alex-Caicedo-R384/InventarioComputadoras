@@ -3,6 +3,46 @@
     ViewData["Title"] = "Crear Nuevo Computador";
 }
 
+<style>
+    body {
+        background-color: #d9d9d9;
+    }
+
+    .card-body {
+        background-color: #565656; /* Cambiar el color del fondo la tablas */
+        color: #1985a1; /* Cambiar el color del texto dentro del card body */
+        font-weight: bold; /* Hacer que el texto dentro del cuerpo de la tarjeta sea negrita */
+    }
+
+    .form-control {
+        background-color: #333333; /* Cambiar el color de fondo de los campos de texto */
+        color: #ffffff; /* Cambiar el color del texto dentro de los campos de texto */
+        border: 0px solid #ffffff; /* Añadir borde a los campos de texto */
+    }
+
+    .form-control:disabled {
+        background-color: #777777; /* Cambiar el color de fondo de los campos de texto deshabilitados */
+        color: #ffffffff; /* Cambiar el color del texto dentro de los campos de texto deshabilitados */
+    }
+
+    .form-control:focus {
+            background-color: #333333; /* Cambiar el color de fondo de los campos de texto deshabilitados */
+        border: 0px solid #ffffff; /* Añadir borde a los campos de texto */
+        outline: 0; /* Eliminar contorno al enfocar */
+        box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.25); /* Sombra al enfocar */
+        }
+
+    select.form-control {
+        background-color: #333333; /* Cambiar el color de fondo del combo box */
+        color: #ffffff !important; /* Cambiar el color del texto dentro del combo box */
+    }
+
+    .form-control:focus {
+        color: #ffffff; /* Cambiar el color del texto cuando el campo de texto está enfocado */
+    }
+
+</style>
+
 <h1>Computadoras </h1>
 <div class="row">
     <div class="offset-12">
@@ -14,159 +54,192 @@
                 <form asp-action="Crear" method="POST">
                     <div asp-validation-summary="ModelOnly" class="text-danger"></div>
 
-                    
-                    <div class="form-group">
-                        <label asp-for="Oficina" class="control-label"></label>
-                        <select asp-for="Oficina" asp-items="ViewBag.Zonas" class="form-control"></select>
-                        <span asp-validation-for="Oficina" class="text-danger"></span>
-                    </div>
 
+                    <ul class="nav nav-tabs">
+                        <li class="nav-item">
+                            <a class="nav-link active" id="informacionBasicaTab" data-toggle="tab" href="#informacionBasica">Información Básica</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" id="licenciasTab" data-toggle="tab" href="#licencias">Licencias</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" id="estadoTab" data-toggle="tab" href="#estado">Estado</a>
+                        </li>
+                    </ul>
 
-                    <div class="form-group">
-                        <label asp-for="NombreAnterior" class="control-label"></label>
-                        <input asp-for="NombreAnterior" class="form-control" placeholder="Ingresa el Nombre Anterior" />
-                        <div class="form-check">
-                            <input class="form-check-input" type="checkbox" id="sinNombreAnteriorCheck">
-                            <label class="form-check-label" for="sinNombreAnteriorCheck">
-                                Sin nombre anterior
-                            </label>
-                        </div>
-                        <input type="hidden" asp-for="SinNombreAnterior" id="sinNombreAnteriorHidden">
-                        <span asp-validation-for="NombreAnterior" class="text-danger"></span>
-                    </div>
-
-
-                    <div class="form-group">
-                        <label asp-for="Usuario" class="control-label"></label>
-                        <input asp-for="Usuario" class="form-control" placeholder="Ingresa el Usuario" />
-                        <span asp-validation-for="Usuario" class="text-danger"></span>
-                    </div>
-
-
-                    <div class="form-group">
-                        <label asp-for="Departamento" class="control-label"></label>
-                        <select asp-for="Departamento" asp-items="ViewBag.Departamentos" class="form-control"></select>
-                        <span asp-validation-for="Departamento" class="text-danger"></span>
-                    </div>
-
-
-                    <div class="form-group">
-                        <label asp-for="DireccionIp" class="control-label"></label>
-                        <input asp-for="DireccionIp" class="form-control" placeholder="Ingresa la Dirección IP" />
-                        <div class="form-check">
-                            <input class="form-check-input" type="checkbox" id="sinDireccionIPCheck">
-                            <label class="form-check-label" for="sinDireccionIPCheck">
-                                Sin Direccion IP
-                            </label>
-                        </div>
-                        <input type="hidden" asp-for="SinDireccionIP" id="sinDireccionIPHidden">
-                        <span asp-validation-for="DireccionIp" class="text-danger"></span>
-                        </div>
-
-
-                        <div class="form-group">
-                            <label asp-for="LicenciaSO" class="control-label"></label>
-                            <div>
-                                <input asp-for="LicenciaSO" class="form-control" id="licenciaSOText" readonly placeholder="Elija una opción" />
+                    <div class="tab-content">
+                        <div class="tab-pane fade show active" id="informacionBasica">
+                            <!---------------------------------------Información Básica------------------------------------------- -->
+                            <div class="form-group">
+                                <label asp-for="Oficina" class="control-label"></label>
+                                <select asp-for="Oficina" asp-items="ViewBag.Zonas" class="form-control"></select>
+                                <span asp-validation-for="Oficina" class="text-danger"></span>
                             </div>
-                            <div class="form-check mt-2">
-                            <input asp-for="ConLicenciaSO" type="checkbox" class="form-check-input" id="conLicenciaSOCheck">
-                            <label class="form-check-label" for="conLicenciaSOCheck">
-                                    Con licencia de sistema operativo
-                                </label>
+
+
+                            <div class="form-group">
+                                <label asp-for="NombreAnterior" class="control-label"></label>
+                                <input asp-for="NombreAnterior" class="form-control" placeholder="Ingresa el Nombre Anterior" />
+                                <div class="form-check">
+                                    <input class="form-check-input" type="checkbox" id="sinNombreAnteriorCheck">
+                                    <label class="form-check-label" for="sinNombreAnteriorCheck">
+                                        Sin nombre anterior
+                                    </label>
+                                </div>
+                                <input type="hidden" asp-for="SinNombreAnterior" id="sinNombreAnteriorHidden">
+                                <span asp-validation-for="NombreAnterior" class="text-danger"></span>
                             </div>
-                            <div class="form-check">
-                            <input asp-for="SinLicenciaSO" type="checkbox" class="form-check-input" id="sinLicenciaSOCheck">
-                            <label class="form-check-label" for="sinLicenciaSOCheck">
-                                    Sin licencia de sistema operativo
-                                </label>
+
+
+                            <div class="form-group">
+                                <label asp-for="Usuario" class="control-label"></label>
+                                <input asp-for="Usuario" class="form-control" placeholder="Ingresa el Usuario" />
+                                <span asp-validation-for="Usuario" class="text-danger"></span>
                             </div>
-                            <span asp-validation-for="LicenciaSO" class="text-danger"></span>
+
+
+                            <div class="form-group">
+                                <label asp-for="Departamento" class="control-label"></label>
+                                <select asp-for="Departamento" asp-items="ViewBag.Departamentos" class="form-control"></select>
+                                <span asp-validation-for="Departamento" class="text-danger"></span>
+                            </div>
+
+
+                            <div class="form-group">
+                                <label asp-for="Dominio" class="control-label"></label>
+                                <select asp-for="Dominio" asp-items="ViewBag.dominio" class="form-control"></select>
+                                <span asp-validation-for="Dominio" class="text-danger"></span>
+                            </div>
+
+
+                            <div class="form-group">
+                                <label asp-for="CodigoConstitucional" class="control-label"></label>
+                                <input asp-for="CodigoConstitucional" class="form-control" placeholder="Ingresa el Código Constitucional" />
+                                <span asp-validation-for="CodigoConstitucional" class="text-danger"></span>
+                            </div>
+
+
+                            <div class="form-group">
+                                <label asp-for="DireccionIp" class="control-label"></label>
+                                <input asp-for="DireccionIp" class="form-control" placeholder="Ingresa la Dirección IP" />
+                                <div class="form-check">
+                                    <input class="form-check-input" type="checkbox" id="sinDireccionIPCheck">
+                                    <label class="form-check-label" for="sinDireccionIPCheck">
+                                        Sin Direccion IP
+                                    </label>
+                                </div>
+                                <input type="hidden" asp-for="SinDireccionIP" id="sinDireccionIPHidden">
+                                <span asp-validation-for="DireccionIp" class="text-danger"></span>
+                            </div>
+                            <!------------------------------------------------------------------------------------------------------------------------------>
                         </div>
-                        <div class="form-group" id="sistemaOperativoDiv" style="display:none;">
-                            <label asp-for="SistemaOperativo" class="control-label"></label>
-                            <select asp-for="SistemaOperativo" asp-items="ViewBag.sistemaoperativo" class="form-control"></select>
-                            <span asp-validation-for="SistemaOperativo" class="text-danger"></span>
+                        <div class="tab-pane fade" id="licencias">
+                            <!-------------------------------------------------Informacion de Software------------------------------------------------------>
+                            <div class="form-group">
+                                <label asp-for="LicenciaSO" class="control-label"></label>
+                                <input asp-for="LicenciaSO" class="form-control" id="licenciaSOText" disabled value="Elija una opción" />
+                                <div class="form-check mt-2">
+                                    <input asp-for="ConLicenciaSO" type="checkbox" class="form-check-input" id="conLicenciaSOCheck">
+                                    <label class="form-check-label" for="conLicenciaSOCheck">
+                                        Con licencia de sistema operativo
+                                    </label>
+                                </div>
+                                <div class="form-check">
+                                    <input asp-for="SinLicenciaSO" type="checkbox" class="form-check-input" id="sinLicenciaSOCheck">
+                                    <label class="form-check-label" for="sinLicenciaSOCheck">
+                                        Sin licencia de sistema operativo
+                                    </label>
+                                </div>
+                                <span asp-validation-for="LicenciaSO" class="text-danger"></span>
+                            </div>
+                            <div class="form-group" id="sistemaOperativoDiv" style="display:none;">
+                                <label asp-for="SistemaOperativo" class="control-label"></label>
+                                <select asp-for="SistemaOperativo" asp-items="ViewBag.sistemaoperativo" class="form-control"></select>
+                                <span asp-validation-for="SistemaOperativo" class="text-danger"></span>
+                            </div>
+
+
+                            <div class="form-group">
+                                <label asp-for="Office" class="control-label"></label>
+                                <div>
+                                    <input asp-for="Office" class="form-control" id="officeText" disabled value="Elija una opción" />
+                                </div>
+                                <div class="form-check mt-2">
+                                    <input asp-for="ConLicenciaOffice" type="checkbox" class="form-check-input" id="conLicenciaOfficeCheck">
+                                    <label class="form-check-label" for="conLicenciaOfficeCheck">
+                                        Con licencia de Office
+                                    </label>
+                                </div>
+                                <div class="form-check">
+                                    <input asp-for="SinLicenciaOffice" type="checkbox" class="form-check-input" id="sinLicenciaOfficeCheck">
+                                    <label class="form-check-label" for="sinLicenciaOfficeCheck">
+                                        Sin licencia de Office
+                                    </label>
+                                </div>
+                                <span asp-validation-for="Office" class="text-danger"></span>
+                            </div>
+                            <div class="form-group" id="verofficeDiv" style="display:none;">
+                                <label asp-for="VersionOffice" class="control-label"></label>
+                                <select asp-for="VersionOffice" asp-items="ViewBag.office" class="form-control"></select>
+                                <span asp-validation-for="VersionOffice" class="text-danger"></span>
+                            </div>
+
+
+                            <div class="form-group" id="fechaofficeDiv" style="display:none;">
+                                <label asp-for="FechaOffice" class="control-label"></label>
+                                <input asp-for="FechaOffice" class="form-control" type="date" />
+                                <span asp-validation-for="FechaOffice" class="text-danger"></span>
+                            </div>
+
+
+                            <div class="form-group">
+                                <label asp-for="LicenciaAntivirus" class="control-label"></label>
+                                <div>
+                                    <input asp-for="LicenciaAntivirus" class="form-control" id="antivirusText" disabled value="Elija una opción" />
+                                </div>
+                                <div class="form-check mt-2">
+                                    <input asp-for="ConAntivirus" type="checkbox" class="form-check-input" id="conAntivirusCheck">
+                                    <label class="form-check-label" for="conAntivirusCheck">
+                                        Con licencia de Antivirus
+                                    </label>
+                                </div>
+                                <div class="form-check">
+                                    <input asp-for="SinAntivirus" type="checkbox" class="form-check-input" id="sinAntivirusCheck">
+                                    <label class="form-check-label" for="sinAntivirusCheck">
+                                        Sin licencia de Antivirus
+                                    </label>
+                                </div>
+                                <span asp-validation-for="LicenciaAntivirus" class="text-danger"></span>
+                            </div>
+                            <div class="form-group" id="antivirusDiv" style="display:none;">
+                                <label asp-for="VersionAntivirus" class="control-label"></label>
+                                <select asp-for="VersionAntivirus" asp-items="ViewBag.antivirus" class="form-control"></select>
+                                <span asp-validation-for="VersionAntivirus" class="text-danger"></span>
+                            </div>
+                            <!------------------------------------------------------------------------------------------------------------------------------>
                         </div>
+                        <div class="tab-pane fade" id="estado">
+                            <!------------------------------------------------Informacion de adquisicion---------------------------------------------------->
+                            <div class="form-group" id="fechaadquisicionDiv">
+                                <label asp-for="FechaAdquisicion" class="control-label"></label>
+                                <input asp-for="FechaAdquisicion" class="form-control" type="date" />
+                                <span asp-validation-for="FechaAdquisicion" class="text-danger"></span>
+                            </div>
 
 
-                    <div class="form-group">
-                        <label asp-for="Office" class="control-label"></label>
-                        <div>
-                            <input asp-for="Office" class="form-control" id="officeText" readonly placeholder="Elija una opción" />
+                            <div class="form-group">
+                                <label asp-for="Estado" class="control-label"></label>
+                                <select asp-for="Estado" asp-items="ViewBag.estado" class="form-control"></select>
+                                <span asp-validation-for="Estado" class="text-danger"></span>
+                            </div>
+                            <!------------------------------------------------------------------------------------------------------------------------------>
+                            <!----------------------------------------------Botón--------------------------------------------------------------------------->
+                            <div class="form-group mt-3">
+                                <button id="btnEditar" type="submit" class="btn btn-secondary d-block mx-auto" style="background-color: #5F51F3; border-color: #5F51F3; color: #ffffff;">Crear  Computador</button>
+                            </div>
+                            <!------------------------------------------------------------------------------------------------------------------------------>
                         </div>
-                        <div class="form-check mt-2">
-                            <input asp-for="ConLicenciaOffice" type="checkbox" class="form-check-input" id="conLicenciaOfficeCheck">
-                            <label class="form-check-label" for="conLicenciaOfficeCheck">
-                                Con licencia de Office
-                            </label>
-                        </div>
-                        <div class="form-check">
-                            <input asp-for="SinLicenciaOffice" type="checkbox" class="form-check-input" id="sinLicenciaOfficeCheck">
-                            <label class="form-check-label" for="sinLicenciaOfficeCheck">
-                                Sin licencia de Office
-                            </label>
-                        </div>
-                        <span asp-validation-for="Office" class="text-danger"></span>
                     </div>
-                    <div class="form-group" id="verofficeDiv" style="display:none;">
-                        <label asp-for="VersionOffice" class="control-label"></label>
-                        <select asp-for="VersionOffice" asp-items="ViewBag.office" class="form-control"></select>
-                        <span asp-validation-for="VersionOffice" class="text-danger"></span>
-                    </div>
-
-
-                    <div class="form-group" id="fechaofficeDiv" style="display:none;">
-                        <label asp-for="FechaOffice" class="control-label"></label>
-                        <input asp-for="FechaOffice" class="form-control" type="date" />
-                        <span asp-validation-for="FechaOffice" class="text-danger"></span>
-                    </div>
-
-
-                    <div class="form-group">
-                        <label asp-for="LicenciaAntivirus" class="control-label"></label>
-                        <div>
-                            <input asp-for="LicenciaAntivirus" class="form-control" id="antivirusText" readonly placeholder="Elija una opción" />
-                        </div>
-                        <div class="form-check mt-2">
-                            <input asp-for="ConAntivirus" type="checkbox" class="form-check-input" id="conAntivirusCheck">
-                            <label class="form-check-label" for="conAntivirusCheck">
-                                Con licencia de Antivirus
-                            </label>
-                        </div>
-                        <div class="form-check">
-                            <input asp-for="SinAntivirus" type="checkbox" class="form-check-input" id="sinAntivirusCheck">
-                            <label class="form-check-label" for="sinAntivirusCheck">
-                                Sin licencia de Antivirus
-                            </label>
-                        </div>
-                        <span asp-validation-for="LicenciaAntivirus" class="text-danger"></span>
-                    </div>
-                    <div class="form-group" id="antivirusDiv" style="display:none;">
-                        <label asp-for="VersionAntivirus" class="control-label"></label>
-                        <select asp-for="VersionAntivirus" asp-items="ViewBag.antivirus" class="form-control"></select>
-                        <span asp-validation-for="VersionAntivirus" class="text-danger"></span>
-                    </div>
-
-
-                    <div class="form-group">
-                        <label asp-for="Dominio" class="control-label"></label>
-                        <select asp-for="Dominio" asp-items="ViewBag.dominio" class="form-control"></select>
-                        <span asp-validation-for="Dominio" class="text-danger"></span>
-                    </div>
-
-
-                    <div class="form-group">
-                        <label asp-for="CodigoConstitucional" class="control-label"></label>
-                        <input asp-for="CodigoConstitucional" class="form-control" placeholder="Ingresa el Código Constitucional" />
-                        <span asp-validation-for="CodigoConstitucional" class="text-danger"></span>
-                    </div>
-
-
-                    <div class="form-group mt-3">
-                        <button id="btnEditar" type="submit" class="btn btn-secondary d-block mx-auto" style="background-color: #5F51F3; border-color: #5F51F3; color: #ffffff;">Crear  Computador</button>
-                    </div>
-
                 </form>
                 <a asp-controller="Inicio" asp-action="Index">Volver</a>
             </div>
@@ -175,7 +248,10 @@
 </div>
 
 @section Scripts {
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
     <script>
+
         //----------SIN NOMBRE SCRIPT------------/
         document.addEventListener('DOMContentLoaded', function () {
             var sinNombreAnteriorCheck = document.getElementById('sinNombreAnteriorCheck');
@@ -262,6 +338,7 @@
                 }
             });
         });
+
         
         document.addEventListener('DOMContentLoaded', function () {
             var conLicenciaSOCheck = document.getElementById('conLicenciaSOCheck');
@@ -417,6 +494,24 @@
 
         //-------------------------------------------------------------------------------------------------------//
 
+        $(document).ready(function () {
+            // Mostrar la primera pestaña por defecto
+            $('#informacionBasicaTab').tab('show');
+
+            // Controlar la visibilidad de las pestañas al hacer clic
+            $('#informacionBasicaTab').on('click', function (e) {
+                e.preventDefault()
+                $(this).tab('show')
+            })
+            $('#licenciasTab').on('click', function (e) {
+                e.preventDefault()
+                $(this).tab('show')
+            })
+            $('#estadoTab').on('click', function (e) {
+                e.preventDefault()
+                $(this).tab('show')
+            })
+        });
 
 
     </script>

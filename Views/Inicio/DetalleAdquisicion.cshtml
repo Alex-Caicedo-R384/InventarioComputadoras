@@ -1,0 +1,46 @@
+﻿@model InventarioComputadoras.Models.Computadora
+@{
+    ViewData["Title"] = "Detalle Adquisicion";
+}
+
+<style>
+    body {
+        background-color: #d9d9d9;
+    }
+
+    .card-body {
+        background-color: #565656; /* Cambiar el color del fondo la tablas */
+        color: #ffffff; /* Cambiar el color del texto dentro del card body */
+        font-weight: bold; /* Hacer que el texto dentro del cuerpo de la tarjeta sea negrita */
+    }
+
+    .list-group-item {
+        background-color: #333333; /* Cambiar el color de fondo de los elementos de la lista */
+    }
+
+        .list-group-item strong {
+            color: #1985a1; /* Cambiar el color del texto de los nombres a rojo */
+        }
+
+    .custom-text-color {
+        color: #e6e1db; /* Cambia aquí el color de texto deseado para todos los elementos */
+    }
+
+</style>
+
+<div class="row">
+    <div class="offset-12">
+        <div class="card border">
+            <div class="card-header bg-dark">
+                <h3 class="text-white"><strong> Detalles Adquisición </strong></h3>
+            </div>
+            <div class="card-body">
+                <ul class="list-group">
+                    <li class="list-group-item custom-text-color"><strong>Fecha de Adquisicion: </strong> @(Model.FechaAdquisicion.HasValue ? Model.FechaAdquisicion.Value.ToString("dd/MM/yyyy") : "")</li>
+                    <li class="list-group-item custom-text-color"><strong>Estado: </strong> @Html.DisplayFor(m => m.Estado)</li>
+                </ul>
+                <a asp-controller="Inicio" asp-action="Index">Volver</a>
+            </div>
+        </div>
+    </div>
+</div>

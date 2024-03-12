@@ -4,6 +4,39 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
+
+
+<style>
+    body {
+        background-color: #d9d9d9;
+    }
+
+    .table {
+        background-color: #c3c3c3 !important; /* Cambiar Color del fondo de la tabla */
+    }
+
+    .table th,
+    .table td {
+            background-color: #828282; /* Cambiar el color del fondo de las celdas */
+        color: #ffffff; /* Cambia el color del texto en las celdas */
+        padding: 10px; /* Agregar margen interno a las celdas */
+    }
+
+    .table th {
+            background-color: darkslategray; /* Cambiar el color del fondo de los encabezados de columna */
+        color: #ffffff; /* Cambia el color del texto en los encabezados de columna */
+    }
+
+    .card-body {
+        background-color: #565656; /* Cambiar el color del fondo de los encabezados de columna */
+    }
+
+    tr {
+        background-color: #828282; /* Cambiar el color del fondo de las filas */
+    }
+
+</style>
+
 <h1 class="text-center"></h1>
 <div class="row">
     <div class="offset-9 col-3 mb-3">
@@ -38,7 +71,7 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                @foreach(var item in Model)
+                                @foreach (var item in Model)
                                 {
                                     <tr>
                                         <td>@Html.DisplayFor(m => item.Id)</td>
@@ -51,13 +84,18 @@
                                         <td>@Html.DisplayFor(m => item.Office)</td>
                                         <td>@Html.DisplayFor(m => item.LicenciaAntivirus)</td>
                                         <td>
-                                            <select class="form-control" id="acciones" onchange="location = this.value;" style="background-color: grey; color: white;">
-                                                <option selected>Acciones</option>
-                                                <option style="background-color: #ffc107; color: #212529;" value="@Url.Action("Editar", "Inicio", new { id = item.Id })">Editar</option>
-                                                <option style="background-color: #17202A; color: #ffffff;" value="@Url.Action("DetalleComputador", "Inicio", new { id = item.Id })">Detalles de Computador</option>
-                                                <option style="background-color: #17202A; color: #ffffff;" value="@Url.Action("DetalleSoftware", "Inicio", new { id = item.Id })">Detalles de Software</option>
-                                                <option style="background-color: #D41B1B; color: #ffffff;" value="@Url.Action("Borrar", "Inicio", new { id = item.Id })">Borrar</option>
-                                            </select>
+                                            <div class="dropdown">
+                                                <button class="btn btn-secondary dropdown-toggle" type="button" id="accionesDropdown_@item.Id" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="background-color: #fa6607; color: #212529;">
+                                                    Acciones
+                                                </button>
+                                                <div class="dropdown-menu" aria-labelledby="accionesDropdown_@item.Id">
+                                                    <a class="dropdown-item m-1" href="@Url.Action("Editar", "Inicio", new { id = item.Id })" style="background-color: #ffc107; color: #212529;">Editar</a>
+                                                    <a class="dropdown-item m-1" href="@Url.Action("DetalleComputador", "Inicio", new { id = item.Id })" style="background-color: #17202A; color: #FFFFFF;">Detalles de Computador</a>
+                                                    <a class="dropdown-item m-1" href="@Url.Action("DetalleSoftware", "Inicio", new { id = item.Id })" style="background-color: #17202A; color: #FFFFFF;">Detalles de Software</a>
+                                                    <a class="dropdown-item m-1" href="@Url.Action("DetalleAdquisicion", "Inicio", new { id = item.Id })" style="background-color: #17202A; color: #FFFFFF;">Detalles Adquisición</a>
+                                                    <a class="dropdown-item m-1" href="@Url.Action("Borrar", "Inicio", new { id = item.Id })" style="background-color: #D41B1B; color: #FFFFFF;">Borrar</a>
+                                                </div>
+                                            </div>
                                         </td>
                                     </tr>    
                                 }

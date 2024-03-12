@@ -98,6 +98,16 @@ namespace InventarioComputadoras.Controllers
         };
         }
 
+        private List<SelectListItem> ObtenerEstado()
+        {
+            return new List<SelectListItem>
+        {
+            new SelectListItem { Value = "Dado de Baja", Text = "Dado de Baja" },
+            new SelectListItem { Value = "En Uso", Text = "En Uso" },
+            new SelectListItem { Value = "Almacenado", Text = "Almacenado" }
+        };
+        }
+
         private Dictionary<string, string> ObtenerZonas2()
         {
             return new Dictionary<string, string>
@@ -246,6 +256,7 @@ namespace InventarioComputadoras.Controllers
             ViewBag.office = ObtenerOffice();
             ViewBag.antivirus = ObtenerAntivirus();
             ViewBag.dominio = ObtenerDominio();
+            ViewBag.estado = ObtenerEstado();
 
             return View();
         }
@@ -259,6 +270,7 @@ namespace InventarioComputadoras.Controllers
             ViewBag.sistemaoperativo = ObtenerSistemaOperativo();
             ViewBag.office = ObtenerOffice();
             ViewBag.antivirus = ObtenerAntivirus();
+            ViewBag.estado = ObtenerEstado();
 
 
             if (computadora.SinNombreAnterior)
@@ -503,6 +515,28 @@ namespace InventarioComputadoras.Controllers
             if (computador.FechaOffice.HasValue)
             {
                 computador.FechaOffice = computador.FechaOffice.Value.Date;
+            }
+
+            return View(computador);
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> DetalleAdquisicion(int? id)
+        {
+            if (id == null)
+            {
+                return NotFound();
+            }
+
+            var computador = await _contexto.Computadoras.FindAsync(id);
+            if (computador == null)
+            {
+                return NotFound();
+            }
+
+            if (computador.FechaAdquisicion.HasValue)
+            {
+                computador.FechaAdquisicion = computador.FechaAdquisicion.Value.Date;
             }
 
             return View(computador);
