@@ -1,4 +1,5 @@
 ﻿using InventarioComputadoras.Datos;
+using InventarioComputadoras.Datos.Migrations;
 using InventarioComputadoras.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
@@ -105,6 +106,50 @@ namespace InventarioComputadoras.Controllers
             new SelectListItem { Value = "Dado de Baja", Text = "Dado de Baja" },
             new SelectListItem { Value = "En Uso", Text = "En Uso" },
             new SelectListItem { Value = "Almacenado", Text = "Almacenado" }
+        };
+        }
+
+        private List<SelectListItem> ObtenerTipo()
+        {
+            return new List<SelectListItem>
+        {
+            new SelectListItem { Value = "Torre", Text = "Torre" },
+            new SelectListItem { Value = "Laptop", Text = "Laptop" },
+            new SelectListItem { Value = "NUC", Text = "NUC" }
+        };
+        }
+
+        private List<SelectListItem> ObtenerTipoRAM()
+        {
+            return new List<SelectListItem>
+        {
+            new SelectListItem { Value = "DDR2", Text = "DDR2" },
+            new SelectListItem { Value = "DDR3", Text = "DDR3" },
+            new SelectListItem { Value = "DDR4", Text = "DDR4" },
+            new SelectListItem { Value = "DDR5", Text = "DDR5" }
+        };
+        }
+
+        private List<SelectListItem> ObtenerCapacidadRAM()
+        {
+            return new List<SelectListItem>
+        {
+            new SelectListItem { Value = "2 GB", Text = "2 GB" },
+            new SelectListItem { Value = "4 GB", Text = "4 GB" },
+            new SelectListItem { Value = "8 GB", Text = "8 GB" },
+            new SelectListItem { Value = "16 GB", Text = "16 GB" },
+            new SelectListItem { Value = "32 GB", Text = "32 GB" },
+            new SelectListItem { Value = "64 GB", Text = "64 GB" }
+        };
+        }
+
+        private List<SelectListItem> ObtenerModulosRAM()
+        {
+            return new List<SelectListItem>
+        {
+            new SelectListItem { Value = "1 Módulo", Text = "1 Módulo" },
+            new SelectListItem { Value = "2 Módulo", Text = "2 Módulo" },
+            new SelectListItem { Value = "4 Módulo", Text = "4 Módulo" }
         };
         }
 
@@ -257,6 +302,12 @@ namespace InventarioComputadoras.Controllers
             ViewBag.antivirus = ObtenerAntivirus();
             ViewBag.dominio = ObtenerDominio();
             ViewBag.estado = ObtenerEstado();
+            ViewBag.tipo = ObtenerTipo();
+            ViewBag.tiporam = ObtenerTipoRAM();
+            ViewBag.modulosram = ObtenerModulosRAM();
+            ViewBag.capacidadram = ObtenerCapacidadRAM();
+
+
 
             return View();
         }
@@ -270,7 +321,12 @@ namespace InventarioComputadoras.Controllers
             ViewBag.sistemaoperativo = ObtenerSistemaOperativo();
             ViewBag.office = ObtenerOffice();
             ViewBag.antivirus = ObtenerAntivirus();
+            ViewBag.dominio = ObtenerDominio();
             ViewBag.estado = ObtenerEstado();
+            ViewBag.tipo = ObtenerTipo();
+            ViewBag.modulosram = ObtenerModulosRAM();
+            ViewBag.tiporam = ObtenerTipoRAM();
+            ViewBag.capacidadram = ObtenerCapacidadRAM();
 
 
             if (computadora.SinNombreAnterior)
@@ -389,6 +445,11 @@ namespace InventarioComputadoras.Controllers
             ViewBag.office = ObtenerOffice();
             ViewBag.antivirus = ObtenerAntivirus();
             ViewBag.dominio = ObtenerDominio();
+            ViewBag.estado = ObtenerEstado();
+            ViewBag.tipo = ObtenerTipo();
+            ViewBag.modulosram = ObtenerModulosRAM();
+            ViewBag.tiporam = ObtenerTipoRAM();
+            ViewBag.capacidadram = ObtenerCapacidadRAM();
 
 
             return View(computador);
@@ -397,13 +458,19 @@ namespace InventarioComputadoras.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Editar(Computadora computadora, bool sinNombreAnterior, bool sinDireccionIP)
+        public async Task<IActionResult> Editar(Computadora computadora, bool sinNombreAnterior, bool sinDireccionIP, bool sinLicenciaSO, bool conLicenciaSO, bool sinLicenciaOffice, bool conLicenciaOffice, bool sinAntivirus, bool conAntivirus)
         {
             ViewBag.Zonas = ObtenerZonas();
             ViewBag.Departamentos = ObtenerDepartamentos();
             ViewBag.sistemaoperativo = ObtenerSistemaOperativo();
             ViewBag.office = ObtenerOffice();
             ViewBag.antivirus = ObtenerAntivirus();
+            ViewBag.dominio = ObtenerDominio();
+            ViewBag.estado = ObtenerEstado();
+            ViewBag.tipo = ObtenerTipo();
+            ViewBag.modulosram = ObtenerModulosRAM();
+            ViewBag.tiporam = ObtenerTipoRAM();
+            ViewBag.capacidadram = ObtenerCapacidadRAM();
 
             if (ModelState.IsValid)
             {
@@ -421,7 +488,7 @@ namespace InventarioComputadoras.Controllers
 
                     if (nombreCambiado)
                     {
-                        string nombreBase = computadora.Departamento.Substring(0, 4) + computadora.Oficina.Substring(0, 3);
+                        string nombreBase = computadora.Departamento.Substring(0, 4).ToUpper() + computadora.Oficina.Substring(0, 3).ToUpper();
 
                         var ultimaComputadora = await _contexto.Computadoras
                             .Where(c => c.NombreNuevo.StartsWith(nombreBase))
@@ -441,31 +508,32 @@ namespace InventarioComputadoras.Controllers
                         computadoraExistente.NombreAnterior = computadoraExistente.NombreNuevo;
                         computadoraExistente.NombreNuevo = nombreNuevo;
                     }
+            // Actualizar valores de licencias y antivirus
+            computadoraExistente.LicenciaSO = sinLicenciaSO ? "No" : "Si";
+            computadoraExistente.Office = sinLicenciaOffice ? "No" : "Si";
+            computadoraExistente.LicenciaAntivirus = sinAntivirus ? "No" : "Si";
 
-                    computadoraExistente.Departamento = computadora.Departamento;
-                    computadoraExistente.Oficina = computadora.Oficina;
-
-                    if (!sinDireccionIP)
-                    {
-                        computadoraExistente.DireccionIp = computadora.DireccionIp;
-                    }
-                    else
-                    {
-                        computadoraExistente.DireccionIp = "Sin Direccion IP";
-                    }
-
-                    await _contexto.SaveChangesAsync();
-
-                    return RedirectToAction(nameof(Index));
-                }
-                catch (DbUpdateException)
-                {
-                    ModelState.AddModelError("", "Error al guardar los cambios. Inténtalo de nuevo y, si el problema persiste, consulta al administrador del sistema.");
-                }
+            if (!sinDireccionIP)
+            {
+                computadoraExistente.DireccionIp = computadora.DireccionIp;
+            }
+            else
+            {
+                computadoraExistente.DireccionIp = "Sin Direccion IP";
             }
 
-            return View(computadora);
+            await _contexto.SaveChangesAsync();
+
+            return RedirectToAction(nameof(Index));
         }
+        catch (DbUpdateException)
+        {
+            ModelState.AddModelError("", "Error al guardar los cambios. Inténtalo de nuevo y, si el problema persiste, consulta al administrador del sistema.");
+        }
+    }
+
+    return View(computadora);
+}
 
 
         [HttpGet]
@@ -543,6 +611,24 @@ namespace InventarioComputadoras.Controllers
         }
 
         [HttpGet]
+        public async Task<IActionResult> DetalleHardware(int? id)
+        {
+            if (id == null)
+            {
+                return NotFound();
+            }
+
+            var computador = await _contexto.Computadoras.FindAsync(id);
+            if (computador == null)
+            {
+                return NotFound();
+            }
+
+            return View(computador);
+        }
+
+
+        [HttpGet]
         public IActionResult Borrar(int? id)
         {
             if (id == null)
@@ -573,8 +659,7 @@ namespace InventarioComputadoras.Controllers
 
         [HttpPost, ActionName("Borrar")]
         [ValidateAntiForgeryToken]
-
-        public async Task<IActionResult> BorrarContacto (int? id)
+        public async Task<IActionResult> BorrarComputador (int? id)
         {
             var computadora = await _contexto.Computadoras.FindAsync(id);
             if (computadora == null)

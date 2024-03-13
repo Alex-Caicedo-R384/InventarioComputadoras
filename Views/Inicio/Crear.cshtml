@@ -64,6 +64,9 @@
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" id="estadoTab" data-toggle="tab" href="#estado">Estado</a>
+
+                        <li class="nav-item">
+                            <a class="nav-link" id="hardwareTab" data-toggle="tab" href="#hardware">Hardware</a>
                         </li>
                     </ul>
 
@@ -233,9 +236,87 @@
                                 <span asp-validation-for="Estado" class="text-danger"></span>
                             </div>
                             <!------------------------------------------------------------------------------------------------------------------------------>
+
+                        </div>
+                        <div class="tab-pane fade" id="hardware">
+                            <!------------------------------------------------HARDWARE---------------------------------------------------------------------->
+                            <div class="form-group">
+                                <label asp-for="Tipo" class="control-label"></label>
+                                <select asp-for="Tipo" asp-items="ViewBag.tipo" class="form-control"></select>
+                                <span asp-validation-for="Tipo" class="text-danger"></span>
+                            </div>
+
+
+                            <div class="form-group">
+                                <label asp-for="Marca" class="control-label"></label>
+                                <input asp-for="Marca" class="form-control" placeholder="Ingresa la Marca del Dispositivo" />
+                                <span asp-validation-for="Marca" class="text-danger"></span>
+                            </div>
+
+                            <div class="form-group">
+                                <label asp-for="NParte" class="control-label"></label>
+                                <input asp-for="NParte" class="form-control" placeholder="Ingresa el Número de Parte" />
+                                <span asp-validation-for="NParte" class="text-danger"></span>
+                            </div>
+
+
+                            <div class="form-group">
+                                <label asp-for="NSerie" class="control-label"></label>
+                                <input asp-for="NSerie" class="form-control" placeholder="Ingresa el Número de Serie" />
+                                <span asp-validation-for="NSerie" class="text-danger"></span>
+                            </div>
+
+
+                            <div class="form-group">
+                                <label asp-for="MotherBoard" class="control-label"></label>
+                                <input asp-for="MotherBoard" class="form-control" placeholder="Ingresa la MotherBoard" />
+                                <span asp-validation-for="MotherBoard" class="text-danger"></span>
+                            </div>
+
+
+                            <div class="form-group">
+                                <label asp-for="Procesador" class="control-label"></label>
+                                <input asp-for="Procesador" class="form-control" placeholder="Ingresa el Procesador" />
+                                <span asp-validation-for="Procesador" class="text-danger"></span>
+                            </div>
+
+                            <h2>Memoria RAM</h2>
+                            <ul>
+                                <li>
+                                    <label asp-for="MemoriaRamTipo" class="control-label"></label>
+                                    <select asp-for="MemoriaRamTipo" asp-items="ViewBag.tiporam" class="form-control"></select>
+                                    <span asp-validation-for="MemoriaRamTipo" class="text-danger"></span>
+                                </li>
+                                <li>
+                                    <label asp-for="MemoriaModulos" class="control-label"></label>
+                                    <select asp-for="MemoriaModulos" asp-items="ViewBag.modulosram" class="form-control"></select>
+                                    <span asp-validation-for="MemoriaModulos" class="text-danger"></span>
+                                </li>
+                                <li>
+                                    <label asp-for="MemoriaRamCapacidad" class="control-label"></label>
+                                    <select asp-for="MemoriaRamCapacidad" asp-items="ViewBag.capacidadram" class="form-control"></select>
+                                    <span asp-validation-for="MemoriaRamCapacidad" class="text-danger"></span>
+                                </li>
+                                <li>
+                                    <label asp-for="MemoriaRamMarca" class="control-label"></label>
+                                    <input asp-for="MemoriaRamMarca" class="form-control" placeholder="Ingresa la Marca de la Memoria Ram" />
+                                    <span asp-validation-for="MemoriaRamMarca" class="text-danger"></span>
+                                </li>
+                                <li>
+                                    <label asp-for="MemoriaRamNumeroSerie" class="control-label"></label>
+                                    <input asp-for="MemoriaRamNumeroSerie" class="form-control" placeholder="Ingresa el Número de Serie de la Memoria RAM" />
+                                    <span asp-validation-for="MemoriaRamNumeroSerie" class="text-danger"></span>
+                                </li>
+                                <li>
+                                    <label asp-for="MemoriaRamNumeroParte" class="control-label"></label>
+                                    <input asp-for="MemoriaRamNumeroParte" class="form-control" placeholder="Ingresa el Número de Parte de la Memoria RAM" />
+                                    <span asp-validation-for="MemoriaRamNumeroParte" class="text-danger"></span>
+                                </li>
+                            </ul>
+                            <!------------------------------------------------------------------------------------------------------------------------------>
                             <!----------------------------------------------Botón--------------------------------------------------------------------------->
                             <div class="form-group mt-3">
-                                <button id="btnEditar" type="submit" class="btn btn-secondary d-block mx-auto" style="background-color: #5F51F3; border-color: #5F51F3; color: #ffffff;">Crear  Computador</button>
+                                <button id="btnCrear" type="submit" class="btn btn-secondary d-block mx-auto" style="background-color: #5F51F3; border-color: #5F51F3; color: #ffffff;">Crear  Computador</button>
                             </div>
                             <!------------------------------------------------------------------------------------------------------------------------------>
                         </div>
@@ -489,10 +570,8 @@
         });
         //-------------------------------------------------------------------------------------------------------//
 
-        //----------USUARIO------------//
 
-
-        //-------------------------------------------------------------------------------------------------------//
+        //-----------------------------------PESTAÑA-------------------------------------------------------------//
 
         $(document).ready(function () {
             // Mostrar la primera pestaña por defecto
@@ -511,9 +590,12 @@
                 e.preventDefault()
                 $(this).tab('show')
             })
+            $('#hardwareTab').on('click', function (e) {
+                e.preventDefault()
+                $(this).tab('show')
+            })
         });
-
-
+        //-------------------------------------------------------------------------------------------------------//
     </script>
 }
 

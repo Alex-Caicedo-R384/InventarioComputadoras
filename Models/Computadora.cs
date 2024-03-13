@@ -60,6 +60,45 @@ namespace InventarioComputadoras.Models
         [Display(Name = "Estado")]
         public string? Estado { get; set; }
 
+        [Display(Name = "Tipo de Dispositivo")]
+        public string? Tipo { get; set; }
+
+        [Display(Name = "Marca")]
+        public string? Marca { get; set; }
+
+        [Display(Name = "Número de Parte")]
+        public string? NParte { get; set; }
+
+        [Display(Name = "Número de Serie")]
+        public string? NSerie { get; set; }
+
+        [Display(Name = "MotherBoard")]
+        public string? MotherBoard { get; set; }
+
+        [Display(Name = "Procesador")]
+        public string? Procesador { get; set; }
+
+
+        //----------------------------------------------Memoria RAM----------------------------------------------------------------------//
+        [Display(Name = "Tipo de Memoria RAM")]
+        public string? MemoriaRamTipo { get; set; }
+
+        [Display(Name = "Cantidad de Modulos de Memoria RAM")]
+        public string? MemoriaModulos { get; set; }
+
+        [Display(Name = "Capacidad de Memoria RAM")]
+        public string? MemoriaRamCapacidad { get; set; }
+
+        [Display(Name = "Marca de Memoria RAM")]
+        public string? MemoriaRamMarca { get; set; }
+
+        [Display(Name = "Número de Serie de Memoria RAM")]
+        public string? MemoriaRamNumeroSerie { get; set; }
+
+        [Display(Name = "Número de Parte de Memoria RAM")]
+        public string? MemoriaRamNumeroParte { get; set; }
+        //------------------------------------------------------------------------------------------------------------------------------//
+
         public bool SinNombreAnterior { get; set; }
         public bool SinDireccionIP { get; set; }
 
@@ -71,5 +110,6 @@ namespace InventarioComputadoras.Models
 
         public bool SinAntivirus { get; set; }
         public bool ConAntivirus { get; set; }
+
     }
 }
