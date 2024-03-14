@@ -51,6 +51,7 @@ namespace InventarioComputadoras.Models
         [Display(Name = "¿Se encuentra en Dominio?")]
         public string? Dominio { get; set; }
 
+        [Required]
         [Display(Name = "Código Constitucional")]
         public string? CodigoConstitucional { get; set; }
 
@@ -63,42 +64,75 @@ namespace InventarioComputadoras.Models
         [Display(Name = "Tipo de Dispositivo")]
         public string? Tipo { get; set; }
 
+        [Required]
         [Display(Name = "Marca")]
         public string? Marca { get; set; }
 
+        [Required]
         [Display(Name = "Número de Parte")]
         public string? NParte { get; set; }
+
 
         [Display(Name = "Número de Serie")]
         public string? NSerie { get; set; }
 
+        [Required]
         [Display(Name = "MotherBoard")]
         public string? MotherBoard { get; set; }
 
+        [Required]
         [Display(Name = "Procesador")]
         public string? Procesador { get; set; }
 
 
         //----------------------------------------------Memoria RAM----------------------------------------------------------------------//
+        [Required]
         [Display(Name = "Tipo de Memoria RAM")]
         public string? MemoriaRamTipo { get; set; }
 
         [Display(Name = "Cantidad de Modulos de Memoria RAM")]
         public string? MemoriaModulos { get; set; }
 
+        [Required]
         [Display(Name = "Capacidad de Memoria RAM")]
         public string? MemoriaRamCapacidad { get; set; }
 
+        [Required]
         [Display(Name = "Marca de Memoria RAM")]
         public string? MemoriaRamMarca { get; set; }
 
+        [Required]
         [Display(Name = "Número de Serie de Memoria RAM")]
         public string? MemoriaRamNumeroSerie { get; set; }
 
+        [Required]
         [Display(Name = "Número de Parte de Memoria RAM")]
         public string? MemoriaRamNumeroParte { get; set; }
         //------------------------------------------------------------------------------------------------------------------------------//
+        //----------------------------------------------Almacenamiento-----------------------------------------------------------------//
+        [Display(Name = "Tipo de Almacenamiento")]
+        public string? AlmacenamientoTipo { get; set; }
 
+        [Display(Name = "Cantidad de Modulos de Almacenamiento")]
+        public int? AlmacenamientoModulos { get; set; }
+
+        [Required]
+        [Display(Name = "Capacidad de Almacenamiento")]
+        public string? AlmacenamientoCapacidad { get; set; }
+
+        [Required]
+        [Display(Name = "Marca de Almacenamiento")]
+        public string? AlmacenamientoMarca { get; set; }
+
+        [Required]
+        [Display(Name = "Número de Serie de Memoria RAM")]
+        public string? AlmacenamientoNumeroSerie { get; set; }
+
+        [Required]
+        [Display(Name = "Número de Parte de Almacenamiento")]
+        public string? AlmacenamientoNumeroParte { get; set; }
+
+        //------------------------------------------------------------------------------------------------------------------------------//
         public bool SinNombreAnterior { get; set; }
         public bool SinDireccionIP { get; set; }
 

@@ -4,6 +4,7 @@ using InventarioComputadoras.Datos;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace InventarioComputadoras.Datos.Migrations
 {
     [DbContext(typeof(AppDBContext))]
-    partial class AppDBContextModelSnapshot : ModelSnapshot
+    [Migration("20240314140138_Almacenamiento")]
+    partial class Almacenamiento
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -31,29 +34,24 @@ namespace InventarioComputadoras.Datos.Migrations
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
                     b.Property<string>("AlmacenamientoCapacidad")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("AlmacenamientoMarca")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<int?>("AlmacenamientoModulos")
                         .HasColumnType("int");
 
                     b.Property<string>("AlmacenamientoNumeroParte")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("AlmacenamientoNumeroSerie")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("AlmacenamientoTipo")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("CodigoConstitucional")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<bool>("ConAntivirus")
@@ -91,38 +89,30 @@ namespace InventarioComputadoras.Datos.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Marca")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("MemoriaModulos")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("MemoriaRamCapacidad")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("MemoriaRamMarca")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("MemoriaRamNumeroParte")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("MemoriaRamNumeroSerie")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("MemoriaRamTipo")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("MotherBoard")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("NParte")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("NSerie")
@@ -142,7 +132,6 @@ namespace InventarioComputadoras.Datos.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Procesador")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<bool>("SinAntivirus")

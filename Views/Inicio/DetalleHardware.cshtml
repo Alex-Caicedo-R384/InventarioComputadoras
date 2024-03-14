@@ -52,6 +52,14 @@
                             <li><strong>Número de Serie:</strong> @Html.DisplayFor(m => m.MemoriaRamNumeroSerie)</li>
                             <li><strong>Número de Parte:</strong> @Html.DisplayFor(m => m.MemoriaRamNumeroParte)</li>
                         </ul>
+                        <strong>Almacenamiento:</strong>
+                        <ul>
+                            <li><strong>Tipo:</strong> @Html.DisplayFor(m => m.AlmacenamientoTipo)</li>
+                            <li><strong>Capacidad:</strong> @Html.DisplayFor(m => m.AlmacenamientoCapacidad)</li>
+                            <li><strong>Marca:</strong> @Html.DisplayFor(m => m.AlmacenamientoMarca)</li>
+                            <li><strong>Número de Serie:</strong> @Html.DisplayFor(m => m.AlmacenamientoNumeroSerie)</li>
+                            <li><strong>Número de Parte:</strong> @Html.DisplayFor(m => m.AlmacenamientoNumeroParte)</li>
+                        </ul>
                     </li>
                 </ul>
                 <a asp-controller="Inicio" asp-action="Index">Volver</a>

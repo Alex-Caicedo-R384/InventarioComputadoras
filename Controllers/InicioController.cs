@@ -153,6 +153,35 @@ namespace InventarioComputadoras.Controllers
         };
         }
 
+        private List<SelectListItem> ObtenerTipoAlmacenamiento()
+        {
+            return new List<SelectListItem>
+        {
+            new SelectListItem { Value = "HDD", Text = "HDD" },
+            new SelectListItem { Value = "SSD", Text = "SSD" },
+            new SelectListItem { Value = "M.2", Text = "M.2" }
+        };
+        }
+
+        private List<SelectListItem> ObtenerCapacidadAlmacenamiento()
+        {
+            return new List<SelectListItem>
+        {
+            new SelectListItem { Value = "256 GB", Text = "256 GB" },
+            new SelectListItem { Value = "512 GB", Text = "512 GB" },
+            new SelectListItem { Value = "1 TB", Text = "1 TB" },
+            new SelectListItem { Value = "2 TB", Text = "2 TB" },
+            new SelectListItem { Value = "4 TB", Text = "4 TB" },
+            new SelectListItem { Value = "8 TB", Text = "8 TB" },
+            new SelectListItem { Value = "10 TB", Text = "10 TB" },
+            new SelectListItem { Value = "12 TB", Text = "12 TB" },
+            new SelectListItem { Value = "16 TB", Text = "16 TB" },
+            new SelectListItem { Value = "18 TB", Text = "18 TB" },
+            new SelectListItem { Value = "20 TB", Text = "20 TB" },
+            new SelectListItem { Value = "26 TB", Text = "26 TB" }
+        };
+        }
+
         private Dictionary<string, string> ObtenerZonas2()
         {
             return new Dictionary<string, string>
@@ -306,8 +335,8 @@ namespace InventarioComputadoras.Controllers
             ViewBag.tiporam = ObtenerTipoRAM();
             ViewBag.modulosram = ObtenerModulosRAM();
             ViewBag.capacidadram = ObtenerCapacidadRAM();
-
-
+            ViewBag.capacidadalmacenamiento = ObtenerCapacidadAlmacenamiento();
+            ViewBag.tipoalmacenamiento = ObtenerTipoAlmacenamiento();
 
             return View();
         }
@@ -327,6 +356,8 @@ namespace InventarioComputadoras.Controllers
             ViewBag.modulosram = ObtenerModulosRAM();
             ViewBag.tiporam = ObtenerTipoRAM();
             ViewBag.capacidadram = ObtenerCapacidadRAM();
+            ViewBag.capacidadalmacenamiento = ObtenerCapacidadAlmacenamiento();
+            ViewBag.tipoalmacenamiento = ObtenerTipoAlmacenamiento();
 
 
             if (computadora.SinNombreAnterior)
@@ -423,21 +454,9 @@ namespace InventarioComputadoras.Controllers
             return View(computadora);
         }
 
-
-
-    [HttpGet]
+        [HttpGet]
         public IActionResult Editar(int? Id)
         {
-            if (Id == null)
-            {
-                return NotFound();
-            }
-
-            var computador = _contexto.Computadoras.Find(Id);
-            if (computador == null)
-            {
-                return NotFound();
-            }
 
             ViewBag.Zonas = ObtenerZonas();
             ViewBag.Departamentos = ObtenerDepartamentos();
@@ -450,7 +469,19 @@ namespace InventarioComputadoras.Controllers
             ViewBag.modulosram = ObtenerModulosRAM();
             ViewBag.tiporam = ObtenerTipoRAM();
             ViewBag.capacidadram = ObtenerCapacidadRAM();
+            ViewBag.capacidadalmacenamiento = ObtenerCapacidadAlmacenamiento();
+            ViewBag.tipoalmacenamiento = ObtenerTipoAlmacenamiento();
 
+            if (Id == null)
+            {
+                return NotFound();
+            }
+
+            var computador = _contexto.Computadoras.Find(Id);
+            if (computador == null)
+            {
+                return NotFound();
+            }
 
             return View(computador);
 
@@ -471,69 +502,93 @@ namespace InventarioComputadoras.Controllers
             ViewBag.modulosram = ObtenerModulosRAM();
             ViewBag.tiporam = ObtenerTipoRAM();
             ViewBag.capacidadram = ObtenerCapacidadRAM();
+            ViewBag.capacidadalmacenamiento = ObtenerCapacidadAlmacenamiento();
+            ViewBag.tipoalmacenamiento = ObtenerTipoAlmacenamiento();
 
             if (ModelState.IsValid)
             {
-                try
+               
+                var computadoraExistente = await _contexto.Computadoras.FindAsync(computadora.Id);
+
+                if (computadoraExistente == null)
                 {
-                    var computadoraExistente = await _contexto.Computadoras.FindAsync(computadora.Id);
+                    return NotFound();
+                }
 
-                    if (computadoraExistente == null)
+                bool nombreCambiado = computadoraExistente.Departamento != computadora.Departamento ||
+                                                        computadoraExistente.Oficina != computadora.Oficina;
+
+                if (nombreCambiado)
+                {
+                    string nombreBase = computadora.Departamento.Substring(0, 4).ToUpper() + computadora.Oficina.Substring(0, 3).ToUpper();
+
+                    var ultimaComputadora = await _contexto.Computadoras
+                        .Where(c => c.NombreNuevo.StartsWith(nombreBase))
+                        .OrderByDescending(c => c.NombreNuevo)
+                        .FirstOrDefaultAsync();
+
+                    int ultimoNumero = 1;
+                    if (ultimaComputadora != null)
                     {
-                        return NotFound();
+                        string ultimoNumeroStr = ultimaComputadora.NombreNuevo.Substring(nombreBase.Length).Trim();
+                        int.TryParse(ultimoNumeroStr, out ultimoNumero);
+                        ultimoNumero++;
                     }
 
-                    bool nombreCambiado = computadoraExistente.Departamento != computadora.Departamento ||
-                                          computadoraExistente.Oficina != computadora.Oficina;
+                    string nombreNuevo = nombreBase + " " + (ultimoNumero);
 
-                    if (nombreCambiado)
-                    {
-                        string nombreBase = computadora.Departamento.Substring(0, 4).ToUpper() + computadora.Oficina.Substring(0, 3).ToUpper();
+                    computadoraExistente.NombreAnterior = computadoraExistente.NombreNuevo;
+                    computadoraExistente.NombreNuevo = nombreNuevo;
+                }
 
-                        var ultimaComputadora = await _contexto.Computadoras
-                            .Where(c => c.NombreNuevo.StartsWith(nombreBase))
-                            .OrderByDescending(c => c.NombreNuevo)
-                            .FirstOrDefaultAsync();
+                computadoraExistente.LicenciaSO = sinLicenciaSO ? "No" : "Si";
+                computadoraExistente.Office = sinLicenciaOffice ? "No" : "Si";
+                computadoraExistente.LicenciaAntivirus = sinAntivirus ? "No" : "Si";
 
-                        int ultimoNumero = 0;
-                        if (ultimaComputadora != null)
-                        {
-                            string ultimoNumeroStr = ultimaComputadora.NombreNuevo.Substring(nombreBase.Length).Trim();
-                            int.TryParse(ultimoNumeroStr, out ultimoNumero);
-                            ultimoNumero++;
-                        }
+                if (!sinDireccionIP)
+                {
+                    computadoraExistente.DireccionIp = computadora.DireccionIp;
+                }
+                else
+                {
+                    computadoraExistente.DireccionIp = "Sin Direccion IP";
+                }
 
-                        string nombreNuevo = nombreBase + " " + (ultimoNumero);
+                computadoraExistente.Oficina = computadora.Oficina;
+                computadoraExistente.Departamento = computadora.Departamento;
+                computadoraExistente.SistemaOperativo = computadora.SistemaOperativo;
+                computadoraExistente.VersionOffice = computadora.VersionOffice;
+                computadoraExistente.FechaOffice = computadora.FechaOffice;
+                computadoraExistente.Usuario = computadora.Usuario;
+                computadoraExistente.Dominio = computadora.Dominio;
+                computadoraExistente.CodigoConstitucional = computadora.CodigoConstitucional;
+                computadoraExistente.FechaAdquisicion = computadora.FechaAdquisicion;
+                computadoraExistente.Estado = computadora.Estado;
+                computadoraExistente.Tipo = computadora.Tipo;
+                computadoraExistente.Marca = computadora.Marca;
+                computadoraExistente.NParte = computadora.NParte;
+                computadoraExistente.NSerie = computadora.NSerie;
+                computadoraExistente.MotherBoard = computadora.MotherBoard;
+                computadoraExistente.Procesador = computadora.Procesador;
+                computadoraExistente.MemoriaRamTipo = computadora.MemoriaRamTipo;
+                computadoraExistente.MemoriaModulos = computadora.MemoriaModulos;
+                computadoraExistente.MemoriaRamCapacidad = computadora.MemoriaRamCapacidad;
+                computadoraExistente.MemoriaRamMarca = computadora.MemoriaRamMarca;
+                computadoraExistente.MemoriaRamNumeroSerie = computadora.MemoriaRamNumeroSerie;
+                computadoraExistente.MemoriaRamNumeroParte = computadora.MemoriaRamNumeroParte;
+                computadoraExistente.AlmacenamientoTipo = computadora.AlmacenamientoTipo;
+                computadoraExistente.AlmacenamientoCapacidad = computadora.AlmacenamientoCapacidad;
+                computadoraExistente.AlmacenamientoMarca = computadora.AlmacenamientoMarca;
+                computadoraExistente.AlmacenamientoNumeroSerie = computadora.AlmacenamientoNumeroSerie;
+                computadoraExistente.AlmacenamientoNumeroParte = computadora.AlmacenamientoNumeroParte;
 
-                        computadoraExistente.NombreAnterior = computadoraExistente.NombreNuevo;
-                        computadoraExistente.NombreNuevo = nombreNuevo;
-                    }
-            // Actualizar valores de licencias y antivirus
-            computadoraExistente.LicenciaSO = sinLicenciaSO ? "No" : "Si";
-            computadoraExistente.Office = sinLicenciaOffice ? "No" : "Si";
-            computadoraExistente.LicenciaAntivirus = sinAntivirus ? "No" : "Si";
-
-            if (!sinDireccionIP)
-            {
-                computadoraExistente.DireccionIp = computadora.DireccionIp;
+                _contexto.Update(computadoraExistente);
+                await _contexto.SaveChangesAsync();
+                return RedirectToAction(nameof(Index));
             }
-            else
-            {
-                computadoraExistente.DireccionIp = "Sin Direccion IP";
-            }
 
-            await _contexto.SaveChangesAsync();
-
-            return RedirectToAction(nameof(Index));
+            return View(computadora);
         }
-        catch (DbUpdateException)
-        {
-            ModelState.AddModelError("", "Error al guardar los cambios. Inténtalo de nuevo y, si el problema persiste, consulta al administrador del sistema.");
-        }
-    }
-
-    return View(computadora);
-}
 
 
         [HttpGet]

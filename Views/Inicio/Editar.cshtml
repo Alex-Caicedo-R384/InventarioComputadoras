@@ -299,10 +299,44 @@
                                     <span asp-validation-for="MemoriaRamNumeroParte" class="text-danger"></span>
                                 </li>
                             </ul>
+
+                            <h2>Almacenamiento</h2>
+                            <ul>
+                                <li>
+                                    <label asp-for="AlmacenamientoModulos" class="control-label"></label>
+                                    <input asp-for="AlmacenamientoModulos" class="form-control" placeholder="Ingresa la Cantidad de Discos Duros" />
+                                    <span asp-validation-for="AlmacenamientoModulos" class="text-danger"></span>
+                                </li>
+                                <li>
+                                    <label asp-for="AlmacenamientoTipo" class="control-label"></label>
+                                    <select asp-for="AlmacenamientoTipo" asp-items="ViewBag.tipoalmacenamiento" class="form-control"></select>
+                                    <span asp-validation-for="AlmacenamientoTipo" class="text-danger"></span>
+                                </li>
+                                <li>
+                                    <label asp-for="AlmacenamientoCapacidad" class="control-label"></label>
+                                    <select asp-for="AlmacenamientoCapacidad" asp-items="ViewBag.capacidadalmacenamiento" class="form-control"></select>
+                                    <span asp-validation-for="AlmacenamientoCapacidad" class="text-danger"></span>
+                                </li>
+                                <li>
+                                    <label asp-for="AlmacenamientoMarca" class="control-label"></label>
+                                    <input asp-for="AlmacenamientoMarca" class="form-control" placeholder="Ingresa la Marca del Disco Duro" />
+                                    <span asp-validation-for="AlmacenamientoMarca" class="text-danger"></span>
+                                </li>
+                                <li>
+                                    <label asp-for="AlmacenamientoNumeroSerie" class="control-label"></label>
+                                    <input asp-for="AlmacenamientoNumeroSerie" class="form-control" placeholder="Ingresa el Número de Serie del Disco Duro" />
+                                    <span asp-validation-for="AlmacenamientoNumeroSerie" class="text-danger"></span>
+                                </li>
+                                <li>
+                                    <label asp-for="AlmacenamientoNumeroParte" class="control-label"></label>
+                                    <input asp-for="AlmacenamientoNumeroParte" class="form-control" placeholder="Ingresa el Número de Parte del Disco Duro" />
+                                    <span asp-validation-for="AlmacenamientoNumeroParte" class="text-danger"></span>
+                                </li>
+                            </ul>
                             <!------------------------------------------------------------------------------------------------------------------------------>
                             <!----------------------------------------------Botón--------------------------------------------------------------------------->
                             <div class="form-group mt-3">
-                                <button id="btnEditar" type="submit" class="btn btn-secondary d-block mx-auto" style="background-color: #ffc107; border-color: #ffc107; color: #212529;">Editar Computador</button>
+                                <button type="submit" class="btn btn-primary d-block mx-auto" style="background-color: #ffc107; border-color: #ffc107; color: #212529;">Editar Computador </button>
                             </div>
                             <!------------------------------------------------------------------------------------------------------------------------------>
                         </div>

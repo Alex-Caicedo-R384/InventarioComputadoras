@@ -313,6 +313,36 @@
                                     <span asp-validation-for="MemoriaRamNumeroParte" class="text-danger"></span>
                                 </li>
                             </ul>
+
+
+                            <h2>Almacenamiento</h2>
+                            <ul>
+                                <li class="almacenamiento-item">
+                                    <label asp-for="AlmacenamientoTipo" class="control-label"></label>
+                                    <select asp-for="AlmacenamientoTipo" asp-items="ViewBag.tipoalmacenamiento" class="form-control"></select>
+                                    <span asp-validation-for="AlmacenamientoTipo" class="text-danger"></span>
+                                </li>
+                                <li>
+                                    <label asp-for="AlmacenamientoCapacidad" class="control-label"></label>
+                                    <select asp-for="AlmacenamientoCapacidad" asp-items="ViewBag.capacidadalmacenamiento" class="form-control"></select>
+                                    <span asp-validation-for="AlmacenamientoCapacidad" class="text-danger"></span>
+                                </li>
+                                <li>
+                                    <label asp-for="AlmacenamientoMarca" class="control-label"></label>
+                                    <input asp-for="AlmacenamientoMarca" class="form-control" placeholder="Ingresa la Marca del Disco Duro" />
+                                    <span asp-validation-for="AlmacenamientoMarca" class="text-danger"></span>
+                                </li>
+                                <li>
+                                    <label asp-for="AlmacenamientoNumeroSerie" class="control-label"></label>
+                                    <input asp-for="AlmacenamientoNumeroSerie" class="form-control" placeholder="Ingresa el Número de Serie del Disco Duro" />
+                                    <span asp-validation-for="AlmacenamientoNumeroSerie" class="text-danger"></span>
+                                </li>
+                                <li>
+                                    <label asp-for="AlmacenamientoNumeroParte" class="control-label"></label>
+                                    <input asp-for="AlmacenamientoNumeroParte" class="form-control" placeholder="Ingresa el Número de Parte del Disco Duro" />
+                                    <span asp-validation-for="AlmacenamientoNumeroParte" class="text-danger"></span>
+                                </li>
+                            </ul>
                             <!------------------------------------------------------------------------------------------------------------------------------>
                             <!----------------------------------------------Botón--------------------------------------------------------------------------->
                             <div class="form-group mt-3">
@@ -569,15 +599,10 @@
             });
         });
         //-------------------------------------------------------------------------------------------------------//
-
-
         //-----------------------------------PESTAÑA-------------------------------------------------------------//
-
         $(document).ready(function () {
-            // Mostrar la primera pestaña por defecto
             $('#informacionBasicaTab').tab('show');
 
-            // Controlar la visibilidad de las pestañas al hacer clic
             $('#informacionBasicaTab').on('click', function (e) {
                 e.preventDefault()
                 $(this).tab('show')
@@ -595,6 +620,9 @@
                 $(this).tab('show')
             })
         });
+        //-------------------------------------------------------------------------------------------------------//
+        //-----------------------------------AGREGAR ALMACENAMIENTO----------------------------------------------//
+        
         //-------------------------------------------------------------------------------------------------------//
     </script>
 }
