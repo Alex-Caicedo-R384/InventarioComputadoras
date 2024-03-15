@@ -485,9 +485,24 @@ namespace InventarioComputadoras.Controllers
                 return NotFound();
             }
 
+            ViewBag.SelectedZona = computador.Oficina;
+            ViewBag.SelectedDepartamento = computador.Departamento;
+            ViewBag.SelectedSistemaOperativo = computador.SistemaOperativo;
+            ViewBag.SelectedOffice = computador.Office;
+            ViewBag.SelectedAntivirus = computador.VersionAntivirus;
+            ViewBag.SelectedDominio = computador.Dominio;
+            ViewBag.SelectedEstado = computador.Estado;
+            ViewBag.SelectedTipo = computador.MemoriaRamTipo;
+            ViewBag.SelectedModulosRam = computador.MemoriaModulos;
+            ViewBag.SelectedTipoRam = computador.MemoriaRamTipo;
+            ViewBag.SelectedCapacidadRam = computador.MemoriaRamCapacidad;
+            ViewBag.SelectedCapacidadAlmacenamiento = computador.AlmacenamientoCapacidad;
+            ViewBag.SelectedTipoAlmacenamiento = computador.AlmacenamientoTipo;
+
             return View(computador);
 
         }
+
 
         [HttpPost]
         [ValidateAntiForgeryToken]
@@ -556,6 +571,13 @@ namespace InventarioComputadoras.Controllers
                     computadoraExistente.DireccionIp = "Sin Direccion IP";
                 }
 
+
+                computadoraExistente.SinAntivirus = computadora.SinAntivirus;
+                computadoraExistente.ConAntivirus = computadora.ConAntivirus;
+                computadoraExistente.SinLicenciaOffice = computadora.SinLicenciaOffice;
+                computadoraExistente.ConLicenciaOffice = computadora.ConLicenciaOffice;
+                computadoraExistente.ConLicenciaSO = computadora.ConLicenciaSO;
+                computadoraExistente.SinLicenciaSO = computadoraExistente.SinLicenciaSO;
                 computadoraExistente.Oficina = computadora.Oficina;
                 computadoraExistente.Departamento = computadora.Departamento;
                 computadoraExistente.SistemaOperativo = computadora.SistemaOperativo;
@@ -583,6 +605,7 @@ namespace InventarioComputadoras.Controllers
                 computadoraExistente.AlmacenamientoMarca = computadora.AlmacenamientoMarca;
                 computadoraExistente.AlmacenamientoNumeroSerie = computadora.AlmacenamientoNumeroSerie;
                 computadoraExistente.AlmacenamientoNumeroParte = computadora.AlmacenamientoNumeroParte;
+
 
                 _contexto.Update(computadoraExistente);
                 await _contexto.SaveChangesAsync();

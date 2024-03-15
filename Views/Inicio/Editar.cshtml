@@ -128,13 +128,13 @@
                                 <label asp-for="LicenciaSO" class="control-label"></label>
                                 <input asp-for="LicenciaSO" class="form-control" id="licenciaSOText" disabled value="Elija una opción" />
                                 <div class="form-check mt-2">
-                                    <input asp-for="ConLicenciaSO" type="checkbox" class="form-check-input" id="conLicenciaSOCheck">
+                                    <input asp-for="ConLicenciaSO" type="checkbox" class="form-check-input" id="conLicenciaSOCheck" value="true">
                                     <label class="form-check-label" for="conLicenciaSOCheck">
                                         Con licencia de sistema operativo
                                     </label>
                                 </div>
                                 <div class="form-check">
-                                    <input asp-for="SinLicenciaSO" type="checkbox" class="form-check-input" id="sinLicenciaSOCheck">
+                                    <input asp-for="SinLicenciaSO" type="checkbox" class="form-check-input" id="sinLicenciaSOCheck" value="true">
                                     <label class="form-check-label" for="sinLicenciaSOCheck">
                                         Sin licencia de sistema operativo
                                     </label>
@@ -154,13 +154,13 @@
                                     <input asp-for="Office" class="form-control" id="officeText" disabled value="Elija una opción" />
                                 </div>
                                 <div class="form-check mt-2">
-                                    <input asp-for="ConLicenciaOffice" type="checkbox" class="form-check-input" id="conLicenciaOfficeCheck">
+                                    <input asp-for="ConLicenciaOffice" type="checkbox" class="form-check-input" id="conLicenciaOfficeCheck" value="true">
                                     <label class="form-check-label" for="conLicenciaOfficeCheck">
                                         Con licencia de Office
                                     </label>
                                 </div>
                                 <div class="form-check">
-                                    <input asp-for="SinLicenciaOffice" type="checkbox" class="form-check-input" id="sinLicenciaOfficeCheck">
+                                    <input asp-for="SinLicenciaOffice" type="checkbox" class="form-check-input" id="sinLicenciaOfficeCheck" value="true">
                                     <label class="form-check-label" for="sinLicenciaOfficeCheck">
                                         Sin licencia de Office
                                     </label>
@@ -172,8 +172,6 @@
                                 <select asp-for="VersionOffice" asp-items="ViewBag.office" class="form-control"></select>
                                 <span asp-validation-for="VersionOffice" class="text-danger"></span>
                             </div>
-
-
                             <div class="form-group" id="fechaofficeDiv" style="display:none;">
                                 <label asp-for="FechaOffice" class="control-label"></label>
                                 <input asp-for="FechaOffice" class="form-control" type="date" />
@@ -187,13 +185,13 @@
                                     <input asp-for="LicenciaAntivirus" class="form-control" id="antivirusText" disabled value="Elija una opción" />
                                 </div>
                                 <div class="form-check mt-2">
-                                    <input asp-for="ConAntivirus" type="checkbox" class="form-check-input" id="conAntivirusCheck">
+                                    <input asp-for="ConAntivirus" type="checkbox" class="form-check-input" id="conAntivirusCheck" value="true">
                                     <label class="form-check-label" for="conAntivirusCheck">
                                         Con licencia de Antivirus
                                     </label>
                                 </div>
                                 <div class="form-check">
-                                    <input asp-for="SinAntivirus" type="checkbox" class="form-check-input" id="sinAntivirusCheck">
+                                    <input asp-for="SinAntivirus" type="checkbox" class="form-check-input" id="sinAntivirusCheck" value="true">
                                     <label class="form-check-label" for="sinAntivirusCheck">
                                         Sin licencia de Antivirus
                                     </label>
@@ -551,32 +549,62 @@
             });
         });
         //-------------------------------------------------------------------------------------------------------//
-
-
         //-----------------------------------PESTAÑA-------------------------------------------------------------//
-
         $(document).ready(function () {
-            // Mostrar la primera pestaña por defecto
             $('#informacionBasicaTab').tab('show');
 
-            // Controlar la visibilidad de las pestañas al hacer clic
-            $('#informacionBasicaTab').on('click', function (e) {
-                e.preventDefault()
-                $(this).tab('show')
-            })
-            $('#licenciasTab').on('click', function (e) {
-                e.preventDefault()
-                $(this).tab('show')
-            })
-            $('#estadoTab').on('click', function (e) {
-                e.preventDefault()
-                $(this).tab('show')
-            })
-            $('#hardwareTab').on('click', function (e) {
-                e.preventDefault()
-                $(this).tab('show')
-            })
+            $('#informacionBasicaTab, #licenciasTab, #estadoTab, #hardwareTab').on('click', function (e) {
+                e.preventDefault();
+                $(this).tab('show');
+            });
         });
-                //-------------------------------------------------------------------------------------------------------//
+         //-------------------------------------------------------------------------------------------------------//
+        document.addEventListener('DOMContentLoaded', function () {
+            // Obtener el estado de las selecciones desde el modelo
+            var conLicenciaSO = @Html.Raw(Json.Serialize(Model.ConLicenciaSO));
+            var sinLicenciaSO = @Html.Raw(Json.Serialize(Model.SinLicenciaSO));
+            var conLicenciaOffice = @Html.Raw(Json.Serialize(Model.ConLicenciaOffice));
+            var sinLicenciaOffice = @Html.Raw(Json.Serialize(Model.SinLicenciaOffice));
+            var conAntivirus = @Html.Raw(Json.Serialize(Model.ConAntivirus));
+            var sinAntivirus = @Html.Raw(Json.Serialize(Model.SinAntivirus));
+
+            // Actualizar el estado de las casillas de verificación de acuerdo al modelo
+            var conLicenciaSOCheck = document.getElementById('conLicenciaSOCheck');
+            var sinLicenciaSOCheck = document.getElementById('sinLicenciaSOCheck');
+            var conLicenciaOfficeCheck = document.getElementById('conLicenciaOfficeCheck');
+            var sinLicenciaOfficeCheck = document.getElementById('sinLicenciaOfficeCheck');
+            var conAntivirusCheck = document.getElementById('conAntivirusCheck');
+            var sinAntivirusCheck = document.getElementById('sinAntivirusCheck');
+
+            conLicenciaSOCheck.checked = conLicenciaSO;
+            sinLicenciaSOCheck.checked = sinLicenciaSO;
+            conLicenciaOfficeCheck.checked = conLicenciaOffice;
+            sinLicenciaOfficeCheck.checked = sinLicenciaOffice;
+            conAntivirusCheck.checked = conAntivirus;
+            sinAntivirusCheck.checked = sinAntivirus;
+
+            // Actualizar la visualización de los combobox relacionados si es necesario
+            var sistemaOperativoDiv = document.getElementById('sistemaOperativoDiv');
+            var verofficeDiv = document.getElementById('verofficeDiv');
+            var antivirusDiv = document.getElementById('antivirusDiv');
+
+            if (conLicenciaSO) {
+                sistemaOperativoDiv.style.display = 'block';
+            } else {
+                sistemaOperativoDiv.style.display = 'none';
+            }
+
+            if (conLicenciaOffice) {
+                verofficeDiv.style.display = 'block';
+            } else {
+                verofficeDiv.style.display = 'none';
+            }
+
+            if (conAntivirus) {
+                antivirusDiv.style.display = 'block';
+            } else {
+                antivirusDiv.style.display = 'none';
+            }
+        });
     </script>
 }
