@@ -1,5 +1,6 @@
 ﻿using InventarioComputadoras.Datos;
 using InventarioComputadoras.Datos.Migrations;
+using DatosAlmacenamiento = InventarioComputadoras.Datos.Migrations.Almacenamiento;
 using InventarioComputadoras.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
@@ -453,6 +454,7 @@ namespace InventarioComputadoras.Controllers
 
             return View(computadora);
         }
+
 
         [HttpGet]
         public IActionResult Editar(int? Id)

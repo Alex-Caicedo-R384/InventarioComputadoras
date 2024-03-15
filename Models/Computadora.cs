@@ -131,7 +131,6 @@ namespace InventarioComputadoras.Models
         [Required]
         [Display(Name = "Número de Parte de Almacenamiento")]
         public string? AlmacenamientoNumeroParte { get; set; }
-
         //------------------------------------------------------------------------------------------------------------------------------//
         public bool SinNombreAnterior { get; set; }
         public bool SinDireccionIP { get; set; }

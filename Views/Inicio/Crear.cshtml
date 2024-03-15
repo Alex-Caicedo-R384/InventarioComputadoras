@@ -139,8 +139,8 @@
                         <div class="tab-pane fade" id="licencias">
                             <!-------------------------------------------------Informacion de Software------------------------------------------------------>
                             <div class="form-group">
-                                <label asp-for="LicenciaSO" class="control-label"></label>
-                                <input asp-for="LicenciaSO" class="form-control" id="licenciaSOText" disabled value="Elija una opción" />
+                                <label for="licenciaSOText">Licencia del Sistema Operativo:</label>
+                                <input class="form-control" id="licenciaSOText" disabled="" value="Elija una opción" type="text" name="LicenciaSO">
                                 <div class="form-check mt-2">
                                     <input asp-for="ConLicenciaSO" type="checkbox" class="form-check-input" id="conLicenciaSOCheck">
                                     <label class="form-check-label" for="conLicenciaSOCheck">
@@ -163,9 +163,9 @@
 
 
                             <div class="form-group">
-                                <label asp-for="Office" class="control-label"></label>
+                                <label for="officeText">Licencia de Office:</label>
                                 <div>
-                                    <input asp-for="Office" class="form-control" id="officeText" disabled value="Elija una opción" />
+                                    <input class="form-control" id="officeText" disabled="" value="Elija una opción" type="text" name="Office">
                                 </div>
                                 <div class="form-check mt-2">
                                     <input asp-for="ConLicenciaOffice" type="checkbox" class="form-check-input" id="conLicenciaOfficeCheck">
@@ -196,9 +196,9 @@
 
 
                             <div class="form-group">
-                                <label asp-for="LicenciaAntivirus" class="control-label"></label>
+                                <label for="antivirusText">Licencia de Antivirus:</label>
                                 <div>
-                                    <input asp-for="LicenciaAntivirus" class="form-control" id="antivirusText" disabled value="Elija una opción" />
+<input class="form-control" id="antivirusText" disabled="" value="Elija una opción" type="text" name="LicenciaAntivirus">
                                 </div>
                                 <div class="form-check mt-2">
                                     <input asp-for="ConAntivirus" type="checkbox" class="form-check-input" id="conAntivirusCheck">
@@ -317,7 +317,7 @@
 
                             <h2>Almacenamiento</h2>
                             <ul>
-                                <li class="almacenamiento-item">
+                                <li>
                                     <label asp-for="AlmacenamientoTipo" class="control-label"></label>
                                     <select asp-for="AlmacenamientoTipo" asp-items="ViewBag.tipoalmacenamiento" class="form-control"></select>
                                     <span asp-validation-for="AlmacenamientoTipo" class="text-danger"></span>
@@ -343,6 +343,7 @@
                                     <span asp-validation-for="AlmacenamientoNumeroParte" class="text-danger"></span>
                                 </li>
                             </ul>
+
                             <!------------------------------------------------------------------------------------------------------------------------------>
                             <!----------------------------------------------Botón--------------------------------------------------------------------------->
                             <div class="form-group mt-3">
@@ -622,7 +623,8 @@
         });
         //-------------------------------------------------------------------------------------------------------//
         //-----------------------------------AGREGAR ALMACENAMIENTO----------------------------------------------//
-        
+
+
         //-------------------------------------------------------------------------------------------------------//
     </script>
 }
