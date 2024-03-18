@@ -448,8 +448,20 @@ namespace InventarioComputadoras.Controllers
                 computadora.NombreNuevo = nombreNuevo;
 
                 _contexto.Computadoras.Add(computadora);
-                await _contexto.SaveChangesAsync();
+
+                if (computadora.Almacenamientos != null && computadora.Almacenamientos.Any())
+                {
+                    foreach (var almacenamiento in computadora.Almacenamientos)
+                    {
+                        almacenamiento.ComputadoraId = computadora.Id;
+
+                    }
+
+                    await _contexto.SaveChangesAsync();
+                }
+
                 return RedirectToAction(nameof(Index));
+
             }
 
             return View(computadora);
@@ -500,6 +512,8 @@ namespace InventarioComputadoras.Controllers
             ViewBag.SelectedTipoAlmacenamiento = computador.AlmacenamientoTipo;
 
             return View(computador);
+
+
 
         }
 
@@ -698,7 +712,10 @@ namespace InventarioComputadoras.Controllers
                 return NotFound();
             }
 
-            var computador = await _contexto.Computadoras.FindAsync(id);
+            var computador = await _contexto.Computadoras
+                .Include(c => c.Almacenamientos)
+                .FirstOrDefaultAsync(c => c.Id == id); 
+            
             if (computador == null)
             {
                 return NotFound();
@@ -741,12 +758,14 @@ namespace InventarioComputadoras.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> BorrarComputador (int? id)
         {
-            var computadora = await _contexto.Computadoras.FindAsync(id);
-            if (computadora == null)
+            var computadora = await _contexto.Computadoras
+                .Include(c => c.Almacenamientos)
+                .FirstOrDefaultAsync(c => c.Id == id); if (computadora == null)
             {
                 return View();
             }
 
+            _contexto.Almacenamientos.RemoveRange(computadora.Almacenamientos);
             _contexto.Computadoras.Remove(computadora);
             await _contexto.SaveChangesAsync();
             return RedirectToAction(nameof(Index));

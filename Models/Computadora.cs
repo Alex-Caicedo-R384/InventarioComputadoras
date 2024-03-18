@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace InventarioComputadoras.Models
 {
@@ -108,6 +109,7 @@ namespace InventarioComputadoras.Models
         [Required]
         [Display(Name = "Número de Parte de Memoria RAM")]
         public string? MemoriaRamNumeroParte { get; set; }
+
         //------------------------------------------------------------------------------------------------------------------------------//
         //----------------------------------------------Almacenamiento-----------------------------------------------------------------//
         [Display(Name = "Tipo de Almacenamiento")]
@@ -125,12 +127,20 @@ namespace InventarioComputadoras.Models
         public string? AlmacenamientoMarca { get; set; }
 
         [Required]
-        [Display(Name = "Número de Serie de Memoria RAM")]
+        [Display(Name = "Número de Serie de Almacenamiento  ")]
         public string? AlmacenamientoNumeroSerie { get; set; }
 
         [Required]
         [Display(Name = "Número de Parte de Almacenamiento")]
-        public string? AlmacenamientoNumeroParte { get; set; }
+        public string? AlmacenamientoNumeroParte { get; set; } 
+
+
+        public List<Almacenamiento>? Almacenamientos { get; set; }
+
+        public Computadora()
+        {
+            Almacenamientos = new List<Almacenamiento>();
+        }
         //------------------------------------------------------------------------------------------------------------------------------//
         public bool SinNombreAnterior { get; set; }
         public bool SinDireccionIP { get; set; }
@@ -144,5 +154,30 @@ namespace InventarioComputadoras.Models
         public bool SinAntivirus { get; set; }
         public bool ConAntivirus { get; set; }
 
+    }
+
+    public class Almacenamiento
+    {
+        [Key]
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
+        public int Id { get; set; }
+
+        [Display(Name = "Tipo de Almacenamiento")]
+        public string? TipoAlmacenamiento { get; set; }
+
+        [Display(Name = "Capacidad de Almacenamiento")]
+        public string? CapacidadAlmacenamiento { get; set; }
+
+        [Display(Name = "Marca de Almacenamiento")]
+        public string? MarcaAlmacenamiento { get; set; }
+
+        [Display(Name = "Número de Serie")]
+        public string? NumeroSerieAlmacenamiento { get; set; }
+
+        [Display(Name = "Número de Parte")]
+        public string? NumeroParteAlmacenamiento { get; set; }
+
+        public int ComputadoraId { get; set; }
+        public Computadora? Computadora { get; set; }
     }
 }

@@ -61,6 +61,28 @@
                             <li><strong>Número de Parte:</strong> @Html.DisplayFor(m => m.AlmacenamientoNumeroParte)</li>
                         </ul>
                     </li>
+                    <li class="list-group-item custom-text-color">
+                        <strong>Almacenamientos Adicionales:</strong>
+                        <ul>
+                            @if (Model.Almacenamientos != null && Model.Almacenamientos.Any())
+                            {
+                                @foreach (var almacenamiento in Model.Almacenamientos)
+                                {
+                                    <li>
+                                        <strong>Tipo:</strong> @Html.DisplayFor(m => almacenamiento.TipoAlmacenamiento)<br />
+                                        <strong>Capacidad:</strong> @Html.DisplayFor(m => almacenamiento.CapacidadAlmacenamiento)<br />
+                                        <strong>Marca:</strong> @Html.DisplayFor(m => almacenamiento.MarcaAlmacenamiento)<br />
+                                        <strong>Número de Serie:</strong> @Html.DisplayFor(m => almacenamiento.NumeroSerieAlmacenamiento)<br />
+                                        <strong>Número de Parte:</strong> @Html.DisplayFor(m => almacenamiento.NumeroParteAlmacenamiento)<br />
+                                    </li>
+                                }
+                            }
+                            else
+                            {
+                            <li class="list-group-item">No hay almacenamientos asociados.</li>
+                            }
+                        </ul>
+                    </li>
                 </ul>
                 <a asp-controller="Inicio" asp-action="Index">Volver</a>
             </div>

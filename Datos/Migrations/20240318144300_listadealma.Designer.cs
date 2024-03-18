@@ -4,6 +4,7 @@ using InventarioComputadoras.Datos;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace InventarioComputadoras.Datos.Migrations
 {
     [DbContext(typeof(AppDBContext))]
-    partial class AppDBContextModelSnapshot : ModelSnapshot
+    [Migration("20240318144300_listadealma")]
+    partial class listadealma
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -30,22 +33,22 @@ namespace InventarioComputadoras.Datos.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
-                    b.Property<string>("CapacidadAlmacenamiento")
+                    b.Property<string>("Capacidad")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<int>("ComputadoraId")
                         .HasColumnType("int");
 
-                    b.Property<string>("MarcaAlmacenamiento")
+                    b.Property<string>("Marca")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("NumeroParteAlmacenamiento")
+                    b.Property<string>("NumeroParte")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("NumeroSerieAlmacenamiento")
+                    b.Property<string>("NumeroSerie")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("TipoAlmacenamiento")
+                    b.Property<string>("Tipo")
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");

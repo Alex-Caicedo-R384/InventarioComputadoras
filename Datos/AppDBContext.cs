@@ -10,5 +10,7 @@ namespace InventarioComputadoras.Datos
         }
 
         public DbSet<Computadora> Computadoras { get; set; } = default!;
+        public DbSet<Almacenamiento>? Almacenamientos { get; set; }
+
     }
 }
