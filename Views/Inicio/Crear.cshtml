@@ -46,7 +46,7 @@
                             <div class="form-group">
                                 <label asp-for="NombreAnterior" class="control-label"></label>
                                 <input asp-for="NombreAnterior" class="form-control" placeholder="Ingresa el Nombre Anterior" />
-                                <div class="form-check">
+                                <div class="form-check" style="color: #fff; font-weight: lighter;">
                                     <input class="form-check-input" type="checkbox" id="sinNombreAnteriorCheck">
                                     <label class="form-check-label" for="sinNombreAnteriorCheck">
                                         Sin nombre anterior
@@ -88,7 +88,7 @@
                             <div class="form-group">
                                 <label asp-for="DireccionIp" class="control-label"></label>
                                 <input asp-for="DireccionIp" class="form-control" placeholder="Ingresa la Dirección IP" />
-                                <div class="form-check">
+                                <div class="form-check" style="color: #fff; font-weight: lighter;">
                                     <input class="form-check-input" type="checkbox" id="sinDireccionIPCheck">
                                     <label class="form-check-label" for="sinDireccionIPCheck">
                                         Sin Direccion IP
@@ -103,14 +103,14 @@
                             <!-------------------------------------------------Informacion de Software------------------------------------------------------>
                             <div class="form-group">
                                 <label for="licenciaSOText">Licencia del Sistema Operativo:</label>
-                                <input class="form-control" id="licenciaSOText" disabled="" value="Elija una opción" type="text" name="LicenciaSO">
-                                <div class="form-check mt-2">
+                                <input class="form-control" id="licenciaSOText" disabled="" placeholder="Elija una opción" type="text" name="LicenciaSO">
+                                <div class="form-check mt-2" style="color: #fff; font-weight: lighter;">
                                     <input asp-for="ConLicenciaSO" type="checkbox" class="form-check-input" id="conLicenciaSOCheck">
                                     <label class="form-check-label" for="conLicenciaSOCheck">
                                         Con licencia de sistema operativo
                                     </label>
                                 </div>
-                                <div class="form-check">
+                                <div class="form-check" style="color: #fff; font-weight: lighter;">
                                     <input asp-for="SinLicenciaSO" type="checkbox" class="form-check-input" id="sinLicenciaSOCheck">
                                     <label class="form-check-label" for="sinLicenciaSOCheck">
                                         Sin licencia de sistema operativo
@@ -128,15 +128,15 @@
                             <div class="form-group">
                                 <label for="officeText">Licencia de Office:</label>
                                 <div>
-                                    <input class="form-control" id="officeText" disabled="" value="Elija una opción" type="text" name="Office">
+                                    <input class="form-control" id="officeText" disabled="" placeholder="Elija una opción" type="text" name="Office">
                                 </div>
-                                <div class="form-check mt-2">
+                                <div class="form-check mt-2" style="color: #fff; font-weight: lighter;">
                                     <input asp-for="ConLicenciaOffice" type="checkbox" class="form-check-input" id="conLicenciaOfficeCheck">
                                     <label class="form-check-label" for="conLicenciaOfficeCheck">
                                         Con licencia de Office
                                     </label>
                                 </div>
-                                <div class="form-check">
+                                <div class="form-check" style="color: #fff; font-weight: lighter;">
                                     <input asp-for="SinLicenciaOffice" type="checkbox" class="form-check-input" id="sinLicenciaOfficeCheck">
                                     <label class="form-check-label" for="sinLicenciaOfficeCheck">
                                         Sin licencia de Office
@@ -161,15 +161,15 @@
                             <div class="form-group">
                                 <label for="antivirusText">Licencia de Antivirus:</label>
                                 <div>
-                                <input class="form-control" id="antivirusText" disabled="" value="Elija una opción" type="text" name="LicenciaAntivirus">
+                                <input class="form-control" id="antivirusText" disabled="" placeholder="Elija una opción" type="text" name="LicenciaAntivirus">
                                 </div>
-                                <div class="form-check mt-2">
+                                <div class="form-check mt-2" style="color: #fff; font-weight: lighter;">
                                     <input asp-for="ConAntivirus" type="checkbox" class="form-check-input" id="conAntivirusCheck">
                                     <label class="form-check-label" for="conAntivirusCheck">
                                         Con licencia de Antivirus
                                     </label>
                                 </div>
-                                <div class="form-check">
+                                <div class="form-check" style="color: #fff; font-weight: lighter;">
                                     <input asp-for="SinAntivirus" type="checkbox" class="form-check-input" id="sinAntivirusCheck">
                                     <label class="form-check-label" for="sinAntivirusCheck">
                                         Sin licencia de Antivirus
