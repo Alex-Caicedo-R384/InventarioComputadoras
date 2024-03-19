@@ -39,7 +39,7 @@
                     <li class="list-group-item custom-text-color"><strong>Fecha de Adquisicion: </strong> @(Model.FechaAdquisicion.HasValue ? Model.FechaAdquisicion.Value.ToString("dd/MM/yyyy") : "")</li>
                     <li class="list-group-item custom-text-color"><strong>Estado: </strong> @Html.DisplayFor(m => m.Estado)</li>
                 </ul>
-                <a asp-controller="Inicio" asp-action="Index">Volver</a>
+                <a asp-controller="Inicio" asp-action="Index" style="color: #fff;">Volver</a>
             </div>
         </div>
     </div>
