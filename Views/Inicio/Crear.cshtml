@@ -309,7 +309,10 @@
                             <!----------------------------------------------Botón--------------------------------------------------------------------------->
                             <div class="form-group mt-3">
                                 <button id="btnCrear" type="submit" class="btn btn-secondary d-block mx-auto" style="background-color: #5F51F3; border-color: #5F51F3; color: #ffffff;">Crear  Computador</button>
+                                <button type="button" id="sinAlmacenamientos" class="btn btn-warning">Sin Almacenamientos Adicionales</button>
+                                <button type="button" id="habilitarAlmacenamientos" class="btn btn-primary" style="display: none;">Habilitar Almacenamientos</button>
                             </div>
+
                             <!------------------------------------------------------------------------------------------------------------------------------>
                         </div>
 
@@ -603,18 +606,21 @@
         //-------------------------------------------------------------------------------------------------------//
         //-----------------------------------PESTAÑA-------------------------------------------------------------//
         $(document).ready(function () {
-            $('#informacionBasicaTab').tab('show');
-
-            $('#informacionBasicaTab, #licenciasTab, #estadoTab, #hardwareTab').on('click', function (e) {
-                e.preventDefault();
-                $(this).tab('show');
+            $("#sinAlmacenamientos").click(function () {
+                $("#almacenamientoTab").addClass("disabled");
+                $("#almacenamiento select, #almacenamiento input").prop("disabled", true);
+                $("#crearAlmacenamiento, #quitarAlmacenamiento").hide();
+                $(this).prop("disabled", true);
+                $("#habilitarAlmacenamientos").show();
             });
+        
 
-            $('#almacenamientoTab').on('click', function (e) {
-                e.preventDefault();
-                if (confirm('¿Quieres añadir otro almacenamiento?')) {
-                    $(this).removeClass('disabled').tab('show');
-                }
+            $("#habilitarAlmacenamientos").click(function () {
+                $("#almacenamientoTab").removeClass("disabled");
+                $("#almacenamiento select, #almacenamiento input").prop("disabled", false);
+                $("#crearAlmacenamiento, #quitarAlmacenamiento").show();
+                $(this).hide();
+                $("#sinAlmacenamientos").prop("disabled", false);
             });
         });
         //-------------------------------------------------------------------------------------------------------//

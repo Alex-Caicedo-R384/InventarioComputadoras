@@ -3,46 +3,6 @@
     ViewData["Title"] = "Editar Computador";
 }
 
-<style>
-    body {
-        background-color: #d9d9d9;
-    }
-
-    .card-body {
-        background-color: #565656; /* Cambiar el color del fondo la tablas */
-        color: #1985a1; /* Cambiar el color del texto dentro del card body */
-        font-weight: bold; /* Hacer que el texto dentro del cuerpo de la tarjeta sea negrita */
-    }
-
-    .form-control {
-        background-color: #333333; /* Cambiar el color de fondo de los campos de texto */
-        color: #ffffff; /* Cambiar el color del texto dentro de los campos de texto */
-        border: 0px solid #ffffff; /* Añadir borde a los campos de texto */
-    }
-
-        .form-control:disabled {
-            background-color: #777777; /* Cambiar el color de fondo de los campos de texto deshabilitados */
-            color: #ffffffff; /* Cambiar el color del texto dentro de los campos de texto deshabilitados */
-        }
-
-        .form-control:focus {
-            background-color: #333333; /* Cambiar el color de fondo de los campos de texto deshabilitados */
-            border: 0px solid #ffffff; /* Añadir borde a los campos de texto */
-            outline: 0; /* Eliminar contorno al enfocar */
-            box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.25); /* Sombra al enfocar */
-        }
-
-    select.form-control {
-        background-color: #333333; /* Cambiar el color de fondo del combo box */
-        color: #ffffff !important; /* Cambiar el color del texto dentro del combo box */
-    }
-
-    .form-control:focus {
-        color: #ffffff; /* Cambiar el color del texto cuando el campo de texto está enfocado */
-    }
-
-</style>
-
 <h1>Computadoras</h1>
 <div class="row">
     <div class="offset-12">
@@ -67,6 +27,10 @@
 
                         <li class="nav-item">
                             <a class="nav-link" id="hardwareTab" data-toggle="tab" href="#hardware">Hardware</a>
+                        </li>
+
+                        <li class="nav-item">
+                            <a class="nav-link" id="almacenamientoTab" data-toggle="tab" href="#almacenamiento">Almacenamiento</a>
                         </li>
                     </ul>
 
@@ -333,8 +297,55 @@
                             </div>
                             <!------------------------------------------------------------------------------------------------------------------------------>
                         </div>
-                    </div>
 
+                        <div class="tab-pane fade" id="almacenamiento">
+                            <div>
+                                <div>
+                                    <div id="botonesAlmacenamiento">
+                                        <button type="button" id="crearAlmacenamiento" class="btn btn-success">Crear Almacenamiento</button>
+                                        <button type="button" id="quitarAlmacenamiento" class="btn btn-danger">Quitar Almacenamiento</button>
+                                    </div>
+                                    @if (ViewBag.Almacenamientos != null && ViewBag.Almacenamientos.Count > 0)
+                                    {
+                                        foreach (var almacenamiento in ViewBag.Almacenamientos)
+                                        {
+                                            <ul>
+                                                <li>
+                                                    <label class="control-label">Tipo de Almacenamiento</label>
+                                                    <select asp-for="Almacenamientos[0].TipoAlmacenamiento" asp-items="ViewBag.tipoalmacenamiento" class="form-control"></select>
+                                                    <span asp-validation-for="Almacenamientos[0].TipoAlmacenamiento" class="text-danger"></span>
+                                                </li>
+                                                <li>
+                                                    <label class="control-label">Capacidad de Almacenamiento</label>
+                                                    <select asp-for="Almacenamientos[0].CapacidadAlmacenamiento" asp-items="ViewBag.capacidadalmacenamiento" class="form-control"></select>
+                                                    <span asp-validation-for="Almacenamientos[0].CapacidadAlmacenamiento" class="text-danger"></span>
+                                                </li>
+                                                <li>
+                                                    <label class="control-label">Marca de Almacenamiento</label>
+                                                    <input asp-for="Almacenamientos[0].MarcaAlmacenamiento" class="form-control" placeholder="Ingresa la Marca del Disco Duro" />
+                                                    <span asp-validation-for="Almacenamientos[0].MarcaAlmacenamiento" class="text-danger"></span>
+                                                </li>
+                                                <li>
+                                                    <label class="control-label">Número de Serie</label>
+                                                    <input asp-for="Almacenamientos[0].NumeroSerieAlmacenamiento" class="form-control" placeholder="Ingresa el Número de Serie del Disco Duro" />
+                                                    <span asp-validation-for="Almacenamientos[0].NumeroSerieAlmacenamiento" class="text-danger"></span>
+                                                </li>
+                                                <li>
+                                                    <label class="control-label">Número de Parte</label>
+                                                    <input asp-for="Almacenamientos[0].NumeroParteAlmacenamiento" class="form-control" placeholder="Ingresa el Número de Parte del Disco Duro" />
+                                                    <span asp-validation-for="Almacenamientos[0].NumeroParteAlmacenamiento" class="text-danger"></span>
+                                                </li>
+                                            </ul>
+                                        }
+                                    }
+                                    else
+                                    {
+                                        <strong style="color: #fff; font-weight: bold; font-size: 24px;">No hay almacenamientos adicionales.</strong>
+                                    }
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </form>
                 <a asp-controller="Inicio" asp-action="Index">Volver</a>
             </div>
@@ -553,14 +564,14 @@
         $(document).ready(function () {
             $('#informacionBasicaTab').tab('show');
 
-            $('#informacionBasicaTab, #licenciasTab, #estadoTab, #hardwareTab').on('click', function (e) {
+            $('#informacionBasicaTab, #licenciasTab, #estadoTab, #hardwareTab, #almacenamientoTab').on('click', function (e) {
                 e.preventDefault();
                 $(this).tab('show');
             });
         });
          //-------------------------------------------------------------------------------------------------------//
+        //-----------------------------------CHECKBOXES-----------------------------------------------------------//
         document.addEventListener('DOMContentLoaded', function () {
-            // Obtener el estado de las selecciones desde el modelo
             var conLicenciaSO = @Html.Raw(Json.Serialize(Model.ConLicenciaSO));
             var sinLicenciaSO = @Html.Raw(Json.Serialize(Model.SinLicenciaSO));
             var conLicenciaOffice = @Html.Raw(Json.Serialize(Model.ConLicenciaOffice));
@@ -568,7 +579,6 @@
             var conAntivirus = @Html.Raw(Json.Serialize(Model.ConAntivirus));
             var sinAntivirus = @Html.Raw(Json.Serialize(Model.SinAntivirus));
 
-            // Actualizar el estado de las casillas de verificación de acuerdo al modelo
             var conLicenciaSOCheck = document.getElementById('conLicenciaSOCheck');
             var sinLicenciaSOCheck = document.getElementById('sinLicenciaSOCheck');
             var conLicenciaOfficeCheck = document.getElementById('conLicenciaOfficeCheck');
@@ -583,7 +593,6 @@
             conAntivirusCheck.checked = conAntivirus;
             sinAntivirusCheck.checked = sinAntivirus;
 
-            // Actualizar la visualización de los combobox relacionados si es necesario
             var sistemaOperativoDiv = document.getElementById('sistemaOperativoDiv');
             var verofficeDiv = document.getElementById('verofficeDiv');
             var antivirusDiv = document.getElementById('antivirusDiv');
@@ -606,5 +615,97 @@
                 antivirusDiv.style.display = 'none';
             }
         });
+        //-------------------------------------------------------------------------------------------------------//
+        //-----------------------------------CHECKBOXES-----------------------------------------------------------//
+        $(document).ready(function () {
+            var index = 0;
+
+            $("#crearAlmacenamiento").click(function () {
+                index++;
+                var clone = $('#almacenamiento ul').first().clone();
+
+                clone.find('input, select').val('');
+
+                clone.find('[id]').each(function () {
+                    var id = $(this).attr('id');
+                    $(this).attr('id', id + '-' + index);
+                });
+                clone.find('[name]').each(function () {
+                    var name = $(this).attr('name');
+                    $(this).attr('name', name.replace('[0]', '[' + index + ']'));
+                });
+
+                $('#almacenamiento').append(clone);
+
+                var tipoAlmacenamientoOptions = $('select[name^="Almacenamientos[0].TipoAlmacenamiento"]').html();
+                clone.find('select[name^="Almacenamientos[' + index + '].TipoAlmacenamiento"]').html(tipoAlmacenamientoOptions);
+
+                var capacidadAlmacenamientoOptions = $('select[name^="Almacenamientos[0].CapacidadAlmacenamiento"]').html();
+                clone.find('select[name^="Almacenamientos[' + index + '].CapacidadAlmacenamiento"]').html(capacidadAlmacenamientoOptions);
+
+                clone.find('label').each(function () {
+                    var labelText = $(this).text().trim();
+                    $(this).attr('for', $(this).attr('for') + '-' + index).text(labelText + ' ' + (index + 1));
+                });
+
+                clone.find('.text-danger').text('');
+            });
+
+            $(document).on('click', '#quitarAlmacenamiento', function () {
+                var almacenamientos = $('#almacenamiento ul');
+                if (almacenamientos.length > 1) {
+                    almacenamientos.last().remove();
+                    index--;
+                } else {
+                    alert("No puedes eliminar el primer elemento.");
+                }
+            });
+            // Verificar si no hay campos y crear uno si es necesario
+            if ($('#almacenamiento ul').length === 0) {
+                agregarCampoAlmacenamiento();
+            }
+        });
+        //--------------------------------------------------------------------------------------------------------//
     </script>
 }
+
+<style>
+    body {
+        background-color: #d9d9d9;
+    }
+
+    .card-body {
+        background-color: #565656; /* Cambiar el color del fondo la tablas */
+        color: #1985a1; /* Cambiar el color del texto dentro del card body */
+        font-weight: bold; /* Hacer que el texto dentro del cuerpo de la tarjeta sea negrita */
+    }
+
+    .form-control {
+        background-color: #333333; /* Cambiar el color de fondo de los campos de texto */
+        color: #ffffff; /* Cambiar el color del texto dentro de los campos de texto */
+        border: 0px solid #ffffff; /* Añadir borde a los campos de texto */
+    }
+
+        .form-control:disabled {
+            background-color: #777777; /* Cambiar el color de fondo de los campos de texto deshabilitados */
+            color: #ffffffff; /* Cambiar el color del texto dentro de los campos de texto deshabilitados */
+        }
+
+        .form-control:focus {
+            background-color: #333333; /* Cambiar el color de fondo de los campos de texto deshabilitados */
+            border: 0px solid #ffffff; /* Añadir borde a los campos de texto */
+            outline: 0; /* Eliminar contorno al enfocar */
+            box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.25); /* Sombra al enfocar */
+        }
+
+    select.form-control {
+        background-color: #333333; /* Cambiar el color de fondo del combo box */
+        color: #ffffff !important; /* Cambiar el color del texto dentro del combo box */
+    }
+
+    .form-control:focus {
+        color: #ffffff; /* Cambiar el color del texto cuando el campo de texto está enfocado */
+    }
+
+</style>
+

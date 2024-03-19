@@ -66,6 +66,7 @@ namespace InventarioComputadoras.Controllers
         {
             return new List<SelectListItem>
         {
+            new SelectListItem { Value = "", Text = "Seleccionar" },
             new SelectListItem { Value = "Windows 7", Text = "Windows 7" },
             new SelectListItem { Value = "Windows 8", Text = "Windows 8" },
             new SelectListItem { Value = "Windows 10", Text = "Windows 10" },
@@ -77,6 +78,7 @@ namespace InventarioComputadoras.Controllers
         {
             return new List<SelectListItem>
         {
+            new SelectListItem { Value = "", Text = "Seleccionar" },
             new SelectListItem { Value = "Office 2019", Text = "Office 2019" },
             new SelectListItem { Value = "Office 2021", Text = "Office 2021" },
             new SelectListItem { Value = "Office 365", Text = "Office 365" }
@@ -87,6 +89,7 @@ namespace InventarioComputadoras.Controllers
         {
             return new List<SelectListItem>
         {
+            new SelectListItem { Value = "", Text = "Seleccionar" },
             new SelectListItem { Value = "Fortinet", Text = "Fortinet" }
         };
         }
@@ -457,13 +460,23 @@ namespace InventarioComputadoras.Controllers
                 {
                     foreach (var almacenamiento in computadora.Almacenamientos)
                     {
-                        almacenamiento.ComputadoraId = computadora.Id; // Asociar el almacenamiento con la computadora
-                        _contexto.Almacenamientos.Add(almacenamiento); // Agregar el almacenamiento a la base de datos
+                        if (string.IsNullOrEmpty(almacenamiento.MarcaAlmacenamiento) ||
+                            string.IsNullOrEmpty(almacenamiento.NumeroSerieAlmacenamiento) ||
+                            string.IsNullOrEmpty(almacenamiento.NumeroParteAlmacenamiento))
+                        {
+                            continue;
+                        }
+                        else 
+                        {
+                            _contexto.Almacenamientos.Add(almacenamiento);
+
+                        }
                     }
                 }
-
+                _contexto.SaveChanges();
                 return RedirectToAction(nameof(Index));
             }
+
             return View(computadora);
         }
 
@@ -471,7 +484,6 @@ namespace InventarioComputadoras.Controllers
         [HttpGet]
         public IActionResult Editar(int? Id)
         {
-
             ViewBag.Zonas = ObtenerZonas();
             ViewBag.Departamentos = ObtenerDepartamentos();
             ViewBag.sistemaoperativo = ObtenerSistemaOperativo();
@@ -512,9 +524,6 @@ namespace InventarioComputadoras.Controllers
             ViewBag.SelectedTipoAlmacenamiento = computador.AlmacenamientoTipo;
 
             return View(computador);
-
-
-
         }
 
 
@@ -536,11 +545,13 @@ namespace InventarioComputadoras.Controllers
             ViewBag.capacidadalmacenamiento = ObtenerCapacidadAlmacenamiento();
             ViewBag.tipoalmacenamiento = ObtenerTipoAlmacenamiento();
 
+
             if (ModelState.IsValid)
             {
 
-                var computadoraExistente = await _contexto.Computadoras.FindAsync(computadora.Id);
-
+                var computadoraExistente = await _contexto.Computadoras
+                                                    .Include(c => c.Almacenamientos)
+                                                    .FirstOrDefaultAsync(c => c.Id == computadora.Id);
                 if (computadoraExistente == null)
                 {
                     return NotFound();
@@ -585,6 +596,14 @@ namespace InventarioComputadoras.Controllers
                     computadoraExistente.DireccionIp = "Sin Direccion IP";
                 }
 
+                if (computadoraExistente != null)
+                {
+                    if (computadoraExistente.Almacenamientos != null && computadoraExistente.Almacenamientos.Count > 0)
+                    {
+                        ViewBag.Almacenamientos = computadoraExistente.Almacenamientos;
+                    }
+                }
+
 
                 computadoraExistente.SinAntivirus = computadora.SinAntivirus;
                 computadoraExistente.ConAntivirus = computadora.ConAntivirus;
@@ -619,6 +638,7 @@ namespace InventarioComputadoras.Controllers
                 computadoraExistente.AlmacenamientoMarca = computadora.AlmacenamientoMarca;
                 computadoraExistente.AlmacenamientoNumeroSerie = computadora.AlmacenamientoNumeroSerie;
                 computadoraExistente.AlmacenamientoNumeroParte = computadora.AlmacenamientoNumeroParte;
+                computadoraExistente.Almacenamientos = computadora.Almacenamientos;
 
 
                 _contexto.Update(computadoraExistente);
@@ -682,6 +702,7 @@ namespace InventarioComputadoras.Controllers
             return View(computador);
         }
 
+
         [HttpGet]
         public async Task<IActionResult> DetalleAdquisicion(int? id)
         {
@@ -703,6 +724,7 @@ namespace InventarioComputadoras.Controllers
 
             return View(computador);
         }
+
 
         [HttpGet]
         public async Task<IActionResult> DetalleHardware(int? id)
@@ -754,6 +776,7 @@ namespace InventarioComputadoras.Controllers
             return View(computador);
         }
 
+
         [HttpPost, ActionName("Borrar")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> BorrarComputador(int? id)
@@ -777,6 +800,7 @@ namespace InventarioComputadoras.Controllers
         {
             return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
         }
+
 
         public IActionResult Privacy()
         {
