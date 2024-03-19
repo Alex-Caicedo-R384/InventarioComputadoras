@@ -325,6 +325,8 @@ namespace InventarioComputadoras.Controllers
         [HttpGet]
         public IActionResult Crear()
         {
+            var computadora = new Computadora();
+            computadora.Almacenamientos = new List<Models.Almacenamiento>();
             ViewBag.Zonas = ObtenerZonas();
             ViewBag.Departamentos = ObtenerDepartamentos();
             ViewBag.sistemaoperativo = ObtenerSistemaOperativo();
@@ -339,7 +341,7 @@ namespace InventarioComputadoras.Controllers
             ViewBag.capacidadalmacenamiento = ObtenerCapacidadAlmacenamiento();
             ViewBag.tipoalmacenamiento = ObtenerTipoAlmacenamiento();
 
-            return View();
+            return View(computadora);
         }
 
         [HttpPost]
@@ -448,22 +450,20 @@ namespace InventarioComputadoras.Controllers
                 computadora.NombreNuevo = nombreNuevo;
 
                 _contexto.Computadoras.Add(computadora);
+                await _contexto.SaveChangesAsync();
 
-                if (computadora.Almacenamientos != null && computadora.Almacenamientos.Any())
+
+                if (computadora.Almacenamientos != null)
                 {
                     foreach (var almacenamiento in computadora.Almacenamientos)
                     {
                         almacenamiento.ComputadoraId = computadora.Id;
-
                     }
 
                     await _contexto.SaveChangesAsync();
                 }
-
                 return RedirectToAction(nameof(Index));
-
             }
-
             return View(computadora);
         }
 
