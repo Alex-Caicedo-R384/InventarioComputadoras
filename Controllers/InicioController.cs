@@ -327,6 +327,7 @@ namespace InventarioComputadoras.Controllers
         {
             var computadora = new Computadora();
             computadora.Almacenamientos = new List<Models.Almacenamiento>();
+            computadora.Almacenamientos.Add(new Models.Almacenamiento());
             ViewBag.Zonas = ObtenerZonas();
             ViewBag.Departamentos = ObtenerDepartamentos();
             ViewBag.sistemaoperativo = ObtenerSistemaOperativo();
@@ -452,16 +453,15 @@ namespace InventarioComputadoras.Controllers
                 _contexto.Computadoras.Add(computadora);
                 await _contexto.SaveChangesAsync();
 
-
                 if (computadora.Almacenamientos != null)
                 {
                     foreach (var almacenamiento in computadora.Almacenamientos)
                     {
-                        almacenamiento.ComputadoraId = computadora.Id;
+                        almacenamiento.ComputadoraId = computadora.Id; // Asociar el almacenamiento con la computadora
+                        _contexto.Almacenamientos.Add(almacenamiento); // Agregar el almacenamiento a la base de datos
                     }
-
-                    await _contexto.SaveChangesAsync();
                 }
+
                 return RedirectToAction(nameof(Index));
             }
             return View(computadora);
