@@ -135,7 +135,7 @@ namespace InventarioComputadoras.Models
         public string? AlmacenamientoNumeroParte { get; set; } 
 
 
-        public List<Almacenamiento>? Almacenamientos { get; set; }
+        public List<Almacenamiento> Almacenamientos { get; set; }
 
         public Computadora()
         {

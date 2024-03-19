@@ -538,7 +538,7 @@ namespace InventarioComputadoras.Controllers
 
             if (ModelState.IsValid)
             {
-               
+
                 var computadoraExistente = await _contexto.Computadoras.FindAsync(computadora.Id);
 
                 if (computadoraExistente == null)
@@ -714,8 +714,8 @@ namespace InventarioComputadoras.Controllers
 
             var computador = await _contexto.Computadoras
                 .Include(c => c.Almacenamientos)
-                .FirstOrDefaultAsync(c => c.Id == id); 
-            
+                .FirstOrDefaultAsync(c => c.Id == id);
+
             if (computador == null)
             {
                 return NotFound();
@@ -756,7 +756,7 @@ namespace InventarioComputadoras.Controllers
 
         [HttpPost, ActionName("Borrar")]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> BorrarComputador (int? id)
+        public async Task<IActionResult> BorrarComputador(int? id)
         {
             var computadora = await _contexto.Computadoras
                 .Include(c => c.Almacenamientos)

@@ -314,36 +314,45 @@
                         </div>
 
                         <div class="tab-pane fade" id="almacenamiento">
-                            <h2>Almacenamiento Adicional</h2>
                             <div id="almacenamientosAdicionales">
                                 <div class="almacenamiento-adicional">
-                                    <ul>
-                                        <li>
-                                            <label asp-for="Almacenamientos[0].TipoAlmacenamiento" class="control-label"></label>
-                                            <select asp-for="Almacenamientos[0].TipoAlmacenamiento" asp-items="ViewBag.tipoalmacenamiento" class="form-control"></select>
-                                            <span asp-validation-for="Almacenamientos[0].TipoAlmacenamiento" class="text-danger"></span>
-                                        </li>
-                                        <li>
-                                            <label asp-for="Almacenamientos[0].CapacidadAlmacenamiento" class="control-label"></label>
-                                            <select asp-for="Almacenamientos[0].CapacidadAlmacenamiento" asp-items="ViewBag.capacidadalmacenamiento" class="form-control"></select>
-                                            <span asp-validation-for="Almacenamientos[0].CapacidadAlmacenamiento" class="text-danger"></span>
-                                        </li>
-                                        <li>
-                                            <label asp-for="Almacenamientos[0].MarcaAlmacenamiento" class="control-label"></label>
-                                            <input asp-for="Almacenamientos[0].MarcaAlmacenamiento" class="form-control" placeholder="Ingresa la Marca del Disco Duro" />
-                                            <span asp-validation-for="Almacenamientos[0].MarcaAlmacenamiento" class="text-danger"></span>
-                                        </li>
-                                        <li>
-                                            <label asp-for="Almacenamientos[0].NumeroSerieAlmacenamiento" class="control-label"></label>
-                                            <input asp-for="Almacenamientos[0].NumeroSerieAlmacenamiento" class="form-control" placeholder="Ingresa el Número de Serie del Disco Duro" />
-                                            <span asp-validation-for="Almacenamientos[0].NumeroSerieAlmacenamiento" class="text-danger"></span>
-                                        </li>
-                                        <li>
-                                            <label asp-for="Almacenamientos[0].NumeroParteAlmacenamiento" class="control-label"></label>
-                                            <input asp-for="Almacenamientos[0].NumeroParteAlmacenamiento" class="form-control" placeholder="Ingresa el Número de Parte del Disco Duro" />
-                                            <span asp-validation-for="Almacenamientos[0].NumeroParteAlmacenamiento" class="text-danger"></span>
-                                        </li>
-                                    </ul>
+                                    @if (Model.Almacenamientos != null && Model.Almacenamientos.Any())
+                                    {
+                                        <ul>
+                                            @for (int i = 0; i < Model.Almacenamientos.Count; i++)
+                                            {
+                                                <li>
+                                                    <label asp-for="Almacenamientos[i].TipoAlmacenamiento" class="control-label"></label>
+                                                    <select asp-for="Almacenamientos[i].TipoAlmacenamiento" asp-items="ViewBag.tipoalmacenamiento" class="form-control"></select>
+                                                    <span asp-validation-for="Almacenamientos[i].TipoAlmacenamiento" class="text-danger"></span>
+                                                </li>
+                                                <li>
+                                                    <label asp-for="Almacenamientos[i].CapacidadAlmacenamiento" class="control-label"></label>
+                                                    <select asp-for="Almacenamientos[i].CapacidadAlmacenamiento" asp-items="ViewBag.capacidadalmacenamiento" class="form-control"></select>
+                                                    <span asp-validation-for="Almacenamientos[i].CapacidadAlmacenamiento" class="text-danger"></span>
+                                                </li>
+                                                <li>
+                                                    <label asp-for="Almacenamientos[i].MarcaAlmacenamiento" class="control-label"></label>
+                                                    <input asp-for="Almacenamientos[i].MarcaAlmacenamiento" class="form-control" placeholder="Ingresa la Marca del Disco Duro" />
+                                                    <span asp-validation-for="Almacenamientos[i].MarcaAlmacenamiento" class="text-danger"></span>
+                                                </li>
+                                                <li>
+                                                    <label asp-for="Almacenamientos[i].NumeroSerieAlmacenamiento" class="control-label"></label>
+                                                    <input asp-for="Almacenamientos[i].NumeroSerieAlmacenamiento" class="form-control" placeholder="Ingresa el Número de Serie del Disco Duro" />
+                                                    <span asp-validation-for="Almacenamientos[i].NumeroSerieAlmacenamiento" class="text-danger"></span>
+                                                </li>
+                                                <li>
+                                                    <label asp-for="Almacenamientos[i].NumeroParteAlmacenamiento" class="control-label"></label>
+                                                    <input asp-for="Almacenamientos[i].NumeroParteAlmacenamiento" class="form-control" placeholder="Ingresa el Número de Parte del Disco Duro" />
+                                                    <span asp-validation-for="Almacenamientos[i].NumeroParteAlmacenamiento" class="text-danger"></span>
+                                                </li>
+                                            }
+                                        </ul>
+                                    }
+                                    else
+                                    {
+                                        <p>No hay almacenamientos agregados.</p>
+                                    }
                                 </div>
                             </div>
                             <button type="button" class="btn btn-danger quitarAlmacenamiento">Quitar Almacenamiento</button>
@@ -358,8 +367,8 @@
 </div>
 
 @section Scripts {
-    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script>
 
         //----------SIN NOMBRE SCRIPT------------/
@@ -624,10 +633,8 @@
                 index++;
                 var clone = $('.almacenamiento-adicional').first().clone();
 
-                // Limpiar los valores de los campos clonados
                 clone.find('input, select').val('');
 
-                // Actualizar los id y names de los campos clonados para evitar duplicados
                 clone.find('[id]').each(function () {
                     var id = $(this).attr('id');
                     $(this).attr('id', id + '-' + index);
@@ -637,33 +644,27 @@
                     $(this).attr('name', name.replace('[0]', '[' + index + ']'));
                 });
 
-                // Agregar el clon al final de la lista de almacenamientos adicionales
                 $('#almacenamientosAdicionales').append(clone);
 
-                // Obtener las opciones de los select clonados y agregarlas
                 var tipoAlmacenamientoOptions = $('#Almacenamientos_0__TipoAlmacenamiento').html();
                 clone.find('select[name^="Almacenamientos[' + index + '].TipoAlmacenamiento"]').html(tipoAlmacenamientoOptions);
 
                 var capacidadAlmacenamientoOptions = $('#Almacenamientos_0__CapacidadAlmacenamiento').html();
                 clone.find('select[name^="Almacenamientos[' + index + '].CapacidadAlmacenamiento"]').html(capacidadAlmacenamientoOptions);
 
-                // Agregar labels para los campos clonados
                 clone.find('label').each(function () {
                     var labelText = $(this).text().trim();
                     $(this).attr('for', $(this).attr('for') + '-' + index).text(labelText + ' ' + (index + 1));
                 });
 
-                // Limpiar mensajes de validación para los campos clonados
                 clone.find('.text-danger').text('');
             });
 
-            // Función para quitar almacenamiento
             $(document).on('click', '.quitarAlmacenamiento', function () {
                 $(this).closest('.almacenamiento-adicional').remove();
             });
         });
 
-        // Función para quitar almacenamiento
         $(document).on('click', '.quitarAlmacenamiento', function () {
             $(this).closest('.almacenamiento-adicional').remove();
         });
