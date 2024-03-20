@@ -309,8 +309,7 @@
                             <!----------------------------------------------Botón--------------------------------------------------------------------------->
                             <div class="form-group mt-3">
                                 <button id="btnCrear" type="submit" class="btn btn-secondary d-block mx-auto" style="background-color: #5F51F3; border-color: #5F51F3; color: #ffffff;">Crear  Computador</button>
-                                <button type="button" id="sinAlmacenamientos" class="btn btn-warning">Sin Almacenamientos Adicionales</button>
-                                <button type="button" id="habilitarAlmacenamientos" class="btn btn-primary" style="display: none;">Habilitar Almacenamientos</button>
+                                <button type="button" id="habilitarAlmacenamientos" class="btn btn-primary" >Crear Almacenamientos Adicionales</button>
                             </div>
 
                             <!------------------------------------------------------------------------------------------------------------------------------>
@@ -323,32 +322,67 @@
                                         <button type="button" id="crearAlmacenamiento" class="btn btn-success">Crear Almacenamiento</button>
                                         <button type="button" id="quitarAlmacenamiento" class="btn btn-danger">Quitar Almacenamiento</button>
                                     </div>
-                                    <ul>
-                                        <li>
-                                            <label class="control-label">Tipo de Almacenamiento</label>
-                                            <select asp-for="Almacenamientos[0].TipoAlmacenamiento" asp-items="ViewBag.tipoalmacenamiento" class="form-control"></select>
-                                            <span asp-validation-for="Almacenamientos[0].TipoAlmacenamiento" class="text-danger"></span>
-                                        </li>
-                                        <li>
-                                            <label class="control-label">Capacidad de Almacenamiento</label>
-                                            <select asp-for="Almacenamientos[0].CapacidadAlmacenamiento" asp-items="ViewBag.capacidadalmacenamiento" class="form-control"></select>
-                                            <span asp-validation-for="Almacenamientos[0].CapacidadAlmacenamiento" class="text-danger"></span>
-                                        </li>
-                                        <li>
-                                            <label class="control-label">Marca de Almacenamiento</label>
-                                            <input asp-for="Almacenamientos[0].MarcaAlmacenamiento" class="form-control" placeholder="Ingresa la Marca del Disco Duro" />
-                                            <span asp-validation-for="Almacenamientos[0].MarcaAlmacenamiento" class="text-danger"></span>
-                                        </li>
-                                        <li>
-                                            <label class="control-label">Número de Serie</label>
-                                            <input asp-for="Almacenamientos[0].NumeroSerieAlmacenamiento" class="form-control" placeholder="Ingresa el Número de Serie del Disco Duro" />
-                                            <span asp-validation-for="Almacenamientos[0].NumeroSerieAlmacenamiento" class="text-danger"></span>
-                                        </li>
-                                        <li>
-                                            <label class="control-label">Número de Parte</label>
-                                            <input asp-for="Almacenamientos[0].NumeroParteAlmacenamiento" class="form-control" placeholder="Ingresa el Número de Parte del Disco Duro" />
-                                            <span asp-validation-for="Almacenamientos[0].NumeroParteAlmacenamiento" class="text-danger"></span>
-                                        </li>
+                                    <ul id="listaAlmacenamiento">
+                                        @if (Model.Almacenamientos.Count == 0)
+                                        {
+                                            <li>
+                                                <label class="control-label">Tipo de Almacenamiento</label>
+                                                <select asp-for="Almacenamientos[0].TipoAlmacenamiento" asp-items="ViewBag.tipoalmacenamiento" class="form-control"></select>
+                                                <span asp-validation-for="Almacenamientos[0].TipoAlmacenamiento" class="text-danger"></span>
+                                            </li>
+                                            <li>
+                                                <label class="control-label">Capacidad de Almacenamiento</label>
+                                                <select asp-for="Almacenamientos[0].CapacidadAlmacenamiento" asp-items="ViewBag.capacidadalmacenamiento" class="form-control"></select>
+                                                <span asp-validation-for="Almacenamientos[0].CapacidadAlmacenamiento" class="text-danger"></span>
+                                            </li>
+                                            <li>
+                                                <label class="control-label">Marca de Almacenamiento</label>
+                                                <input asp-for="Almacenamientos[0].MarcaAlmacenamiento" class="form-control" placeholder="Ingresa la Marca del Disco Duro" />
+                                                <span asp-validation-for="Almacenamientos[0].MarcaAlmacenamiento" class="text-danger"></span>
+                                            </li>
+                                            <li>
+                                                <label class="control-label">Número de Serie</label>
+                                                <input asp-for="Almacenamientos[0].NumeroSerieAlmacenamiento" class="form-control" placeholder="Ingresa el Número de Serie del Disco Duro" />
+                                                <span asp-validation-for="Almacenamientos[0].NumeroSerieAlmacenamiento" class="text-danger"></span>
+                                            </li>
+                                            <li>
+                                                <label class="control-label">Número de Parte</label>
+                                                <input asp-for="Almacenamientos[0].NumeroParteAlmacenamiento" class="form-control" placeholder="Ingresa el Número de Parte del Disco Duro" />
+                                                <span asp-validation-for="Almacenamientos[0].NumeroParteAlmacenamiento" class="text-danger"></span>
+                                            </li>
+                                        }
+                                        else
+                                        {
+                                            @for (var i = 1; i <= Model.Almacenamientos.Count; i++)
+                                            {
+                                                <li>
+                                                    <label class="control-label">Tipo de Almacenamiento @i</label>
+                                                    <select asp-for="Almacenamientos[i - 1].TipoAlmacenamiento" asp-items="ViewBag.tipoalmacenamiento" class="form-control"></select>
+                                                    <span asp-validation-for="Almacenamientos[i - 1].TipoAlmacenamiento" class="text-danger"></span>
+                                                </li>
+                                                <li>
+                                                    <label class="control-label">Capacidad de Almacenamiento @i</label>
+                                                    <select asp-for="Almacenamientos[i - 1].CapacidadAlmacenamiento" asp-items="ViewBag.capacidadalmacenamiento" class="form-control"></select>
+                                                    <span asp-validation-for="Almacenamientos[i - 1].CapacidadAlmacenamiento" class="text-danger"></span>
+                                                </li>
+                                                <li>
+                                                    <label class="control-label">Marca de Almacenamiento @i</label>
+                                                    <input asp-for="Almacenamientos[i - 1].MarcaAlmacenamiento" class="form-control" placeholder="Ingresa la Marca del Disco Duro" />
+                                                    <span asp-validation-for="Almacenamientos[i - 1].MarcaAlmacenamiento" class="text-danger"></span>
+                                                </li>
+                                                <li>
+                                                    <label class="control-label">Número de Serie @i</label>
+                                                    <input asp-for="Almacenamientos[i - 1].NumeroSerieAlmacenamiento" class="form-control" placeholder="Ingresa el Número de Serie del Disco Duro" />
+                                                    <span asp-validation-for="Almacenamientos[i - 1].NumeroSerieAlmacenamiento" class="text-danger"></span>
+                                                </li>
+                                                <li>
+                                                    <label class="control-label">Número de Parte @i</label>
+                                                    <input asp-for="Almacenamientos[i - 1].NumeroParteAlmacenamiento" class="form-control" placeholder="Ingresa el Número de Parte del Disco Duro" />
+                                                    <span asp-validation-for="Almacenamientos[i - 1].NumeroParteAlmacenamiento" class="text-danger"></span>
+                                                </li>
+                                                <hr>
+                                            }
+                                        }
                                     </ul>
                                 </div>
                             </div>
@@ -480,8 +514,7 @@
             });
         });
         //-------------------------------------------------------------------------------------------------------//
-
-       //----------LICENCIA OFFICE------------//
+        //-------------------------------------------LICENCIA OFFICE---------------------------------------------//
             document.addEventListener('DOMContentLoaded', function () {
             var conLicenciaOfficeCheck = document.getElementById('conLicenciaOfficeCheck');
             var sinLicenciaOfficeCheck = document.getElementById('sinLicenciaOfficeCheck');
@@ -554,8 +587,7 @@
             });
         });
         //-------------------------------------------------------------------------------------------------------//
-
-        //----------LICENCIA ANTIVIRUS------------//
+        //----------------------------------------LICENCIA ANTIVIRUS--------------------------------------------//
         document.addEventListener('DOMContentLoaded', function () {
             var conAntivirusCheck = document.getElementById('conAntivirusCheck');
             var sinAntivirusCheck = document.getElementById('sinAntivirusCheck');
@@ -604,69 +636,78 @@
             });
         });
         //-------------------------------------------------------------------------------------------------------//
+        //-----------------------------------AGREGAR ALMACENAMIENTO----------------------------------------------//
+        $(document).ready(function () {
+            var contador = @Model.Almacenamientos.Count;
+
+            $("#crearAlmacenamiento").click(function () {
+                contador++;
+                var nuevoCampo = `
+                            <li>
+                                <label class="control-label">Tipo de Almacenamiento ${contador}</label>
+                                <select name="Almacenamientos[${contador - 1}].TipoAlmacenamiento" class="form-control">
+        @foreach (var item in ViewBag.tipoalmacenamiento)
+        {
+                                             <option value="@item.Value">@item.Text</option>
+        }
+                                </select>
+                                <span class="text-danger"></span>
+                            </li>
+                            <li>
+                                <label class="control-label">Capacidad de Almacenamiento ${contador}</label>
+                                <select name="Almacenamientos[${contador - 1}].CapacidadAlmacenamiento" class="form-control">
+        @foreach (var item in ViewBag.capacidadalmacenamiento)
+        {
+                                             <option value="@item.Value">@item.Text</option>
+        }
+                                </select>
+                                <span class="text-danger"></span>
+                            </li>
+                            <li>
+                                <label class="control-label">Marca de Almacenamiento ${contador}</label>
+                                <input name="Almacenamientos[${contador - 1}].MarcaAlmacenamiento" class="form-control" placeholder="Ingresa la Marca del Disco Duro" />
+                                <span class="text-danger"></span>
+                            </li>
+                            <li>
+                                <label class="control-label">Número de Serie ${contador}</label>
+                                <input name="Almacenamientos[${contador - 1}].NumeroSerieAlmacenamiento" class="form-control" placeholder="Ingresa el Número de Serie del Disco Duro" />
+                                <span class="text-danger"></span>
+                            </li>
+                            <li>
+                                <label class="control-label">Número de Parte ${contador}</label>
+                                <input name="Almacenamientos[${contador - 1}].NumeroParteAlmacenamiento" class="form-control" placeholder="Ingresa el Número de Parte del Disco Duro" />
+                                <span class="text-danger"></span>
+                            </li>
+                            <hr>`;
+                $("#listaAlmacenamiento").append(nuevoCampo);
+            });
+
+            $("#quitarAlmacenamiento").click(function () {
+                if (contador > 0) {
+                    $("ul").children("li").slice(-5).remove();
+                    contador--;
+                }
+            });
+
+            $("#quitarAlmacenamientoPrimero").click(function () {
+                if (contador > 0) {
+                    $("ul").children("li").slice(0, 5).remove();
+                    contador--;
+                }
+            });
+        });
+        //-------------------------------------------------------------------------------------------------------//
         //-----------------------------------PESTAÑA-------------------------------------------------------------//
         $(document).ready(function () {
-            $("#sinAlmacenamientos").click(function () {
-                $("#almacenamientoTab").addClass("disabled");
-                $("#almacenamiento select, #almacenamiento input").prop("disabled", true);
-                $("#crearAlmacenamiento, #quitarAlmacenamiento").hide();
-                $(this).prop("disabled", true);
-                $("#habilitarAlmacenamientos").show();
-            });
-        
+            $("#almacenamientoTab").addClass("disabled");
+            $("#almacenamiento select, #almacenamiento input").prop("disabled", true);
+            $("#crearAlmacenamiento, #quitarAlmacenamiento").hide();
 
             $("#habilitarAlmacenamientos").click(function () {
                 $("#almacenamientoTab").removeClass("disabled");
                 $("#almacenamiento select, #almacenamiento input").prop("disabled", false);
                 $("#crearAlmacenamiento, #quitarAlmacenamiento").show();
                 $(this).hide();
-                $("#sinAlmacenamientos").prop("disabled", false);
-            });
-        });
-        //-------------------------------------------------------------------------------------------------------//
-        //-----------------------------------AGREGAR ALMACENAMIENTO----------------------------------------------//
-        $(document).ready(function () {
-            var index = 0;
-
-            $("#crearAlmacenamiento").click(function () {
-                index++;
-                var clone = $('#almacenamiento ul').first().clone();
-
-                clone.find('input, select').val('');
-
-                clone.find('[id]').each(function () {
-                    var id = $(this).attr('id');
-                    $(this).attr('id', id + '-' + index);
-                });
-                clone.find('[name]').each(function () {
-                    var name = $(this).attr('name');
-                    $(this).attr('name', name.replace('[0]', '[' + index + ']'));
-                });
-
-                $('#almacenamiento').append(clone);
-
-                var tipoAlmacenamientoOptions = $('select[name^="Almacenamientos[0].TipoAlmacenamiento"]').html();
-                clone.find('select[name^="Almacenamientos[' + index + '].TipoAlmacenamiento"]').html(tipoAlmacenamientoOptions);
-
-                var capacidadAlmacenamientoOptions = $('select[name^="Almacenamientos[0].CapacidadAlmacenamiento"]').html();
-                clone.find('select[name^="Almacenamientos[' + index + '].CapacidadAlmacenamiento"]').html(capacidadAlmacenamientoOptions);
-
-                clone.find('label').each(function () {
-                    var labelText = $(this).text().trim();
-                    $(this).attr('for', $(this).attr('for') + '-' + index).text(labelText + ' ' + (index + 1));
-                });
-
-                clone.find('.text-danger').text('');
-            });
-
-            $(document).on('click', '#quitarAlmacenamiento', function () {
-                var almacenamientos = $('#almacenamiento ul');
-                if (almacenamientos.length > 1) {
-                    almacenamientos.last().remove();
-                    index--;
-                } else {
-                    alert("No puedes eliminar el primer elemento.");
-                }
             });
         });
         //-------------------------------------------------------------------------------------------------------//

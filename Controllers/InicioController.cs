@@ -329,8 +329,17 @@ namespace InventarioComputadoras.Controllers
         public IActionResult Crear()
         {
             var computadora = new Computadora();
-            computadora.Almacenamientos = new List<Models.Almacenamiento>();
-            computadora.Almacenamientos.Add(new Models.Almacenamiento());
+
+            if (computadora.Almacenamientos == null)
+            {
+                computadora.Almacenamientos = new List<Models.Almacenamiento>();
+            }
+
+            if (computadora.Almacenamientos.Count == 0)
+            {
+                computadora.Almacenamientos.Add(new Models.Almacenamiento());
+            }
+
             ViewBag.Zonas = ObtenerZonas();
             ViewBag.Departamentos = ObtenerDepartamentos();
             ViewBag.sistemaoperativo = ObtenerSistemaOperativo();
@@ -503,27 +512,42 @@ namespace InventarioComputadoras.Controllers
                 return NotFound();
             }
 
-            var computador = _contexto.Computadoras.Find(Id);
-            if (computador == null)
+            var computadora = _contexto.Computadoras
+                        .Include(c => c.Almacenamientos)
+                        .FirstOrDefault(c => c.Id == Id);
+
+
+            if (computadora == null)
             {
                 return NotFound();
             }
 
-            ViewBag.SelectedZona = computador.Oficina;
-            ViewBag.SelectedDepartamento = computador.Departamento;
-            ViewBag.SelectedSistemaOperativo = computador.SistemaOperativo;
-            ViewBag.SelectedOffice = computador.Office;
-            ViewBag.SelectedAntivirus = computador.VersionAntivirus;
-            ViewBag.SelectedDominio = computador.Dominio;
-            ViewBag.SelectedEstado = computador.Estado;
-            ViewBag.SelectedTipo = computador.MemoriaRamTipo;
-            ViewBag.SelectedModulosRam = computador.MemoriaModulos;
-            ViewBag.SelectedTipoRam = computador.MemoriaRamTipo;
-            ViewBag.SelectedCapacidadRam = computador.MemoriaRamCapacidad;
-            ViewBag.SelectedCapacidadAlmacenamiento = computador.AlmacenamientoCapacidad;
-            ViewBag.SelectedTipoAlmacenamiento = computador.AlmacenamientoTipo;
+            if (computadora.Almacenamientos == null)
+            {
+                computadora.Almacenamientos = new List<Models.Almacenamiento>();
+            }
 
-            return View(computador);
+            if (computadora.Almacenamientos.Count == 0)
+            {
+                computadora.Almacenamientos.Add(new Models.Almacenamiento());
+            }
+
+            ViewBag.SelectedZona = computadora.Oficina;
+            ViewBag.SelectedDepartamento = computadora.Departamento;
+            ViewBag.SelectedSistemaOperativo = computadora.SistemaOperativo;
+            ViewBag.SelectedOffice = computadora.Office;
+            ViewBag.SelectedAntivirus = computadora.VersionAntivirus;
+            ViewBag.SelectedDominio = computadora.Dominio;
+            ViewBag.SelectedEstado = computadora.Estado;
+            ViewBag.SelectedTipo = computadora.MemoriaRamTipo;
+            ViewBag.SelectedModulosRam = computadora.MemoriaModulos;
+            ViewBag.SelectedTipoRam = computadora.MemoriaRamTipo;
+            ViewBag.SelectedCapacidadRam = computadora.MemoriaRamCapacidad;
+            ViewBag.SelectedCapacidadAlmacenamiento = computadora.AlmacenamientoCapacidad;
+            ViewBag.SelectedTipoAlmacenamiento = computadora.AlmacenamientoTipo;
+
+
+            return View(computadora);
         }
 
 
@@ -596,25 +620,17 @@ namespace InventarioComputadoras.Controllers
                     computadoraExistente.DireccionIp = "Sin Direccion IP";
                 }
 
-                if (computadoraExistente != null)
-                {
-                    if (computadoraExistente.Almacenamientos != null && computadoraExistente.Almacenamientos.Count > 0)
-                    {
-                        ViewBag.Almacenamientos = computadoraExistente.Almacenamientos;
-                    }
-                }
-
-
                 computadoraExistente.SinAntivirus = computadora.SinAntivirus;
                 computadoraExistente.ConAntivirus = computadora.ConAntivirus;
                 computadoraExistente.SinLicenciaOffice = computadora.SinLicenciaOffice;
                 computadoraExistente.ConLicenciaOffice = computadora.ConLicenciaOffice;
                 computadoraExistente.ConLicenciaSO = computadora.ConLicenciaSO;
-                computadoraExistente.SinLicenciaSO = computadoraExistente.SinLicenciaSO;
+                computadoraExistente.SinLicenciaSO = computadora.SinLicenciaSO;
                 computadoraExistente.Oficina = computadora.Oficina;
                 computadoraExistente.Departamento = computadora.Departamento;
                 computadoraExistente.SistemaOperativo = computadora.SistemaOperativo;
                 computadoraExistente.VersionOffice = computadora.VersionOffice;
+                computadoraExistente.VersionAntivirus = computadora.VersionAntivirus;
                 computadoraExistente.FechaOffice = computadora.FechaOffice;
                 computadoraExistente.Usuario = computadora.Usuario;
                 computadoraExistente.Dominio = computadora.Dominio;
@@ -638,14 +654,33 @@ namespace InventarioComputadoras.Controllers
                 computadoraExistente.AlmacenamientoMarca = computadora.AlmacenamientoMarca;
                 computadoraExistente.AlmacenamientoNumeroSerie = computadora.AlmacenamientoNumeroSerie;
                 computadoraExistente.AlmacenamientoNumeroParte = computadora.AlmacenamientoNumeroParte;
-                computadoraExistente.Almacenamientos = computadora.Almacenamientos;
-
 
                 _contexto.Update(computadoraExistente);
                 await _contexto.SaveChangesAsync();
+
+                if (computadoraExistente.Almacenamientos != null)
+                {
+                    foreach (var almacenamiento in computadoraExistente.Almacenamientos)
+                    {
+                        if (string.IsNullOrEmpty(almacenamiento.MarcaAlmacenamiento) ||
+                            string.IsNullOrEmpty(almacenamiento.NumeroSerieAlmacenamiento) ||
+                            string.IsNullOrEmpty(almacenamiento.NumeroParteAlmacenamiento))
+                        {
+                            continue;
+                        }
+                        else
+                        {
+                            _contexto.Almacenamientos.Update(almacenamiento);
+
+                        }
+                    }
+                }
+
+                computadoraExistente.Almacenamientos = computadora.Almacenamientos;
+
+                _contexto.SaveChanges();
                 return RedirectToAction(nameof(Index));
             }
-
             return View(computadora);
         }
 

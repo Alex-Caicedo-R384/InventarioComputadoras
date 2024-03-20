@@ -37,23 +37,28 @@
             <div class="card-body">
                 <ul class="list-group">
                     <li class="list-group-item custom-text-color"><strong>Estado Licencia de Windows: </strong> @Html.DisplayFor(m => m.LicenciaSO)</li>
+                    <ul>
+                        @if (Model.LicenciaSO == "Si")
+                        {
+                            <li class="list-group-item custom-text-color"><strong>Versión de Windows: </strong> @Html.DisplayFor(m => m.SistemaOperativo)</li>
+                        }
+                    </ul>
                     <li class="list-group-item custom-text-color"><strong>Estado Licencia de Office: </strong> @Html.DisplayFor(m => m.Office)</li>
-                    @if (Model.LicenciaSO == "Si")
-                    {
-                        <li class="list-group-item custom-text-color"><strong>Versión de Windows: </strong> @Html.DisplayFor(m => m.SistemaOperativo)</li>
-                    }
-                    @if (Model.Office == "Si")
-                    {
-                        <li class="list-group-item custom-text-color"><strong>Versión de Office:</strong> @Html.DisplayFor(m => m.VersionOffice)</li>
-                        <li class="list-group-item custom-text-color"><strong>Fecha Instalación de Office:</strong> @(Model.FechaOffice.HasValue ? Model.FechaOffice.Value.ToString("dd/MM/yyyy") : "")</li>
-                    }
+                    <ul>
+                        @if (Model.Office == "Si")
+                        {
+                            <li class="list-group-item custom-text-color"><strong>Versión de Office:</strong> @Html.DisplayFor(m => m.VersionOffice)</li>
+                            <li class="list-group-item custom-text-color"><strong>Fecha Instalación de Office:</strong> @(Model.FechaOffice.HasValue ? Model.FechaOffice.Value.ToString("dd/MM/yyyy") : "")</li>
+                        }
+                    </ul>
                     <li class="list-group-item custom-text-color"><strong>Estado Licencia de Antivirus: </strong> @Html.DisplayFor(m => m.LicenciaAntivirus)</li>
-                    @if (Model.LicenciaAntivirus == "Si")
-                    {
-                        <li class="list-group-item custom-text-color"><strong>Proveedor: </strong> @Html.DisplayFor(m => m.VersionAntivirus)</li>
+                    <ul>
+                        @if (Model.LicenciaAntivirus == "Si")
+                        {
+                            <li class="list-group-item custom-text-color"><strong>Proveedor: </strong> @Html.DisplayFor(m => m.VersionAntivirus)</li>
 
-                    }
-
+                        }
+                    </ul>
                 </ul>
                 <a asp-controller="Inicio" asp-action="Index" style="color: #fff;">Volver</a>
             </div>

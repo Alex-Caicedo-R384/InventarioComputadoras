@@ -76,9 +76,9 @@
                                 <label asp-for="DireccionIp" class="control-label"></label>
                                 <input asp-for="DireccionIp" class="form-control" placeholder="Ingresa la Dirección IP" />
                                 <div class="form-check">
-                                    <input class="form-check-input" type="checkbox" id="sinDireccionIPCheck">
+                                    <input class="form-check-input" type="checkbox" id="sinDireccionIPCheck" @(Model.SinDireccionIP ? "" : "checked")>
                                     <label class="form-check-label" for="sinDireccionIPCheck">
-                                        Sin Direccion IP
+                                        Sin Dirección IP
                                     </label>
                                 </div>
                                 <input type="hidden" asp-for="SinDireccionIP" id="sinDireccionIPHidden">
@@ -90,7 +90,7 @@
                             <!-------------------------------------------------Informacion de Software------------------------------------------------------>
                             <div class="form-group">
                                 <label asp-for="LicenciaSO" class="control-label"></label>
-                                <input asp-for="LicenciaSO" class="form-control" id="licenciaSOText" disabled value="Elija una opción" />
+                                <input asp-for="LicenciaSO" class="form-control" id="licenciaSOText" disabled placeholder="Elija una opción" />
                                 <div class="form-check mt-2">
                                     <input asp-for="ConLicenciaSO" type="checkbox" class="form-check-input" id="conLicenciaSOCheck" value="true">
                                     <label class="form-check-label" for="conLicenciaSOCheck">
@@ -115,7 +115,7 @@
                             <div class="form-group">
                                 <label asp-for="Office" class="control-label"></label>
                                 <div>
-                                    <input asp-for="Office" class="form-control" id="officeText" disabled value="Elija una opción" />
+                                    <input asp-for="Office" class="form-control" id="officeText" disabled placeholder="Elija una opción" />
                                 </div>
                                 <div class="form-check mt-2">
                                     <input asp-for="ConLicenciaOffice" type="checkbox" class="form-check-input" id="conLicenciaOfficeCheck" value="true">
@@ -146,7 +146,7 @@
                             <div class="form-group">
                                 <label asp-for="LicenciaAntivirus" class="control-label"></label>
                                 <div>
-                                    <input asp-for="LicenciaAntivirus" class="form-control" id="antivirusText" disabled value="Elija una opción" />
+                                    <input asp-for="LicenciaAntivirus" class="form-control" id="antivirusText" disabled placeholder="Elija una opción" />
                                 </div>
                                 <div class="form-check mt-2">
                                     <input asp-for="ConAntivirus" type="checkbox" class="form-check-input" id="conAntivirusCheck" value="true">
@@ -294,6 +294,7 @@
                             <!----------------------------------------------Botón--------------------------------------------------------------------------->
                             <div class="form-group mt-3">
                                 <button type="submit" class="btn btn-primary d-block mx-auto" style="background-color: #ffc107; border-color: #ffc107; color: #212529;">Editar Computador </button>
+                                <button type="button" id="habilitarAlmacenamientos" class="btn btn-primary" style="background-color: #2ab823; border-color: #2ab823; color: #fff;">Crear Almacenamientos</button>
                             </div>
                             <!------------------------------------------------------------------------------------------------------------------------------>
                         </div>
@@ -305,43 +306,68 @@
                                         <button type="button" id="crearAlmacenamiento" class="btn btn-success">Crear Almacenamiento</button>
                                         <button type="button" id="quitarAlmacenamiento" class="btn btn-danger">Quitar Almacenamiento</button>
                                     </div>
-                                    @if (ViewBag.Almacenamientos != null && ViewBag.Almacenamientos.Count > 0)
-                                    {
-                                        foreach (var almacenamiento in ViewBag.Almacenamientos)
+                                    <ul id="listaAlmacenamiento">
+                                        @if (Model.Almacenamientos.Count == 0)
                                         {
-                                            <ul>
-                                                <li>
-                                                    <label class="control-label">Tipo de Almacenamiento</label>
-                                                    <select asp-for="Almacenamientos[0].TipoAlmacenamiento" asp-items="ViewBag.tipoalmacenamiento" class="form-control"></select>
-                                                    <span asp-validation-for="Almacenamientos[0].TipoAlmacenamiento" class="text-danger"></span>
-                                                </li>
-                                                <li>
-                                                    <label class="control-label">Capacidad de Almacenamiento</label>
-                                                    <select asp-for="Almacenamientos[0].CapacidadAlmacenamiento" asp-items="ViewBag.capacidadalmacenamiento" class="form-control"></select>
-                                                    <span asp-validation-for="Almacenamientos[0].CapacidadAlmacenamiento" class="text-danger"></span>
-                                                </li>
-                                                <li>
-                                                    <label class="control-label">Marca de Almacenamiento</label>
-                                                    <input asp-for="Almacenamientos[0].MarcaAlmacenamiento" class="form-control" placeholder="Ingresa la Marca del Disco Duro" />
-                                                    <span asp-validation-for="Almacenamientos[0].MarcaAlmacenamiento" class="text-danger"></span>
-                                                </li>
-                                                <li>
-                                                    <label class="control-label">Número de Serie</label>
-                                                    <input asp-for="Almacenamientos[0].NumeroSerieAlmacenamiento" class="form-control" placeholder="Ingresa el Número de Serie del Disco Duro" />
-                                                    <span asp-validation-for="Almacenamientos[0].NumeroSerieAlmacenamiento" class="text-danger"></span>
-                                                </li>
-                                                <li>
-                                                    <label class="control-label">Número de Parte</label>
-                                                    <input asp-for="Almacenamientos[0].NumeroParteAlmacenamiento" class="form-control" placeholder="Ingresa el Número de Parte del Disco Duro" />
-                                                    <span asp-validation-for="Almacenamientos[0].NumeroParteAlmacenamiento" class="text-danger"></span>
-                                                </li>
-                                            </ul>
+                                            <li>
+                                                <label class="control-label">Tipo de Almacenamiento</label>
+                                                <select asp-for="Almacenamientos[0].TipoAlmacenamiento" asp-items="ViewBag.tipoalmacenamiento" class="form-control"></select>
+                                                <span asp-validation-for="Almacenamientos[0].TipoAlmacenamiento" class="text-danger"></span>
+                                            </li>
+                                            <li>
+                                                <label class="control-label">Capacidad de Almacenamiento</label>
+                                                <select asp-for="Almacenamientos[0].CapacidadAlmacenamiento" asp-items="ViewBag.capacidadalmacenamiento" class="form-control"></select>
+                                                <span asp-validation-for="Almacenamientos[0].CapacidadAlmacenamiento" class="text-danger"></span>
+                                            </li>
+                                            <li>
+                                                <label class="control-label">Marca de Almacenamiento</label>
+                                                <input asp-for="Almacenamientos[0].MarcaAlmacenamiento" class="form-control" placeholder="Ingresa la Marca del Disco Duro" />
+                                                <span asp-validation-for="Almacenamientos[0].MarcaAlmacenamiento" class="text-danger"></span>
+                                            </li>
+                                            <li>
+                                                <label class="control-label">Número de Serie</label>
+                                                <input asp-for="Almacenamientos[0].NumeroSerieAlmacenamiento" class="form-control" placeholder="Ingresa el Número de Serie del Disco Duro" />
+                                                <span asp-validation-for="Almacenamientos[0].NumeroSerieAlmacenamiento" class="text-danger"></span>
+                                            </li>
+                                            <li>
+                                                <label class="control-label">Número de Parte</label>
+                                                <input asp-for="Almacenamientos[0].NumeroParteAlmacenamiento" class="form-control" placeholder="Ingresa el Número de Parte del Disco Duro" />
+                                                <span asp-validation-for="Almacenamientos[0].NumeroParteAlmacenamiento" class="text-danger"></span>
+                                            </li>
                                         }
-                                    }
-                                    else
-                                    {
-                                        <strong style="color: #fff; font-weight: bold; font-size: 24px;">No hay almacenamientos adicionales.</strong>
-                                    }
+                                        else
+                                        {
+                                            @for (var i = 1; i <= Model.Almacenamientos.Count; i++)
+                                            {
+                                                <li>
+                                                    <label class="control-label">Tipo de Almacenamiento @i</label>
+                                                    <select asp-for="Almacenamientos[i - 1].TipoAlmacenamiento" asp-items="ViewBag.tipoalmacenamiento" class="form-control"></select>
+                                                    <span asp-validation-for="Almacenamientos[i - 1].TipoAlmacenamiento" class="text-danger"></span>
+                                                </li>
+                                                <li>
+                                                    <label class="control-label">Capacidad de Almacenamiento @i</label>
+                                                    <select asp-for="Almacenamientos[i - 1].CapacidadAlmacenamiento" asp-items="ViewBag.capacidadalmacenamiento" class="form-control"></select>
+                                                    <span asp-validation-for="Almacenamientos[i - 1].CapacidadAlmacenamiento" class="text-danger"></span>
+                                                </li>
+                                                <li>
+                                                    <label class="control-label">Marca de Almacenamiento @i</label>
+                                                    <input asp-for="Almacenamientos[i - 1].MarcaAlmacenamiento" class="form-control" placeholder="Ingresa la Marca del Disco Duro" />
+                                                    <span asp-validation-for="Almacenamientos[i - 1].MarcaAlmacenamiento" class="text-danger"></span>
+                                                </li>
+                                                <li>
+                                                    <label class="control-label">Número de Serie @i</label>
+                                                    <input asp-for="Almacenamientos[i - 1].NumeroSerieAlmacenamiento" class="form-control" placeholder="Ingresa el Número de Serie del Disco Duro" />
+                                                    <span asp-validation-for="Almacenamientos[i - 1].NumeroSerieAlmacenamiento" class="text-danger"></span>
+                                                </li>
+                                                <li>
+                                                    <label class="control-label">Número de Parte @i</label>
+                                                    <input asp-for="Almacenamientos[i - 1].NumeroParteAlmacenamiento" class="form-control" placeholder="Ingresa el Número de Parte del Disco Duro" />
+                                                    <span asp-validation-for="Almacenamientos[i - 1].NumeroParteAlmacenamiento" class="text-danger"></span>
+                                                </li>
+                                                <hr>
+                                            }
+                                        }
+                                    </ul>
                                 </div>
                             </div>
                         </div>
@@ -416,6 +442,8 @@
             var conLicenciaSOCheck = document.getElementById('conLicenciaSOCheck');
             var sinLicenciaSOCheck = document.getElementById('sinLicenciaSOCheck');
             var sistemaOperativoDiv = document.getElementById('sistemaOperativoDiv');
+            var sistemaOperativoSelect = document.getElementById('SistemaOperativo');
+
 
             conLicenciaSOCheck.addEventListener('change', function () {
                 if (this.checked) {
@@ -428,6 +456,7 @@
             sinLicenciaSOCheck.addEventListener('change', function () {
                 if (this.checked) {
                     sistemaOperativoDiv.style.display = 'none';
+                    sistemaOperativoSelect.selectedIndex = 0;
                 } else {
                     if (conLicenciaSOCheck.checked) {
                         sistemaOperativoDiv.style.display = 'block';
@@ -490,6 +519,8 @@
             var conLicenciaOfficeCheck = document.getElementById('conLicenciaOfficeCheck');
             var sinLicenciaSOCheck = document.getElementById('sinLicenciaOfficeCheck');
             var fechaofficeDiv = document.getElementById('fechaofficeDiv');
+            var versionOfficeSelect = document.getElementById('VersionOffice');
+            var fechaOfficeInput = document.getElementById('FechaOffice');
 
             conLicenciaOfficeCheck.addEventListener('change', function () {
                 if (this.checked) {
@@ -501,16 +532,19 @@
 
             sinLicenciaOfficeCheck.addEventListener('change', function () {
                 if (this.checked) {
+                    verofficeDiv.style.display = 'none';
                     fechaofficeDiv.style.display = 'none';
+                    versionOfficeSelect.selectedIndex = 0;
+                    fechaOfficeInput.value = '';
                 } else {
                     if (conLicenciaOfficeCheck.checked) {
+                        verofficeDiv.style.display = 'block';
                         fechaofficeDiv.style.display = 'block';
                     }
                 }
             });
         });
         //-------------------------------------------------------------------------------------------------------//
-
         //----------LICENCIA ANTIVIRUS------------//
         document.addEventListener('DOMContentLoaded', function () {
             var conAntivirusCheck = document.getElementById('conAntivirusCheck');
@@ -540,6 +574,7 @@
             var conAntivirusCheck = document.getElementById('conAntivirusCheck');
             var sinAntivirusCheck = document.getElementById('sinAntivirusCheck');
             var antivirusDiv = document.getElementById('antivirusDiv');
+            var versionAntivirusSelect = document.getElementById('VersionAntivirus');
 
             conAntivirusCheck.addEventListener('change', function () {
                 if (this.checked) {
@@ -552,6 +587,7 @@
             sinAntivirusCheck.addEventListener('change', function () {
                 if (this.checked) {
                     antivirusDiv.style.display = 'none';
+                    versionAntivirusSelect.selectedIndex = 0;
                 } else {
                     if (conAntivirusCheck.checked) {
                         antivirusDiv.style.display = 'block';
@@ -567,6 +603,21 @@
             $('#informacionBasicaTab, #licenciasTab, #estadoTab, #hardwareTab, #almacenamientoTab').on('click', function (e) {
                 e.preventDefault();
                 $(this).tab('show');
+            });
+        });
+
+        $(document).ready(function () {
+            // Al cargar la página, bloqueamos la pestaña de almacenamiento y sus campos
+            $("#almacenamientoTab").addClass("disabled");
+            $("#almacenamiento select, #almacenamiento input").prop("disabled", true);
+            $("#crearAlmacenamiento, #quitarAlmacenamiento").hide();
+
+            $("#habilitarAlmacenamientos").click(function () {
+                // Al hacer clic en "Habilitar Almacenamientos", desbloqueamos la pestaña de almacenamiento y sus campos
+                $("#almacenamientoTab").removeClass("disabled");
+                $("#almacenamiento select, #almacenamiento input").prop("disabled", false);
+                $("#crearAlmacenamiento, #quitarAlmacenamiento").show();
+                $(this).hide();
             });
         });
          //-------------------------------------------------------------------------------------------------------//
@@ -586,12 +637,12 @@
             var conAntivirusCheck = document.getElementById('conAntivirusCheck');
             var sinAntivirusCheck = document.getElementById('sinAntivirusCheck');
 
-            conLicenciaSOCheck.checked = conLicenciaSO;
-            sinLicenciaSOCheck.checked = sinLicenciaSO;
-            conLicenciaOfficeCheck.checked = conLicenciaOffice;
-            sinLicenciaOfficeCheck.checked = sinLicenciaOffice;
-            conAntivirusCheck.checked = conAntivirus;
-            sinAntivirusCheck.checked = sinAntivirus;
+            conLicenciaSOCheck.checked = !!conLicenciaSO;
+            sinLicenciaSOCheck.checked = !!sinLicenciaSO;
+            conLicenciaOfficeCheck.checked = !!conLicenciaOffice;
+            sinLicenciaOfficeCheck.checked = !!sinLicenciaOffice;
+            conAntivirusCheck.checked = !!conAntivirus;
+            sinAntivirusCheck.checked = !!sinAntivirus;
 
             var sistemaOperativoDiv = document.getElementById('sistemaOperativoDiv');
             var verofficeDiv = document.getElementById('verofficeDiv');
@@ -616,54 +667,65 @@
             }
         });
         //-------------------------------------------------------------------------------------------------------//
-        //-----------------------------------CHECKBOXES-----------------------------------------------------------//
+        //-----------------------------------ALMACENAMIENTO CREAR------------------------------------------------//
         $(document).ready(function () {
-            var index = 0;
+            var contador = @Model.Almacenamientos.Count;
 
             $("#crearAlmacenamiento").click(function () {
-                index++;
-                var clone = $('#almacenamiento ul').first().clone();
-
-                clone.find('input, select').val('');
-
-                clone.find('[id]').each(function () {
-                    var id = $(this).attr('id');
-                    $(this).attr('id', id + '-' + index);
-                });
-                clone.find('[name]').each(function () {
-                    var name = $(this).attr('name');
-                    $(this).attr('name', name.replace('[0]', '[' + index + ']'));
-                });
-
-                $('#almacenamiento').append(clone);
-
-                var tipoAlmacenamientoOptions = $('select[name^="Almacenamientos[0].TipoAlmacenamiento"]').html();
-                clone.find('select[name^="Almacenamientos[' + index + '].TipoAlmacenamiento"]').html(tipoAlmacenamientoOptions);
-
-                var capacidadAlmacenamientoOptions = $('select[name^="Almacenamientos[0].CapacidadAlmacenamiento"]').html();
-                clone.find('select[name^="Almacenamientos[' + index + '].CapacidadAlmacenamiento"]').html(capacidadAlmacenamientoOptions);
-
-                clone.find('label').each(function () {
-                    var labelText = $(this).text().trim();
-                    $(this).attr('for', $(this).attr('for') + '-' + index).text(labelText + ' ' + (index + 1));
-                });
-
-                clone.find('.text-danger').text('');
+                contador++;
+                var nuevoCampo = `
+                    <li>
+                        <label class="control-label">Tipo de Almacenamiento ${contador}</label>
+                        <select name="Almacenamientos[${contador - 1}].TipoAlmacenamiento" class="form-control">
+                            @foreach (var item in ViewBag.tipoalmacenamiento)
+                            {
+                                 <option value="@item.Value">@item.Text</option>
+                            }
+                        </select>
+                        <span class="text-danger"></span>
+                    </li>
+                    <li>
+                        <label class="control-label">Capacidad de Almacenamiento ${contador}</label>
+                        <select name="Almacenamientos[${contador - 1}].CapacidadAlmacenamiento" class="form-control">
+                            @foreach (var item in ViewBag.capacidadalmacenamiento)
+                            {
+                                 <option value="@item.Value">@item.Text</option>
+                            }
+                        </select>
+                        <span class="text-danger"></span>
+                    </li>
+                    <li>
+                        <label class="control-label">Marca de Almacenamiento ${contador}</label>
+                        <input name="Almacenamientos[${contador - 1}].MarcaAlmacenamiento" class="form-control" placeholder="Ingresa la Marca del Disco Duro" />
+                        <span class="text-danger"></span>
+                    </li>
+                    <li>
+                        <label class="control-label">Número de Serie ${contador}</label>
+                        <input name="Almacenamientos[${contador - 1}].NumeroSerieAlmacenamiento" class="form-control" placeholder="Ingresa el Número de Serie del Disco Duro" />
+                        <span class="text-danger"></span>
+                    </li>
+                    <li>
+                        <label class="control-label">Número de Parte ${contador}</label>
+                        <input name="Almacenamientos[${contador - 1}].NumeroParteAlmacenamiento" class="form-control" placeholder="Ingresa el Número de Parte del Disco Duro" />
+                        <span class="text-danger"></span>
+                    </li>
+                    <hr>`;
+                $("#listaAlmacenamiento").append(nuevoCampo);
             });
 
-            $(document).on('click', '#quitarAlmacenamiento', function () {
-                var almacenamientos = $('#almacenamiento ul');
-                if (almacenamientos.length > 1) {
-                    almacenamientos.last().remove();
-                    index--;
-                } else {
-                    alert("No puedes eliminar el primer elemento.");
+            $("#quitarAlmacenamiento").click(function () {
+                if (contador > 0) {
+                    $("ul").children("li").slice(-5).remove();
+                    contador--;
                 }
             });
-            // Verificar si no hay campos y crear uno si es necesario
-            if ($('#almacenamiento ul').length === 0) {
-                agregarCampoAlmacenamiento();
-            }
+
+            $("#quitarAlmacenamientoPrimero").click(function () {
+                if (contador > 0) {
+                    $("ul").children("li").slice(0, 5).remove();
+                    contador--;
+                }
+            });
         });
         //--------------------------------------------------------------------------------------------------------//
     </script>
@@ -672,6 +734,10 @@
 <style>
     body {
         background-color: #d9d9d9;
+    }
+
+    .form-control::placeholder {
+        color: #7f7a75;
     }
 
     .card-body {
