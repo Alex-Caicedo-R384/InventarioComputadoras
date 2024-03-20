@@ -105,11 +105,20 @@
     }
 
     #tblComputadoras {
-        border: 0.5px; /* ancho de borde */
-        border-style: inset; /* Estilo del borde */
-        border-color: #828282;
-        box-sizing: border-box; /* Incluye el borde en el tamaño total del elemento */
+        border: 1px solid #828282; /* Borde sólido de 1px */
+        border-radius: 5px; /* Esquinas redondeadas */
+        box-sizing: border-box;
+        width: 100%; /* Opcional: ajusta el ancho de la tabla */
     }
+
+        #tblComputadoras th {
+            text-align: center; /* Alineación del texto en el centro */
+        }
+
+        #tblComputadoras tr:hover {
+            background-color: #eaeaea; /* Estilo de hover para resaltar las filas */
+        }
+
 
     /* Estilos para el fondo del menú desplegable */
     .dropdown-menu {

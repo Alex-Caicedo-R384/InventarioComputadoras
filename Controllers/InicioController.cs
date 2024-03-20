@@ -338,7 +338,7 @@ namespace InventarioComputadoras.Controllers
             if (computadora.Almacenamientos.Count == 0)
             {
                 computadora.Almacenamientos.Add(new Models.Almacenamiento());
-            }
+            }   
 
             ViewBag.Zonas = ObtenerZonas();
             ViewBag.Departamentos = ObtenerDepartamentos();
