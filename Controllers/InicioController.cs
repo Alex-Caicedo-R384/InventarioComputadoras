@@ -673,7 +673,6 @@ namespace InventarioComputadoras.Controllers
                         }
                     }
                 }
-
                 computadoraExistente.Almacenamientos = computadora.Almacenamientos;
 
                 _contexto.SaveChanges();
