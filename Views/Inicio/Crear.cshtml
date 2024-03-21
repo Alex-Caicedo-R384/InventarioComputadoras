@@ -202,104 +202,104 @@
 
                         </div>
                         <div class="tab-pane fade" id="hardware">
+                            <div id="botonesAlmacenamientoAdicional" class="contenedor-boton">
+                                <button type="button" id="habilitarAlmacenamientos" class="btn btn-primary" style="background-color: #2ab823; border-color: #2ab823; color: #fff;">Crear Almacenamientos</button>
+                            </div>
                             <!------------------------------------------------HARDWARE---------------------------------------------------------------------->
-                            <div class="form-group">
+                            <h2>HARDWARE</h2>
+                            <div class="form-group" style="color: #ffc0cb; font-weight: lighter;">
                                 <label asp-for="Tipo" class="control-label"></label>
                                 <select asp-for="Tipo" asp-items="ViewBag.tipo" class="form-control"></select>
                                 <span asp-validation-for="Tipo" class="text-danger"></span>
                             </div>
-
-
-                            <div class="form-group">
+                            
+                            <div class="form-group" style="color: #ffc0cb; font-weight: lighter;">
                                 <label asp-for="Marca" class="control-label"></label>
                                 <input asp-for="Marca" class="form-control" placeholder="Ingresa la Marca del Dispositivo" />
                                 <span asp-validation-for="Marca" class="text-danger"></span>
                             </div>
 
-                            <div class="form-group">
+                            <div class="form-group" style="color: #ffc0cb; font-weight: lighter;">
                                 <label asp-for="NParte" class="control-label"></label>
                                 <input asp-for="NParte" class="form-control" placeholder="Ingresa el Número de Parte" />
                                 <span asp-validation-for="NParte" class="text-danger"></span>
                             </div>
 
-
-                            <div class="form-group">
+                            <div class="form-group" style="color: #ffc0cb; font-weight: lighter;">
                                 <label asp-for="NSerie" class="control-label"></label>
                                 <input asp-for="NSerie" class="form-control" placeholder="Ingresa el Número de Serie" />
                                 <span asp-validation-for="NSerie" class="text-danger"></span>
                             </div>
 
-
-                            <div class="form-group">
+                            <div class="form-group" style="color: #ffc0cb; font-weight: lighter;">
                                 <label asp-for="MotherBoard" class="control-label"></label>
                                 <input asp-for="MotherBoard" class="form-control" placeholder="Ingresa la MotherBoard" />
                                 <span asp-validation-for="MotherBoard" class="text-danger"></span>
                             </div>
 
-
-                            <div class="form-group">
+                            <div class="form-group" style="color: #ffc0cb; font-weight: lighter;">
                                 <label asp-for="Procesador" class="control-label"></label>
                                 <input asp-for="Procesador" class="form-control" placeholder="Ingresa el Procesador" />
                                 <span asp-validation-for="Procesador" class="text-danger"></span>
                             </div>
 
-                            <h2>Memoria RAM</h2>
+                            <h2>MEMORIA RAM</h2>
                             <ul>
-                                <li>
+                                <li style="color: #ffc0cb; font-weight: lighter;">
                                     <label asp-for="MemoriaRamTipo" class="control-label"></label>
                                     <select asp-for="MemoriaRamTipo" asp-items="ViewBag.tiporam" class="form-control"></select>
                                     <span asp-validation-for="MemoriaRamTipo" class="text-danger"></span>
                                 </li>
-                                <li>
+                                <li style="color: #ffc0cb; font-weight: lighter;">
                                     <label asp-for="MemoriaModulos" class="control-label"></label>
                                     <select asp-for="MemoriaModulos" asp-items="ViewBag.modulosram" class="form-control"></select>
                                     <span asp-validation-for="MemoriaModulos" class="text-danger"></span>
                                 </li>
-                                <li>
+                                <li style="color: #ffc0cb; font-weight: lighter;">
                                     <label asp-for="MemoriaRamCapacidad" class="control-label"></label>
                                     <select asp-for="MemoriaRamCapacidad" asp-items="ViewBag.capacidadram" class="form-control"></select>
                                     <span asp-validation-for="MemoriaRamCapacidad" class="text-danger"></span>
                                 </li>
-                                <li>
+                                <li style="color: #ffc0cb; font-weight: lighter;">
                                     <label asp-for="MemoriaRamMarca" class="control-label"></label>
                                     <input asp-for="MemoriaRamMarca" class="form-control" placeholder="Ingresa la Marca de la Memoria Ram" />
                                     <span asp-validation-for="MemoriaRamMarca" class="text-danger"></span>
                                 </li>
-                                <li>
+                                <li style="color: #ffc0cb; font-weight: lighter;">
                                     <label asp-for="MemoriaRamNumeroSerie" class="control-label"></label>
                                     <input asp-for="MemoriaRamNumeroSerie" class="form-control" placeholder="Ingresa el Número de Serie de la Memoria RAM" />
                                     <span asp-validation-for="MemoriaRamNumeroSerie" class="text-danger"></span>
                                 </li>
-                                <li>
+                                <li style="color: #ffc0cb; font-weight: lighter;">
                                     <label asp-for="MemoriaRamNumeroParte" class="control-label"></label>
                                     <input asp-for="MemoriaRamNumeroParte" class="form-control" placeholder="Ingresa el Número de Parte de la Memoria RAM" />
                                     <span asp-validation-for="MemoriaRamNumeroParte" class="text-danger"></span>
                                 </li>
                             </ul>
 
-                            <h2>Almacenamiento</h2>
+                            <h2>ALMACENAMIENTO</h2>
                             <ul>
-                                <li>
+                                <li style="color: #ffc0cb; font-weight: lighter;">
                                     <label asp-for="AlmacenamientoTipo" class="control-label"></label>
                                     <select asp-for="AlmacenamientoTipo" asp-items="ViewBag.tipoalmacenamiento" class="form-control"></select>
                                     <span asp-validation-for="AlmacenamientoTipo" class="text-danger"></span>
                                 </li>
-                                <li>
+                                <li style="color: #ffc0cb; font-weight: lighter;">
                                     <label asp-for="AlmacenamientoCapacidad" class="control-label"></label>
                                     <select asp-for="AlmacenamientoCapacidad" asp-items="ViewBag.capacidadalmacenamiento" class="form-control"></select>
                                     <span asp-validation-for="AlmacenamientoCapacidad" class="text-danger"></span>
                                 </li>
-                                <li>
+                                <li style="color: #ffc0cb; font-weight: lighter;">
                                     <label asp-for="AlmacenamientoMarca" class="control-label"></label>
                                     <input asp-for="AlmacenamientoMarca" class="form-control" placeholder="Ingresa la Marca del Disco Duro" />
                                     <span asp-validation-for="AlmacenamientoMarca" class="text-danger"></span>
                                 </li>
-                                <li>
+                                <li style="color: #ffc0cb; font-weight: lighter;">
                                     <label asp-for="AlmacenamientoNumeroSerie" class="control-label"></label>
                                     <input asp-for="AlmacenamientoNumeroSerie" class="form-control" placeholder="Ingresa el Número de Serie del Disco Duro" />
                                     <span asp-validation-for="AlmacenamientoNumeroSerie" class="text-danger"></span>
                                 </li>
-                                <li>
+                                <li style="color: #ffc0cb; font-weight: lighter;">
                                     <label asp-for="AlmacenamientoNumeroParte" class="control-label"></label>
                                     <input asp-for="AlmacenamientoNumeroParte" class="form-control" placeholder="Ingresa el Número de Parte del Disco Duro" />
                                     <span asp-validation-for="AlmacenamientoNumeroParte" class="text-danger"></span>
@@ -309,7 +309,6 @@
                             <!----------------------------------------------Botón--------------------------------------------------------------------------->
                             <div class="form-group mt-3">
                                 <button id="btnCrear" type="submit" class="btn btn-secondary d-block mx-auto" style="background-color: #5F51F3; border-color: #5F51F3; color: #ffffff;">Crear  Computador</button>
-                                <button type="button" id="habilitarAlmacenamientos" class="btn btn-primary" >Crear Almacenamientos Adicionales</button>
                             </div>
 
                             <!------------------------------------------------------------------------------------------------------------------------------>
@@ -318,34 +317,34 @@
                         <div class="tab-pane fade" id="almacenamiento">
                             <div>
                                 <div>
-                                    <div id="botonesAlmacenamiento">
-                                        <button type="button" id="crearAlmacenamiento" class="btn btn-success">Crear Almacenamiento</button>
-                                        <button type="button" id="quitarAlmacenamiento" class="btn btn-danger">Quitar Almacenamiento</button>
+                                    <div id="botonesAlmacenamiento" class="contenedor-botones">
+                                        <button type="button" id="crearAlmacenamiento" class="btn btn-primary" style="background-color: #2ab823; border-color: #2ab823; color: #fff;">Crear Almacenamiento</button>
+                                        <button type="button" id="quitarAlmacenamiento" class="btn btn-secondary" style="background-color: #D41B1B; border-color: #D41B1B; color: #ffffff;">Quitar Almacenamiento</button>
                                     </div>
                                     <ul id="listaAlmacenamiento">
                                         @if (Model.Almacenamientos.Count == 0)
                                         {
-                                            <li>
+                                            <li style="color: #ffc0cb; font-weight: lighter;">
                                                 <label class="control-label">Tipo de Almacenamiento</label>
                                                 <select asp-for="Almacenamientos[0].TipoAlmacenamiento" asp-items="ViewBag.tipoalmacenamiento" class="form-control"></select>
                                                 <span asp-validation-for="Almacenamientos[0].TipoAlmacenamiento" class="text-danger"></span>
                                             </li>
-                                            <li>
+                                            <li style="color: #ffc0cb; font-weight: lighter;">
                                                 <label class="control-label">Capacidad de Almacenamiento</label>
                                                 <select asp-for="Almacenamientos[0].CapacidadAlmacenamiento" asp-items="ViewBag.capacidadalmacenamiento" class="form-control"></select>
                                                 <span asp-validation-for="Almacenamientos[0].CapacidadAlmacenamiento" class="text-danger"></span>
                                             </li>
-                                            <li>
+                                            <li style="color: #ffc0cb; font-weight: lighter;">
                                                 <label class="control-label">Marca de Almacenamiento</label>
                                                 <input asp-for="Almacenamientos[0].MarcaAlmacenamiento" class="form-control" placeholder="Ingresa la Marca del Disco Duro" />
                                                 <span asp-validation-for="Almacenamientos[0].MarcaAlmacenamiento" class="text-danger"></span>
                                             </li>
-                                            <li>
+                                            <li style="color: #ffc0cb; font-weight: lighter;">
                                                 <label class="control-label">Número de Serie</label>
                                                 <input asp-for="Almacenamientos[0].NumeroSerieAlmacenamiento" class="form-control" placeholder="Ingresa el Número de Serie del Disco Duro" />
                                                 <span asp-validation-for="Almacenamientos[0].NumeroSerieAlmacenamiento" class="text-danger"></span>
                                             </li>
-                                            <li>
+                                            <li style="color: #ffc0cb; font-weight: lighter;">
                                                 <label class="control-label">Número de Parte</label>
                                                 <input asp-for="Almacenamientos[0].NumeroParteAlmacenamiento" class="form-control" placeholder="Ingresa el Número de Parte del Disco Duro" />
                                                 <span asp-validation-for="Almacenamientos[0].NumeroParteAlmacenamiento" class="text-danger"></span>
@@ -355,27 +354,27 @@
                                         {
                                             @for (var i = 1; i <= Model.Almacenamientos.Count; i++)
                                             {
-                                                <li>
+                                                <li style="color: #ffc0cb; font-weight: lighter;">
                                                     <label class="control-label">Tipo de Almacenamiento @i</label>
                                                     <select asp-for="Almacenamientos[i - 1].TipoAlmacenamiento" asp-items="ViewBag.tipoalmacenamiento" class="form-control"></select>
                                                     <span asp-validation-for="Almacenamientos[i - 1].TipoAlmacenamiento" class="text-danger"></span>
                                                 </li>
-                                                <li>
+                                                <li style="color: #ffc0cb; font-weight: lighter;">
                                                     <label class="control-label">Capacidad de Almacenamiento @i</label>
                                                     <select asp-for="Almacenamientos[i - 1].CapacidadAlmacenamiento" asp-items="ViewBag.capacidadalmacenamiento" class="form-control"></select>
                                                     <span asp-validation-for="Almacenamientos[i - 1].CapacidadAlmacenamiento" class="text-danger"></span>
                                                 </li>
-                                                <li>
+                                                <li style="color: #ffc0cb; font-weight: lighter;">
                                                     <label class="control-label">Marca de Almacenamiento @i</label>
                                                     <input asp-for="Almacenamientos[i - 1].MarcaAlmacenamiento" class="form-control" placeholder="Ingresa la Marca del Disco Duro" />
                                                     <span asp-validation-for="Almacenamientos[i - 1].MarcaAlmacenamiento" class="text-danger"></span>
                                                 </li>
-                                                <li>
+                                                <li style="color: #ffc0cb; font-weight: lighter;">
                                                     <label class="control-label">Número de Serie @i</label>
                                                     <input asp-for="Almacenamientos[i - 1].NumeroSerieAlmacenamiento" class="form-control" placeholder="Ingresa el Número de Serie del Disco Duro" />
                                                     <span asp-validation-for="Almacenamientos[i - 1].NumeroSerieAlmacenamiento" class="text-danger"></span>
                                                 </li>
-                                                <li>
+                                                <li style="color: #ffc0cb; font-weight: lighter;">
                                                     <label class="control-label">Número de Parte @i</label>
                                                     <input asp-for="Almacenamientos[i - 1].NumeroParteAlmacenamiento" class="form-control" placeholder="Ingresa el Número de Parte del Disco Duro" />
                                                     <span asp-validation-for="Almacenamientos[i - 1].NumeroParteAlmacenamiento" class="text-danger"></span>
@@ -489,11 +488,13 @@
             });
         });
 
-        
+
         document.addEventListener('DOMContentLoaded', function () {
             var conLicenciaSOCheck = document.getElementById('conLicenciaSOCheck');
             var sinLicenciaSOCheck = document.getElementById('sinLicenciaSOCheck');
             var sistemaOperativoDiv = document.getElementById('sistemaOperativoDiv');
+            var sistemaOperativoSelect = document.getElementById('SistemaOperativo');
+
 
             conLicenciaSOCheck.addEventListener('change', function () {
                 if (this.checked) {
@@ -506,6 +507,7 @@
             sinLicenciaSOCheck.addEventListener('change', function () {
                 if (this.checked) {
                     sistemaOperativoDiv.style.display = 'none';
+                    sistemaOperativoSelect.selectedIndex = 0;
                 } else {
                     if (conLicenciaSOCheck.checked) {
                         sistemaOperativoDiv.style.display = 'block';
@@ -515,7 +517,7 @@
         });
         //-------------------------------------------------------------------------------------------------------//
         //-------------------------------------------LICENCIA OFFICE---------------------------------------------//
-            document.addEventListener('DOMContentLoaded', function () {
+        document.addEventListener('DOMContentLoaded', function () {
             var conLicenciaOfficeCheck = document.getElementById('conLicenciaOfficeCheck');
             var sinLicenciaOfficeCheck = document.getElementById('sinLicenciaOfficeCheck');
             var officeText = document.getElementById('officeText');
@@ -567,6 +569,8 @@
             var conLicenciaOfficeCheck = document.getElementById('conLicenciaOfficeCheck');
             var sinLicenciaSOCheck = document.getElementById('sinLicenciaOfficeCheck');
             var fechaofficeDiv = document.getElementById('fechaofficeDiv');
+            var versionOfficeSelect = document.getElementById('VersionOffice');
+            var fechaOfficeInput = document.getElementById('FechaOffice');
 
             conLicenciaOfficeCheck.addEventListener('change', function () {
                 if (this.checked) {
@@ -578,9 +582,13 @@
 
             sinLicenciaOfficeCheck.addEventListener('change', function () {
                 if (this.checked) {
+                    verofficeDiv.style.display = 'none';
                     fechaofficeDiv.style.display = 'none';
+                    versionOfficeSelect.selectedIndex = 0;
+                    fechaOfficeInput.value = '';
                 } else {
                     if (conLicenciaOfficeCheck.checked) {
+                        verofficeDiv.style.display = 'block';
                         fechaofficeDiv.style.display = 'block';
                     }
                 }
@@ -616,6 +624,7 @@
             var conAntivirusCheck = document.getElementById('conAntivirusCheck');
             var sinAntivirusCheck = document.getElementById('sinAntivirusCheck');
             var antivirusDiv = document.getElementById('antivirusDiv');
+            var versionAntivirusSelect = document.getElementById('VersionAntivirus');
 
             conAntivirusCheck.addEventListener('change', function () {
                 if (this.checked) {
@@ -628,6 +637,7 @@
             sinAntivirusCheck.addEventListener('change', function () {
                 if (this.checked) {
                     antivirusDiv.style.display = 'none';
+                    versionAntivirusSelect.selectedIndex = 0;
                 } else {
                     if (conAntivirusCheck.checked) {
                         antivirusDiv.style.display = 'block';
@@ -643,8 +653,8 @@
             $("#crearAlmacenamiento").click(function () {
                 contador++;
                 var nuevoCampo = `
-                            <li>
-                                <label class="control-label">Tipo de Almacenamiento ${contador}</label>
+                                        <li style="color: #ffc0cb; font-weight: lighter;">
+                                        <label class="control-label">Tipo de Almacenamiento ${contador}</label>
                                 <select name="Almacenamientos[${contador - 1}].TipoAlmacenamiento" class="form-control">
         @foreach (var item in ViewBag.tipoalmacenamiento)
         {
@@ -653,8 +663,8 @@
                                 </select>
                                 <span class="text-danger"></span>
                             </li>
-                            <li>
-                                <label class="control-label">Capacidad de Almacenamiento ${contador}</label>
+                                        <li style="color: #ffc0cb; font-weight: lighter;">
+                                        <label class="control-label">Capacidad de Almacenamiento ${contador}</label>
                                 <select name="Almacenamientos[${contador - 1}].CapacidadAlmacenamiento" class="form-control">
         @foreach (var item in ViewBag.capacidadalmacenamiento)
         {
@@ -663,18 +673,18 @@
                                 </select>
                                 <span class="text-danger"></span>
                             </li>
-                            <li>
-                                <label class="control-label">Marca de Almacenamiento ${contador}</label>
+                                        <li style="color: #ffc0cb; font-weight: lighter;">
+                                        <label class="control-label">Marca de Almacenamiento ${contador}</label>
                                 <input name="Almacenamientos[${contador - 1}].MarcaAlmacenamiento" class="form-control" placeholder="Ingresa la Marca del Disco Duro" />
                                 <span class="text-danger"></span>
                             </li>
-                            <li>
+                                <li style="color: #ffc0cb; font-weight: lighter;">
                                 <label class="control-label">Número de Serie ${contador}</label>
                                 <input name="Almacenamientos[${contador - 1}].NumeroSerieAlmacenamiento" class="form-control" placeholder="Ingresa el Número de Serie del Disco Duro" />
                                 <span class="text-danger"></span>
                             </li>
-                            <li>
-                                <label class="control-label">Número de Parte ${contador}</label>
+                                        <li style="color: #ffc0cb; font-weight: lighter;">
+                                        <label class="control-label">Número de Parte ${contador}</label>
                                 <input name="Almacenamientos[${contador - 1}].NumeroParteAlmacenamiento" class="form-control" placeholder="Ingresa el Número de Parte del Disco Duro" />
                                 <span class="text-danger"></span>
                             </li>
@@ -685,6 +695,7 @@
             $("#quitarAlmacenamiento").click(function () {
                 if (contador > 0) {
                     $("ul").children("li").slice(-5).remove();
+                    $("ul").children("hr").last().remove(); // Eliminar el último <hr>
                     contador--;
                 }
             });
@@ -692,6 +703,7 @@
             $("#quitarAlmacenamientoPrimero").click(function () {
                 if (contador > 0) {
                     $("ul").children("li").slice(0, 5).remove();
+                    $("ul").children("hr").last().remove(); // Eliminar el último <hr>
                     contador--;
                 }
             });
@@ -756,6 +768,20 @@
 
     .form-control:focus {
         color: #ffffff; /* Cambiar el color del texto cuando el campo de texto está enfocado */
+    }
+
+    .contenedor-botones {
+        margin-top: 20px; /* Márgen superior */
+        margin-bottom: 10px; /* Márgen inferior */
+    }
+
+    #botonesAlmacenamiento button {
+        margin-right: 10px; /* Espacio entre los botones */
+    }
+
+    .contenedor-boton {
+        margin-top: 20px; /* Márgen superior */
+        margin-bottom: 10px; /* Márgen inferior */
     }
 </style>
 

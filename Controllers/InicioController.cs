@@ -280,7 +280,6 @@ namespace InventarioComputadoras.Controllers
 
         }
 
-
         private void ConvertirAbreviaciones(Computadora computadora)
         {
             if (zonas.ContainsKey(computadora.Oficina))

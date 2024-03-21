@@ -12,7 +12,7 @@ namespace InventarioComputadoras.Models
         [Display(Name = "Oficina")]
         public string? Oficina { get; set; }
 
-        [Display(Name = "Nombre anterior")]
+        [Display(Name = "Nombre Anterior")]
         public string? NombreAnterior { get; set; }
     
         [Display(Name = "Nombre Actual")]
