@@ -76,7 +76,7 @@
                                 <label asp-for="DireccionIp" class="control-label"></label>
                                 <input asp-for="DireccionIp" class="form-control" placeholder="Ingresa la Dirección IP" />
                                 <div class="form-check">
-                                    <input class="form-check-input" type="checkbox" id="sinDireccionIPCheck" @(Model.SinDireccionIP ? "" : "checked")>
+                                    <input class="form-check-input" type="checkbox" id="sinDireccionIPCheck">
                                     <label class="form-check-label" for="sinDireccionIPCheck">
                                         Sin Dirección IP
                                     </label>
@@ -607,13 +607,11 @@
         });
 
         $(document).ready(function () {
-            // Al cargar la página, bloqueamos la pestaña de almacenamiento y sus campos
             $("#almacenamientoTab").addClass("disabled");
             $("#almacenamiento select, #almacenamiento input").prop("disabled", true);
             $("#crearAlmacenamiento, #quitarAlmacenamiento").hide();
 
             $("#habilitarAlmacenamientos").click(function () {
-                // Al hacer clic en "Habilitar Almacenamientos", desbloqueamos la pestaña de almacenamiento y sus campos
                 $("#almacenamientoTab").removeClass("disabled");
                 $("#almacenamiento select, #almacenamiento input").prop("disabled", false);
                 $("#crearAlmacenamiento, #quitarAlmacenamiento").show();

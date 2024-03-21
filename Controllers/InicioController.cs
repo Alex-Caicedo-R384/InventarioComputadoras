@@ -481,7 +481,6 @@ namespace InventarioComputadoras.Controllers
                         }
                     }
                 }
-                _contexto.SaveChanges();
                 return RedirectToAction(nameof(Index));
             }
 
