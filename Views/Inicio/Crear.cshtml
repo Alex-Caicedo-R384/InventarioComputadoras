@@ -42,6 +42,13 @@
                                 <span asp-validation-for="Oficina" class="text-danger"></span>
                             </div>
 
+                            
+                            <div class="form-group">
+                                <label asp-for="Departamento" class="control-label"></label>
+                                <select asp-for="Departamento" asp-items="ViewBag.Departamentos" class="form-control"></select>
+                                <span asp-validation-for="Departamento" class="text-danger"></span>
+                            </div>
+
 
                             <div class="form-group">
                                 <label asp-for="NombreAnterior" class="control-label"></label>
@@ -58,16 +65,21 @@
 
 
                             <div class="form-group">
-                                <label asp-for="Usuario" class="control-label"></label>
-                                <input asp-for="Usuario" class="form-control" placeholder="Ingresa el Usuario" />
-                                <span asp-validation-for="Usuario" class="text-danger"></span>
+                                <label asp-for="NombreNuevo" class="control-label"></label>
+                                <div class="input-group">
+                                    <input asp-for="NombreNuevo" class="form-control" placeholder="Ingresa el Nombre Nuevo" style="display: none;" />
+                                    <span class="input-group-btn">
+                                        <button type="button" id="mostrarNombreNuevo" class="btn btn-primary">Mostrar</button>
+                                    </span>
+                                </div>
+                                <span asp-validation-for="NombreNuevo" class="text-danger"></span>
                             </div>
 
 
                             <div class="form-group">
-                                <label asp-for="Departamento" class="control-label"></label>
-                                <select asp-for="Departamento" asp-items="ViewBag.Departamentos" class="form-control"></select>
-                                <span asp-validation-for="Departamento" class="text-danger"></span>
+                                <label asp-for="Usuario" class="control-label"></label>
+                                <input asp-for="Usuario" class="form-control" placeholder="Ingresa el Usuario" />
+                                <span asp-validation-for="Usuario" class="text-danger"></span>
                             </div>
 
 
@@ -720,6 +732,20 @@
                 $(this).hide();
             });
         });
+        //-------------------------------------------------------------------------------------------------------//        
+        //---------------------------------------NOMBRE NUEVO----------------------------------------------------//
+        document.addEventListener('DOMContentLoaded', function () {
+            document.getElementById('mostrarNombreNuevo').addEventListener('click', function () {
+                var inputNombreNuevo = document.getElementById('NombreNuevo');
+
+                // Mostrar el campo de texto para que el usuario pueda ingresar el nombre nuevo manualmente
+                inputNombreNuevo.style.display = 'block';
+
+                // Detener cualquier acción automática de generación de nombre
+                // Por ejemplo, podrías borrar el valor del campo de texto
+                inputNombreNuevo.value = "";
+            });
+        });
         //-------------------------------------------------------------------------------------------------------//
     </script>
 }
@@ -760,7 +786,7 @@
     }
 
     select.form-control {
-        background-color: #565656; /* Cambiar el color de fondo del combo box */
+        background-color: #808080; /* Cambiar el color de fondo del combo box */
         color: #ffffff !important; /* Cambiar el color del texto dentro del combo box */
     }
 

@@ -19,6 +19,7 @@ namespace InventarioComputadoras.Controllers
         {
             return new List<SelectListItem>
         {
+            new SelectListItem { Value = "", Text = "Seleccionar" },
             new SelectListItem { Value = "Tulcán", Text = "Tulcán" },
             new SelectListItem { Value = "Multiplaza", Text = "Multiplaza" },
             new SelectListItem { Value = "Amazonas", Text = "Amazonas" },
@@ -37,6 +38,7 @@ namespace InventarioComputadoras.Controllers
         {
             return new List<SelectListItem>
         {
+            new SelectListItem { Value = "", Text = "Seleccionar" },
             new SelectListItem { Value = "Atención al Cliente", Text = "Atención al Cliente" },
             new SelectListItem { Value = "Auditoria", Text = "Auditoria" },
             new SelectListItem { Value = "Cajas", Text = "Cajas" },
@@ -300,6 +302,27 @@ namespace InventarioComputadoras.Controllers
             }
         }
 
+        private async Task<string> GenerarNombreNuevoAsync(Computadora computadora)
+        {
+            string nombreBase = computadora.Departamento.Substring(0, 4).ToUpper() + computadora.Oficina.Substring(0, 3).ToUpper();
+
+            var ultimaComputadora = await _contexto.Computadoras
+                .Where(c => c.NombreNuevo.StartsWith(nombreBase))
+                .OrderByDescending(c => c.NombreNuevo)
+                .FirstOrDefaultAsync();
+
+            int ultimoNumero = 0;
+            if (ultimaComputadora != null)
+            {
+                string ultimoNumeroStr = ultimaComputadora.NombreNuevo.Substring(nombreBase.Length).Trim();
+                int.TryParse(ultimoNumeroStr, out ultimoNumero);
+            }
+
+            string nombreNuevo = nombreBase + " " + (ultimoNumero + 1);
+
+            return nombreNuevo;
+        }
+
         [HttpGet]
         public async Task<IActionResult> Index()
         {
@@ -429,6 +452,7 @@ namespace InventarioComputadoras.Controllers
             else if (computadora.ConAntivirus)
             {
                 computadora.LicenciaAntivirus = "Si";
+
             }
 
             if (ModelState.IsValid)
@@ -444,22 +468,11 @@ namespace InventarioComputadoras.Controllers
                     }
                 }
 
-                string nombreBase = computadora.Departamento.Substring(0, 4).ToUpper() + computadora.Oficina.Substring(0, 3).ToUpper();
-
-                var ultimaComputadora = await _contexto.Computadoras
-                    .Where(c => c.NombreNuevo.StartsWith(nombreBase))
-                    .OrderByDescending(c => c.NombreNuevo)
-                    .FirstOrDefaultAsync();
-
-                int ultimoNumero = 0;
-                if (ultimaComputadora != null)
+                if (string.IsNullOrEmpty(computadora.NombreNuevo))
                 {
-                    string ultimoNumeroStr = ultimaComputadora.NombreNuevo.Substring(nombreBase.Length).Trim();
-                    int.TryParse(ultimoNumeroStr, out ultimoNumero);
+                    string nombreNuevo = await GenerarNombreNuevoAsync(computadora);
+                    computadora.NombreNuevo = nombreNuevo;
                 }
-
-                string nombreNuevo = nombreBase + " " + (ultimoNumero + 1);
-                computadora.NombreNuevo = nombreNuevo;
 
                 _contexto.Computadoras.Add(computadora);
                 await _contexto.SaveChangesAsync();
@@ -617,6 +630,7 @@ namespace InventarioComputadoras.Controllers
                 {
                     computadoraExistente.DireccionIp = "Sin Direccion IP";
                 }
+
 
                 computadoraExistente.SinAntivirus = computadora.SinAntivirus;
                 computadoraExistente.ConAntivirus = computadora.ConAntivirus;
