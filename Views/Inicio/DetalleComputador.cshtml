@@ -32,20 +32,155 @@
     <div class="offset-12">
         <div class="card border">
             <div class="card-header bg-dark">
-                <h3 class="text-white"><strong> Detalles de Computador </strong></h3>
+                <h3 class="text-white"><strong> Detalles </strong></h3>
             </div>
             <div class="card-body">
-               <ul class="list-group">
-                    <li class="list-group-item custom-text-color"><strong>Nombre: </strong> @Html.DisplayFor(m => m.NombreNuevo)</li>
-                    <li class="list-group-item custom-text-color"><strong>Departamento: </strong> @Html.DisplayFor(m => m.Departamento)</li>
-                    <li class="list-group-item custom-text-color"><strong>Oficina: </strong> @Html.DisplayFor(m => m.Oficina)</li>
-                    <li class="list-group-item custom-text-color"><strong>Usuario: </strong> @Html.DisplayFor(m => m.Usuario)</li>
-                    <li class="list-group-item custom-text-color"><strong>Dirección IP: </strong> @Html.DisplayFor(m => m.DireccionIp)</li>
-                    <li class="list-group-item custom-text-color"><strong>¿Se encuentra en Dominio?: </strong> @Html.DisplayFor(m => m.Dominio)</li>
-                    <li class="list-group-item custom-text-color"><strong>Codigo Constitucional: </strong> @Html.DisplayFor(m => m.CodigoConstitucional)</li>
-               </ul> 
-                <a asp-controller="Inicio" asp-action="Index" style="color: #fff;">Volver</a>
+                    <ul class="nav nav-tabs">
+                        <li class="nav-item">
+                            <a class="nav-link active" id="computadorTab" data-toggle="tab" href="#informacionBasica">Información Básica</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" id="softwareTab" data-toggle="tab" href="#licencias">Licencias</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" id="adquisicionTab" data-toggle="tab" href="#estado">Adquisicion</a>
+
+                        <li class="nav-item">
+                            <a class="nav-link" id="hardwareTab" data-toggle="tab" href="#hardware">Hardware</a>
+                        </li>
+                    </ul>
+
+                <div class="tab-content">
+                    <div class="tab-pane fade show active" id="informacionBasica">
+                        <!---------------------------------------Información Básica------------------------------------------- -->
+                        <div class="card-body">
+                            <ul class="list-group">
+                                <li class="list-group-item custom-text-color"><strong>Nombre: </strong> @Html.DisplayFor(m => m.NombreNuevo)</li>
+                                <li class="list-group-item custom-text-color"><strong>Departamento: </strong> @Html.DisplayFor(m => m.Departamento)</li>
+                                <li class="list-group-item custom-text-color"><strong>Oficina: </strong> @Html.DisplayFor(m => m.Oficina)</li>
+                                <li class="list-group-item custom-text-color"><strong>Usuario: </strong> @Html.DisplayFor(m => m.Usuario)</li>
+                                <li class="list-group-item custom-text-color"><strong>Dirección IP: </strong> @Html.DisplayFor(m => m.DireccionIp)</li>
+                                <li class="list-group-item custom-text-color"><strong>¿Se encuentra en Dominio?: </strong> @Html.DisplayFor(m => m.Dominio)</li>
+                                <li class="list-group-item custom-text-color"><strong>Codigo Constitucional: </strong> @Html.DisplayFor(m => m.CodigoConstitucional)</li>
+                            </ul>
+                            <a asp-controller="Inicio" asp-action="Index" style="color: #fff;">Volver</a>
+                        </div>
+                        <!------------------------------------------------------------------------------------------------------------------------------>
+                    </div>
+                    <div class="tab-pane fade" id="licencias">
+                        <!-------------------------------------------------Informacion de Software------------------------------------------------------>
+                        <div class="card-body">
+                            <li class="list-group-item custom-text-color"><strong>Estado Licencia de Windows: </strong> @Html.DisplayFor(m => m.LicenciaSO)</li>
+                            <ul>
+                                @if (Model.LicenciaSO == "Si")
+                                {
+                                    <li class="list-group-item custom-text-color"><strong>Versión de Windows: </strong> @Html.DisplayFor(m => m.SistemaOperativo)</li>
+                                }
+                            </ul>
+                            <li class="list-group-item custom-text-color"><strong>Estado Licencia de Office: </strong> @Html.DisplayFor(m => m.Office)</li>
+                            <ul>
+                                @if (Model.Office == "Si")
+                                {
+                                    <li class="list-group-item custom-text-color"><strong>Versión de Office:</strong> @Html.DisplayFor(m => m.VersionOffice)</li>
+                                    <li class="list-group-item custom-text-color"><strong>Fecha Instalación de Office:</strong> @(Model.FechaOffice.HasValue ? Model.FechaOffice.Value.ToString("dd/MM/yyyy") : "Sin Especificar")</li>
+                                }
+                            </ul>
+                            <li class="list-group-item custom-text-color"><strong>Estado Licencia de Antivirus: </strong> @Html.DisplayFor(m => m.LicenciaAntivirus)</li>
+                            <ul>
+                                @if (Model.LicenciaAntivirus == "Si")
+                                {
+                                    <li class="list-group-item custom-text-color"><strong>Proveedor: </strong> @Html.DisplayFor(m => m.VersionAntivirus)</li>
+
+                                }
+                            </ul>
+                            <a asp-controller="Inicio" asp-action="Index" style="color: #fff;">Volver</a>
+                        </div>
+                        <!------------------------------------------------------------------------------------------------------------------------------>
+                    </div>
+                    <div class="tab-pane fade" id="estado">
+                        <!------------------------------------------------Informacion de adquisicion---------------------------------------------------->
+                        <div class="card-body">
+                            <ul class="list-group">
+                                <li class="list-group-item custom-text-color"><strong>Fecha de Adquisicion: </strong> @(Model.FechaAdquisicion.HasValue ? Model.FechaAdquisicion.Value.ToString("dd/MM/yyyy") : "")</li>
+                                <li class="list-group-item custom-text-color"><strong>Estado: </strong> @Html.DisplayFor(m => m.Estado)</li>
+                            </ul>
+                            <a asp-controller="Inicio" asp-action="Index" style="color: #fff;">Volver</a>
+                        </div>
+                        <!------------------------------------------------------------------------------------------------------------------------------>
+                    </div>
+                    <div class="tab-pane fade" id="hardware">
+                        <!------------------------------------------------HARDWARE---------------------------------------------------------------------->
+                        <div class="card-body">
+                            <ul class="list-group">
+                                <li class="list-group-item custom-text-color"><strong>Tipo: </strong> @Html.DisplayFor(m => m.Tipo)</li>
+                                <li class="list-group-item custom-text-color"><strong>Marca: </strong> @Html.DisplayFor(m => m.Marca)</li>
+                                <li class="list-group-item custom-text-color"><strong>Número de Parte: </strong> @Html.DisplayFor(m => m.NParte)</li>
+                                <li class="list-group-item custom-text-color"><strong>Número de Serie: </strong> @Html.DisplayFor(m => m.NSerie)</li>
+                                <li class="list-group-item custom-text-color"><strong>MotherBoard: </strong> @Html.DisplayFor(m => m.MotherBoard)</li>
+                                <li class="list-group-item custom-text-color"><strong>Procesador: </strong> @Html.DisplayFor(m => m.Procesador)</li>
+                                <li class="list-group-item custom-text-color">
+                                    <strong>Memoria RAM:</strong>
+                                    <ul>
+                                        <li style="margin-left: 20px;">
+                                            <strong style="color: #ffc0cb; font-weight: lighter;">Tipo:</strong> @Html.DisplayFor(m => m.MemoriaRamTipo)<br />
+                                            <strong style="color: #ffc0cb; font-weight: lighter;">Modulos:</strong> @Html.DisplayFor(m => m.MemoriaModulos)<br />
+                                            <strong style="color: #ffc0cb; font-weight: lighter;">Capacidad:</strong> @Html.DisplayFor(m => m.MemoriaRamCapacidad)<br />
+                                            <strong style="color: #ffc0cb; font-weight: lighter;">Marca:</strong> @Html.DisplayFor(m => m.MemoriaRamMarca)<br />
+                                            <strong style="color: #ffc0cb; font-weight: lighter;">Número de Serie:</strong> @Html.DisplayFor(m => m.MemoriaRamNumeroParte)<br />
+                                            <strong style="color: #ffc0cb; font-weight: lighter;">Número de Parte:</strong> @Html.DisplayFor(m => m.MemoriaRamNumeroSerie)<br />
+                                        </li>
+                                    </ul>
+
+                                    <strong>Almacenamiento:</strong>
+                                    <ul>
+                                        <li style="margin-left: 20px;">
+                                            <strong style="color: #ffc0cb; font-weight: lighter;">Tipo:</strong> @Html.DisplayFor(m => m.AlmacenamientoTipo)<br />
+                                            <strong style="color: #ffc0cb; font-weight: lighter;">Capacidad:</strong> @Html.DisplayFor(m => m.AlmacenamientoCapacidad)<br />
+                                            <strong style="color: #ffc0cb; font-weight: lighter;">Marca:</strong> @Html.DisplayFor(m => m.AlmacenamientoMarca)<br />
+                                            <strong style="color: #ffc0cb; font-weight: lighter;">Número de Serie:</strong> @Html.DisplayFor(m => m.AlmacenamientoNumeroSerie)<br />
+                                            <strong style="color: #ffc0cb; font-weight: lighter;">Número de Parte:</strong> @Html.DisplayFor(m => m.AlmacenamientoNumeroParte)<br />
+                                        </li>
+                                        <ul>
+                                            <strong>Almacenamientos Adicionales:</strong>
+                                            @if (Model.Almacenamientos != null && Model.Almacenamientos.Any())
+                                            {
+                                                foreach (var almacenamiento in Model.Almacenamientos)
+                                                {
+                                                    <li style="margin-left: 20px;">
+                                                        <strong style="color: #ffc0cb; font-weight: lighter;">Tipo:</strong> @Html.DisplayFor(m => almacenamiento.TipoAlmacenamiento)<br />
+                                                        <strong style="color: #ffc0cb; font-weight: lighter;">Capacidad:</strong> @Html.DisplayFor(m => almacenamiento.CapacidadAlmacenamiento)<br />
+                                                        <strong style="color: #ffc0cb; font-weight: lighter;">Marca:</strong> @Html.DisplayFor(m => almacenamiento.MarcaAlmacenamiento)<br />
+                                                        <strong style="color: #ffc0cb; font-weight: lighter">Número de Serie:</strong> @Html.DisplayFor(m => almacenamiento.NumeroSerieAlmacenamiento)<br />
+                                                        <strong style="color: #ffc0cb; font-weight: lighter;">Número de Parte:</strong> @Html.DisplayFor(m => almacenamiento.NumeroParteAlmacenamiento)<br />
+                                                    </li>
+                                                }
+                                            }
+                                            else
+                                            {
+                                                <li>No hay almacenamientos adicionales.</li>
+                                            }
+                                        </ul>
+                                    </ul>
+                                </li>
+                            </ul>
+                            <a asp-controller="Inicio" asp-action="Index" style="color: #fff;">Volver</a>
+                        </div>
+                    </div>
+                    <!------------------------------------------------------------------------------------------------------------------------------>
+                </div>
             </div>
         </div>
     </div>
 </div>
+@section Scripts {
+    <script>
+        $(document).ready(function () {
+            $('#informacionBasicaTab').tab('show');
+
+            $('#computadorTab, #softwareTab, #adquisicionTab, #hardwareTab').on('click', function (e) {
+                e.preventDefault();
+                $(this).tab('show');
+            });
+        });
+    </script>
+}

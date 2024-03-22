@@ -487,6 +487,23 @@ namespace InventarioComputadoras.Controllers
 
             if (ModelState.IsValid)
             {
+                if (computadora.FechaAdquisicion == null)
+                {
+                    computadora.FechaAdquisicion = new DateTime(1900, 1, 1);
+                }
+
+                if (computadora.FechaOffice == null)
+                {
+                    computadora.FechaOffice = new DateTime(1900, 1, 1);
+                }
+
+                foreach (var prop in typeof(Computadora).GetProperties())
+                {
+                    if (prop.PropertyType == typeof(string) && prop.GetValue(computadora) == null)
+                    {
+                        prop.SetValue(computadora, "");
+                    }
+                }
 
                 if (!computadora.SinDireccionIP)
                 {
@@ -613,6 +630,24 @@ namespace InventarioComputadoras.Controllers
 
             if (ModelState.IsValid)
             {
+                if (computadora.FechaAdquisicion == null)
+                {
+                    computadora.FechaAdquisicion = new DateTime(1900, 1, 1);
+                }
+
+                if (computadora.FechaOffice == null)
+                {
+                    computadora.FechaOffice = new DateTime(1900, 1, 1);
+                }
+
+                foreach (var prop in typeof(Computadora).GetProperties())
+                {
+                    if (prop.PropertyType == typeof(string) && prop.GetValue(computadora) == null)
+                    {
+                        prop.SetValue(computadora, "");
+                    }
+                }
+
 
                 var computadoraExistente = await _contexto.Computadoras
                                                     .Include(c => c.Almacenamientos)
@@ -747,45 +782,9 @@ namespace InventarioComputadoras.Controllers
                 computador.Departamento = departamentos[computador.Departamento];
             }
 
-            return View(computador);
-        }
-
-
-        [HttpGet]
-        public async Task<IActionResult> DetalleSoftware(int? id)
-        {
-            if (id == null)
-            {
-                return NotFound();
-            }
-
-            var computador = await _contexto.Computadoras.FindAsync(id);
-            if (computador == null)
-            {
-                return NotFound();
-            }
-
             if (computador.FechaOffice.HasValue)
             {
                 computador.FechaOffice = computador.FechaOffice.Value.Date;
-            }
-
-            return View(computador);
-        }
-
-
-        [HttpGet]
-        public async Task<IActionResult> DetalleAdquisicion(int? id)
-        {
-            if (id == null)
-            {
-                return NotFound();
-            }
-
-            var computador = await _contexto.Computadoras.FindAsync(id);
-            if (computador == null)
-            {
-                return NotFound();
             }
 
             if (computador.FechaAdquisicion.HasValue)
@@ -795,28 +794,6 @@ namespace InventarioComputadoras.Controllers
 
             return View(computador);
         }
-
-
-        [HttpGet]
-        public async Task<IActionResult> DetalleHardware(int? id)
-        {
-            if (id == null)
-            {
-                return NotFound();
-            }
-
-            var computador = await _contexto.Computadoras
-                .Include(c => c.Almacenamientos)
-                .FirstOrDefaultAsync(c => c.Id == id);
-
-            if (computador == null)
-            {
-                return NotFound();
-            }
-
-            return View(computador);
-        }
-
 
         [HttpGet]
         public IActionResult Borrar(int? id)
@@ -846,7 +823,6 @@ namespace InventarioComputadoras.Controllers
 
             return View(computador);
         }
-
 
         [HttpPost, ActionName("Borrar")]
         [ValidateAntiForgeryToken]
