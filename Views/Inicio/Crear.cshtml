@@ -67,9 +67,10 @@
                             <div class="form-group">
                                 <label asp-for="NombreNuevo" class="control-label"></label>
                                 <div class="input-group">
-                                    <input asp-for="NombreNuevo" class="form-control" placeholder="Ingresa el Nombre Nuevo" style="display: none;" />
+                                    <input asp-for="NombreNuevo" class="form-control" placeholder="Ingresa el Nombre Nuevo de Manera Manual" style="display: none;" />
                                     <span class="input-group-btn">
-                                        <button type="button" id="mostrarNombreNuevo" class="btn btn-primary">Mostrar</button>
+                                        <button type="button" id="mostrarNombreNuevo" class="btn btn-primary">Generar Nuevo Nombre De Manera Manual</button>
+                                        <button type="button" id="bloquearNombreNuevo" class="btn btn-danger">Generar Nuevo Nombre en Base a Departamento y Oficina</button>
                                     </span>
                                 </div>
                                 <span asp-validation-for="NombreNuevo" class="text-danger"></span>
@@ -738,12 +739,18 @@
             document.getElementById('mostrarNombreNuevo').addEventListener('click', function () {
                 var inputNombreNuevo = document.getElementById('NombreNuevo');
 
-                // Mostrar el campo de texto para que el usuario pueda ingresar el nombre nuevo manualmente
                 inputNombreNuevo.style.display = 'block';
-
-                // Detener cualquier acción automática de generación de nombre
-                // Por ejemplo, podrías borrar el valor del campo de texto
                 inputNombreNuevo.value = "";
+            });
+        });
+
+        document.addEventListener('DOMContentLoaded', function () {
+            var inputNombreNuevo = document.getElementById('NombreNuevo');
+            var botonBloquear = document.getElementById('bloquearNombreNuevo');
+
+            botonBloquear.addEventListener('click', function () {
+                inputNombreNuevo.value = "";
+                inputNombreNuevo.style.display = 'none';
             });
         });
         //-------------------------------------------------------------------------------------------------------//

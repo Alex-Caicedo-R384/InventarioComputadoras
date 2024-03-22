@@ -45,17 +45,32 @@
 
 
                             <div class="form-group">
+                                <label asp-for="Departamento" class="control-label"></label>
+                                <select asp-for="Departamento" asp-items="ViewBag.Departamentos" class="form-control"></select>
+                                <span asp-validation-for="Departamento" class="text-danger"></span>
+                            </div>
+
+
+                            <div class="form-group">
+                                <label asp-for="NombreNuevo" class="control-label"></label>
+                                <div class="input-group">
+                                    <input asp-for="NombreNuevo" class="form-control" placeholder="Ingresa el Nombre Nuevo de Manera Manual" style="display: none;" />
+                                    <span class="input-group-btn">
+                                        <button type="button" id="mostrarNombreNuevo" class="btn btn-primary">Generar Nuevo Nombre De Manera Manual</button>
+                                        <button type="button" id="bloquearNombreNuevo" class="btn btn-danger">Generar Nuevo Nombre en Base a Departamento y Oficina</button>
+                                    </span>
+                                </div>
+                                <span asp-validation-for="NombreNuevo" class="text-danger"></span>
+                            </div>
+
+
+
+                            <div class="form-group">
                                 <label asp-for="Usuario" class="control-label"></label>
                                 <input asp-for="Usuario" class="form-control" placeholder="Ingresa el Usuario" />
                                 <span asp-validation-for="Usuario" class="text-danger"></span>
                             </div>
 
-
-                            <div class="form-group">
-                                <label asp-for="Departamento" class="control-label"></label>
-                                <select asp-for="Departamento" asp-items="ViewBag.Departamentos" class="form-control"></select>
-                                <span asp-validation-for="Departamento" class="text-danger"></span>
-                            </div>
 
 
                             <div class="form-group">
@@ -293,7 +308,7 @@
                             <!------------------------------------------------------------------------------------------------------------------------------>
                             <!----------------------------------------------Botón--------------------------------------------------------------------------->
                             <div class="form-group mt-3">
-                                <button id="btnCrear" type="submit" class="btn btn-secondary d-block mx-auto" style="background-color: #5F51F3; border-color: #5F51F3; color: #ffffff;">Crear  Computador</button>
+                                <button id="btnEditar" type="submit" class="btn btn-secondary d-block mx-auto" style="background-color: #ffc107; border-color: #ffc107; color: #212529;">Editar  Computador</button>
                             </div>
 
                             <!------------------------------------------------------------------------------------------------------------------------------>
@@ -728,6 +743,27 @@
             });
         });
         //--------------------------------------------------------------------------------------------------------//
+        //---------------------------------------NOMBRE NUEVO----------------------------------------------------//
+        document.addEventListener('DOMContentLoaded', function () {
+            document.getElementById('mostrarNombreNuevo').addEventListener('click', function () {
+                var inputNombreNuevo = document.getElementById('NombreNuevo');
+
+                inputNombreNuevo.style.display = 'block';
+                inputNombreNuevo.value = "";
+            });
+        });
+
+
+        document.addEventListener('DOMContentLoaded', function () {
+            var inputNombreNuevo = document.getElementById('NombreNuevo');
+            var botonBloquear = document.getElementById('bloquearNombreNuevo');
+
+            botonBloquear.addEventListener('click', function () {
+                inputNombreNuevo.value = ""; // Vaciar el campo de entrada
+                inputNombreNuevo.style.display = 'none'; // Ocultar el campo de texto
+            });
+        });
+        //-------------------------------------------------------------------------------------------------------//
     </script>
 }
 
@@ -765,7 +801,7 @@
         }
 
     select.form-control {
-        background-color: #333333; /* Cambiar el color de fondo del combo box */
+        background-color: #808080; /* Cambiar el color de fondo del combo box */
         color: #ffffff !important; /* Cambiar el color del texto dentro del combo box */
     }
 

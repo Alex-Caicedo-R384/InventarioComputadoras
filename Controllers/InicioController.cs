@@ -323,6 +323,36 @@ namespace InventarioComputadoras.Controllers
             return nombreNuevo;
         }
 
+        private async Task<string> GenerarNombreComputadora(Computadora computadora)
+        {
+            string nombreBase = computadora.Departamento.Substring(0, 4).ToUpper() + computadora.Oficina.Substring(0, 3).ToUpper();
+
+            var ultimaComputadora = await _contexto.Computadoras
+                .Where(c => c.NombreNuevo.StartsWith(nombreBase))
+                .OrderByDescending(c => c.NombreNuevo)
+                .FirstOrDefaultAsync();
+
+            int ultimoNumero = 1;
+            if (ultimaComputadora != null)
+            {
+                string ultimoNumeroStr = ultimaComputadora.NombreNuevo.Substring(nombreBase.Length).Trim();
+                int.TryParse(ultimoNumeroStr, out ultimoNumero);
+                ultimoNumero++;
+            }
+
+            return nombreBase + " " + ultimoNumero;
+        }
+
+
+        private bool NombreComputadoraCambiado(Computadora existente, Computadora nueva)
+        {
+            return existente.Departamento != nueva.Departamento ||
+                   existente.Oficina != nueva.Oficina ||
+                   existente.NombreNuevo != nueva.NombreNuevo;
+        }
+
+
+
         [HttpGet]
         public async Task<IActionResult> Index()
         {
@@ -592,31 +622,27 @@ namespace InventarioComputadoras.Controllers
                     return NotFound();
                 }
 
-                bool nombreCambiado = computadoraExistente.Departamento != computadora.Departamento ||
-                                                        computadoraExistente.Oficina != computadora.Oficina;
+                bool nombreManualProporcionado = !string.IsNullOrEmpty(computadora.NombreNuevo);
+                bool nombreCambiado = NombreComputadoraCambiado(computadoraExistente, computadora);
 
-                if (nombreCambiado)
+                if (!nombreManualProporcionado)
                 {
-                    string nombreBase = computadora.Departamento.Substring(0, 4).ToUpper() + computadora.Oficina.Substring(0, 3).ToUpper();
-
-                    var ultimaComputadora = await _contexto.Computadoras
-                        .Where(c => c.NombreNuevo.StartsWith(nombreBase))
-                        .OrderByDescending(c => c.NombreNuevo)
-                        .FirstOrDefaultAsync();
-
-                    int ultimoNumero = 1;
-                    if (ultimaComputadora != null)
+                    if (nombreCambiado || computadoraExistente.Departamento != computadora.Departamento || computadoraExistente.Oficina != computadora.Oficina)
                     {
-                        string ultimoNumeroStr = ultimaComputadora.NombreNuevo.Substring(nombreBase.Length).Trim();
-                        int.TryParse(ultimoNumeroStr, out ultimoNumero);
-                        ultimoNumero++;
+                        string nombreNuevo = await GenerarNombreComputadora(computadora);
+                        computadoraExistente.NombreAnterior = computadoraExistente.NombreNuevo;
+                        computadoraExistente.NombreNuevo = nombreNuevo;
                     }
-
-                    string nombreNuevo = nombreBase + " " + (ultimoNumero);
-
-                    computadoraExistente.NombreAnterior = computadoraExistente.NombreNuevo;
-                    computadoraExistente.NombreNuevo = nombreNuevo;
                 }
+                else
+                {
+                    if (nombreCambiado || computadoraExistente.Departamento != computadora.Departamento || computadoraExistente.Oficina != computadora.Oficina)
+                    {
+                        computadoraExistente.NombreAnterior = computadoraExistente.NombreNuevo;
+                        computadoraExistente.NombreNuevo = computadora.NombreNuevo;
+                    }
+                }
+
 
                 computadoraExistente.LicenciaSO = sinLicenciaSO ? "No" : "Si";
                 computadoraExistente.Office = sinLicenciaOffice ? "No" : "Si";
@@ -630,7 +656,6 @@ namespace InventarioComputadoras.Controllers
                 {
                     computadoraExistente.DireccionIp = "Sin Direccion IP";
                 }
-
 
                 computadoraExistente.SinAntivirus = computadora.SinAntivirus;
                 computadoraExistente.ConAntivirus = computadora.ConAntivirus;
