@@ -62,6 +62,9 @@ namespace InventarioComputadoras.Models
         [Display(Name = "Estado")]
         public string? Estado { get; set; }
 
+        [Display(Name = "Proveedor")]
+        public string? Proveedor { get; set; }
+
         [Display(Name = "Tipo de Dispositivo")]
         public string? Tipo { get; set; }
 

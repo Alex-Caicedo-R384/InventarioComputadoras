@@ -709,6 +709,7 @@ namespace InventarioComputadoras.Controllers
                 computadoraExistente.CodigoConstitucional = computadora.CodigoConstitucional;
                 computadoraExistente.FechaAdquisicion = computadora.FechaAdquisicion;
                 computadoraExistente.Estado = computadora.Estado;
+                computadoraExistente.Proveedor = computadora.Proveedor;
                 computadoraExistente.Tipo = computadora.Tipo;
                 computadoraExistente.Marca = computadora.Marca;
                 computadoraExistente.NParte = computadora.NParte;
