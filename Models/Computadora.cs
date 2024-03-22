@@ -8,9 +8,8 @@ namespace InventarioComputadoras.Models
         [Key]
         public int Id { get; set; }
 
-        [Required]
         [Display(Name = "Oficina")]
-        public string? Oficina { get; set; }
+        public string Oficina { get; set; }
 
         [Display(Name = "Nombre Anterior")]
         public string? NombreAnterior { get; set; }
@@ -18,9 +17,8 @@ namespace InventarioComputadoras.Models
         [Display(Name = "Nombre Actual")]
         public string? NombreNuevo { get; set; }
 
-        [Required]
         [Display(Name = "Departamento")]
-        public string? Departamento { get; set; }
+        public string Departamento { get; set; }
 
         [Display(Name = "Dirección IP")]
         public string? DireccionIp { get; set; }

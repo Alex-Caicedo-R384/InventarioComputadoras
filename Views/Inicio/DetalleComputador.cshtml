@@ -63,7 +63,6 @@
                                 <li class="list-group-item custom-text-color"><strong>¿Se encuentra en Dominio?: </strong> @Html.DisplayFor(m => m.Dominio)</li>
                                 <li class="list-group-item custom-text-color"><strong>Codigo Constitucional: </strong> @Html.DisplayFor(m => m.CodigoConstitucional)</li>
                             </ul>
-                            <a asp-controller="Inicio" asp-action="Index" style="color: #fff;">Volver</a>
                         </div>
                         <!------------------------------------------------------------------------------------------------------------------------------>
                     </div>
@@ -82,7 +81,7 @@
                                 @if (Model.Office == "Si")
                                 {
                                     <li class="list-group-item custom-text-color"><strong>Versión de Office:</strong> @Html.DisplayFor(m => m.VersionOffice)</li>
-                                    <li class="list-group-item custom-text-color"><strong>Fecha Instalación de Office:</strong> @(Model.FechaOffice.HasValue ? Model.FechaOffice.Value.ToString("dd/MM/yyyy") : "Sin Especificar")</li>
+                                    <li class="list-group-item custom-text-color"><strong>Fecha Instalación de Office:</strong> @(Model.FechaOffice.HasValue ? Model.FechaOffice.Value.ToString("dd/MM/yyyy") : "")</li>
                                 }
                             </ul>
                             <li class="list-group-item custom-text-color"><strong>Estado Licencia de Antivirus: </strong> @Html.DisplayFor(m => m.LicenciaAntivirus)</li>
@@ -93,7 +92,6 @@
 
                                 }
                             </ul>
-                            <a asp-controller="Inicio" asp-action="Index" style="color: #fff;">Volver</a>
                         </div>
                         <!------------------------------------------------------------------------------------------------------------------------------>
                     </div>
@@ -105,7 +103,6 @@
                                 <li class="list-group-item custom-text-color"><strong>Estado: </strong> @Html.DisplayFor(m => m.Estado)</li>
                                 <li class="list-group-item custom-text-color"><strong>Proveedor: </strong> @Html.DisplayFor(m => m.Proveedor)</li>
                             </ul>
-                            <a asp-controller="Inicio" asp-action="Index" style="color: #fff;">Volver</a>
                         </div>
                         <!------------------------------------------------------------------------------------------------------------------------------>
                     </div>
@@ -164,10 +161,9 @@
                                     </ul>
                                 </li>
                             </ul>
-                            <a asp-controller="Inicio" asp-action="Index" style="color: #fff;">Volver</a>
                         </div>
                     </div>
-                    <!------------------------------------------------------------------------------------------------------------------------------>
+                    <a asp-controller="Inicio" asp-action="Index" style="color: #fff;">Volver</a>
                 </div>
             </div>
         </div>

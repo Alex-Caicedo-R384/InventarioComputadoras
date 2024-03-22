@@ -639,6 +639,32 @@
                 $(this).hide();
             });
         });
+
+        document.addEventListener("DOMContentLoaded", function () {
+            var oficinaSelect = document.querySelector("#Oficina");
+            var departamentoSelect = document.querySelector("#Departamento");
+            var tabs = document.querySelectorAll(".nav-tabs .nav-item a:not(#almacenamientoTab)");
+
+            function verificarSeleccion() {
+                if (oficinaSelect.value === oficinaSelect.options[0].value || departamentoSelect.value === departamentoSelect.options[0].value) {
+                    tabs.forEach(function (tab) {
+                        tab.classList.add("disabled");
+                        tab.removeAttribute("data-toggle");
+                        tab.classList.remove("active");
+                    });
+                } else {
+                    tabs.forEach(function (tab) {
+                        tab.classList.remove("disabled");
+                        tab.setAttribute("data-toggle", "tab");
+                    });
+                }
+            }
+
+            oficinaSelect.addEventListener("change", verificarSeleccion);
+            departamentoSelect.addEventListener("change", verificarSeleccion);
+
+            verificarSeleccion();
+        });
          //-------------------------------------------------------------------------------------------------------//
         //-----------------------------------CHECKBOXES-----------------------------------------------------------//
         document.addEventListener('DOMContentLoaded', function () {
