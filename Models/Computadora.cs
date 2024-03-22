@@ -115,9 +115,6 @@ namespace InventarioComputadoras.Models
         [Display(Name = "Tipo de Almacenamiento")]
         public string? AlmacenamientoTipo { get; set; }
 
-        [Display(Name = "Cantidad de Modulos de Almacenamiento")]
-        public int? AlmacenamientoModulos { get; set; }
-
         [Required]
         [Display(Name = "Capacidad de Almacenamiento")]
         public string? AlmacenamientoCapacidad { get; set; }
