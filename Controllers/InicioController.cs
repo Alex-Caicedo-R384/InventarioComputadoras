@@ -188,6 +188,15 @@ namespace InventarioComputadoras.Controllers
         };
         }
 
+        private List<SelectListItem> ObtenerArrendado()
+        {
+            return new List<SelectListItem>
+        {
+            new SelectListItem { Value = "Si", Text = "Si" },
+            new SelectListItem { Value = "No", Text = "No" }
+        };
+        }
+
         private Dictionary<string, string> ObtenerZonas2()
         {
             return new Dictionary<string, string>
@@ -390,7 +399,7 @@ namespace InventarioComputadoras.Controllers
             if (computadora.Almacenamientos.Count == 0)
             {
                 computadora.Almacenamientos.Add(new Models.Almacenamiento());
-            }   
+            }
 
             ViewBag.Zonas = ObtenerZonas();
             ViewBag.Departamentos = ObtenerDepartamentos();
@@ -405,6 +414,8 @@ namespace InventarioComputadoras.Controllers
             ViewBag.capacidadram = ObtenerCapacidadRAM();
             ViewBag.capacidadalmacenamiento = ObtenerCapacidadAlmacenamiento();
             ViewBag.tipoalmacenamiento = ObtenerTipoAlmacenamiento();
+            ViewBag.arrendado = ObtenerArrendado();
+
 
             return View(computadora);
         }
@@ -426,6 +437,8 @@ namespace InventarioComputadoras.Controllers
             ViewBag.capacidadram = ObtenerCapacidadRAM();
             ViewBag.capacidadalmacenamiento = ObtenerCapacidadAlmacenamiento();
             ViewBag.tipoalmacenamiento = ObtenerTipoAlmacenamiento();
+            ViewBag.arrendado = ObtenerArrendado();
+
 
 
             if (computadora.SinNombreAnterior)
@@ -505,6 +518,7 @@ namespace InventarioComputadoras.Controllers
                     }
                 }
 
+
                 if (!computadora.SinDireccionIP)
                 {
                     var ipExistente = await _contexto.Computadoras.AnyAsync(c => c.DireccionIp == computadora.DireccionIp);
@@ -534,12 +548,13 @@ namespace InventarioComputadoras.Controllers
                         {
                             continue;
                         }
-                        else 
+                        else
                         {
                             _contexto.Almacenamientos.Add(almacenamiento);
 
                         }
                     }
+
                 }
                 return RedirectToAction(nameof(Index));
             }
@@ -564,6 +579,8 @@ namespace InventarioComputadoras.Controllers
             ViewBag.capacidadram = ObtenerCapacidadRAM();
             ViewBag.capacidadalmacenamiento = ObtenerCapacidadAlmacenamiento();
             ViewBag.tipoalmacenamiento = ObtenerTipoAlmacenamiento();
+            ViewBag.arrendado = ObtenerArrendado();
+
 
             if (Id == null)
             {
@@ -626,6 +643,8 @@ namespace InventarioComputadoras.Controllers
             ViewBag.capacidadram = ObtenerCapacidadRAM();
             ViewBag.capacidadalmacenamiento = ObtenerCapacidadAlmacenamiento();
             ViewBag.tipoalmacenamiento = ObtenerTipoAlmacenamiento();
+            ViewBag.arrendado = ObtenerArrendado();
+
 
 
             if (ModelState.IsValid)
@@ -708,6 +727,8 @@ namespace InventarioComputadoras.Controllers
                 computadoraExistente.Dominio = computadora.Dominio;
                 computadoraExistente.CodigoConstitucional = computadora.CodigoConstitucional;
                 computadoraExistente.FechaAdquisicion = computadora.FechaAdquisicion;
+                computadoraExistente.Arrendado = computadora.Arrendado;
+                computadoraExistente.Inversion = computadora.Inversion;
                 computadoraExistente.Estado = computadora.Estado;
                 computadoraExistente.Proveedor = computadora.Proveedor;
                 computadoraExistente.Tipo = computadora.Tipo;
@@ -765,7 +786,10 @@ namespace InventarioComputadoras.Controllers
                 return NotFound();
             }
 
-            var computador = await _contexto.Computadoras.FindAsync(id);
+            var computador = await _contexto.Computadoras
+                                        .Include(c => c.Almacenamientos)
+                                        .FirstOrDefaultAsync(c => c.Id == id);
+
             if (computador == null)
             {
                 return NotFound();

@@ -13,7 +13,7 @@ namespace InventarioComputadoras.Models
 
         [Display(Name = "Nombre Anterior")]
         public string? NombreAnterior { get; set; }
-    
+
         [Display(Name = "Nombre Actual")]
         public string? NombreNuevo { get; set; }
 
@@ -62,6 +62,12 @@ namespace InventarioComputadoras.Models
 
         [Display(Name = "Proveedor")]
         public string? Proveedor { get; set; }
+
+        [Display(Name = "Arrendado")]
+        public string? Arrendado { get; set; }
+
+        [Display(Name = "Inversión")]
+        public string? Inversion { get; set; }
 
         [Display(Name = "Tipo de Dispositivo")]
         public string? Tipo { get; set; }
@@ -130,7 +136,7 @@ namespace InventarioComputadoras.Models
 
         [Required]
         [Display(Name = "Número de Parte de Almacenamiento")]
-        public string? AlmacenamientoNumeroParte { get; set; } 
+        public string? AlmacenamientoNumeroParte { get; set; }
 
 
         public List<Almacenamiento> Almacenamientos { get; set; }
