@@ -424,6 +424,7 @@ namespace InventarioComputadoras.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Crear(Computadora computadora, bool sinNombreAnterior, bool sinDireccionIP, bool sinLicenciaSO, bool conLicenciaSO, bool sinLicenciaOffice, bool conLicenciaOffice, bool sinAntivirus, bool conAntivirus)
         {
+            // Load ViewBag items
             ViewBag.Zonas = ObtenerZonas();
             ViewBag.Departamentos = ObtenerDepartamentos();
             ViewBag.sistemaoperativo = ObtenerSistemaOperativo();
@@ -439,19 +440,25 @@ namespace InventarioComputadoras.Controllers
             ViewBag.tipoalmacenamiento = ObtenerTipoAlmacenamiento();
             ViewBag.arrendado = ObtenerArrendado();
 
-
+            // Default values for boolean properties
+            computadora.SinNombreAnterior = sinNombreAnterior;
+            computadora.SinDireccionIP = sinDireccionIP;
+            computadora.SinLicenciaSO = sinLicenciaSO;
+            computadora.ConLicenciaSO = conLicenciaSO;
+            computadora.SinLicenciaOffice = sinLicenciaOffice;
+            computadora.ConLicenciaOffice = conLicenciaOffice;
+            computadora.SinAntivirus = sinAntivirus;
+            computadora.ConAntivirus = conAntivirus;
 
             if (computadora.SinNombreAnterior)
             {
                 computadora.NombreAnterior = "Sin nombre anterior";
             }
 
-
             if (computadora.SinDireccionIP)
             {
                 computadora.DireccionIp = "Sin Direccion IP";
             }
-
 
             if (computadora.SinLicenciaSO && computadora.ConLicenciaSO)
             {
@@ -467,7 +474,6 @@ namespace InventarioComputadoras.Controllers
                 computadora.LicenciaSO = "Si";
             }
 
-
             if (computadora.SinLicenciaOffice && computadora.ConLicenciaOffice)
             {
                 ModelState.AddModelError("ConLicenciaOffice", "Debe seleccionar una opción para la licencia.");
@@ -482,7 +488,6 @@ namespace InventarioComputadoras.Controllers
                 computadora.Office = "Si";
             }
 
-
             if (computadora.SinAntivirus && computadora.ConAntivirus)
             {
                 ModelState.AddModelError("ConAntivitus", "Debe seleccionar una opción para el antivirus.");
@@ -495,7 +500,6 @@ namespace InventarioComputadoras.Controllers
             else if (computadora.ConAntivirus)
             {
                 computadora.LicenciaAntivirus = "Si";
-
             }
 
             if (ModelState.IsValid)
@@ -517,7 +521,6 @@ namespace InventarioComputadoras.Controllers
                         prop.SetValue(computadora, "");
                     }
                 }
-
 
                 if (!computadora.SinDireccionIP)
                 {
@@ -550,11 +553,10 @@ namespace InventarioComputadoras.Controllers
                         }
                         else
                         {
+                            almacenamiento.ComputadoraId = computadora.Id; // Assign the parent ID if needed
                             _contexto.Almacenamientos.Add(almacenamiento);
-
                         }
                     }
-
                 }
                 return RedirectToAction(nameof(Index));
             }
@@ -613,6 +615,7 @@ namespace InventarioComputadoras.Controllers
             ViewBag.SelectedOffice = computadora.Office;
             ViewBag.SelectedAntivirus = computadora.VersionAntivirus;
             ViewBag.SelectedDominio = computadora.Dominio;
+            ViewBag.SelectedArrendado = computadora.Arrendado;
             ViewBag.SelectedEstado = computadora.Estado;
             ViewBag.SelectedTipo = computadora.MemoriaRamTipo;
             ViewBag.SelectedModulosRam = computadora.MemoriaModulos;

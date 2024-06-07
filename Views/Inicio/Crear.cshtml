@@ -42,7 +42,7 @@
                                 <span asp-validation-for="Oficina" class="text-danger"></span>
                             </div>
 
-                            
+
                             <div class="form-group">
                                 <label asp-for="Departamento" class="control-label"></label>
                                 <select asp-for="Departamento" asp-items="ViewBag.Departamentos" class="form-control"></select>
@@ -172,7 +172,7 @@
                             <div class="form-group">
                                 <label for="antivirusText">Licencia de Antivirus:</label>
                                 <div>
-                                <input class="form-control" id="antivirusText" disabled="" placeholder="Elija una opción" type="text" name="LicenciaAntivirus">
+                                    <input class="form-control" id="antivirusText" disabled="" placeholder="Elija una opción" type="text" name="LicenciaAntivirus">
                                 </div>
                                 <div class="form-check mt-2" style="color: #fff; font-weight: lighter;">
                                     <input asp-for="ConAntivirus" type="checkbox" class="form-check-input" id="conAntivirusCheck">
@@ -224,9 +224,17 @@
 
                             <div class="form-group">
                                 <label asp-for="Inversion" class="control-label"></label>
-                                <input asp-for="Inversion" class="form-control" placeholder="Ingresa la Inversion" />
+                                <div class="input-group">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text">$</span>
+                                    </div>
+                                    <input type="text" asp-for="Inversion" class="form-control" placeholder="Ingresa la Inversion" onkeypress="return soloNumeros(event)" />
+                                </div>
                                 <span asp-validation-for="Inversion" class="text-danger"></span>
                             </div>
+
+
+
                             <!------------------------------------------------------------------------------------------------------------------------------>
 
                         </div>
@@ -241,7 +249,7 @@
                                 <select asp-for="Tipo" asp-items="ViewBag.tipo" class="form-control"></select>
                                 <span asp-validation-for="Tipo" class="text-danger"></span>
                             </div>
-                            
+
                             <div class="form-group" style="color: #ffc0cb; font-weight: lighter;">
                                 <label asp-for="Marca" class="control-label"></label>
                                 <input asp-for="Marca" class="form-control" placeholder="Ingresa la Marca del Dispositivo" />
@@ -427,7 +435,7 @@
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 
-    <script>    
+    <script>
         //-----------------------------------------SIN NOMBRE SCRIPT-------------------------------------------------//
         document.addEventListener('DOMContentLoaded', function () {
             var sinNombreAnteriorCheck = document.getElementById('sinNombreAnteriorCheck');
@@ -680,42 +688,42 @@
             $("#crearAlmacenamiento").click(function () {
                 contador++;
                 var nuevoCampo = `
-                                        <li style="color: #ffc0cb; font-weight: lighter;">
-                                        <label class="control-label">Tipo de Almacenamiento ${contador}</label>
-                                <select name="Almacenamientos[${contador - 1}].TipoAlmacenamiento" class="form-control">
+                                                <li style="color: #ffc0cb; font-weight: lighter;">
+                                                <label class="control-label">Tipo de Almacenamiento ${contador}</label>
+                                        <select name="Almacenamientos[${contador - 1}].TipoAlmacenamiento" class="form-control">
         @foreach (var item in ViewBag.tipoalmacenamiento)
         {
-                                             <option value="@item.Value">@item.Text</option>
+                                                         <option value="@item.Value">@item.Text</option>
         }
-                                </select>
-                                <span class="text-danger"></span>
-                            </li>
-                                        <li style="color: #ffc0cb; font-weight: lighter;">
-                                        <label class="control-label">Capacidad de Almacenamiento ${contador}</label>
-                                <select name="Almacenamientos[${contador - 1}].CapacidadAlmacenamiento" class="form-control">
+                                        </select>
+                                        <span class="text-danger"></span>
+                                    </li>
+                                                <li style="color: #ffc0cb; font-weight: lighter;">
+                                                <label class="control-label">Capacidad de Almacenamiento ${contador}</label>
+                                        <select name="Almacenamientos[${contador - 1}].CapacidadAlmacenamiento" class="form-control">
         @foreach (var item in ViewBag.capacidadalmacenamiento)
         {
-                                             <option value="@item.Value">@item.Text</option>
+                                                         <option value="@item.Value">@item.Text</option>
         }
-                                </select>
-                                <span class="text-danger"></span>
-                            </li>
+                                        </select>
+                                        <span class="text-danger"></span>
+                                    </li>
+                                                <li style="color: #ffc0cb; font-weight: lighter;">
+                                                <label class="control-label">Marca de Almacenamiento ${contador}</label>
+                                        <input name="Almacenamientos[${contador - 1}].MarcaAlmacenamiento" class="form-control" placeholder="Ingresa la Marca del Disco Duro" />
+                                        <span class="text-danger"></span>
+                                    </li>
                                         <li style="color: #ffc0cb; font-weight: lighter;">
-                                        <label class="control-label">Marca de Almacenamiento ${contador}</label>
-                                <input name="Almacenamientos[${contador - 1}].MarcaAlmacenamiento" class="form-control" placeholder="Ingresa la Marca del Disco Duro" />
-                                <span class="text-danger"></span>
-                            </li>
-                                <li style="color: #ffc0cb; font-weight: lighter;">
-                                <label class="control-label">Número de Serie ${contador}</label>
-                                <input name="Almacenamientos[${contador - 1}].NumeroSerieAlmacenamiento" class="form-control" placeholder="Ingresa el Número de Serie del Disco Duro" />
-                                <span class="text-danger"></span>
-                            </li>
-                                        <li style="color: #ffc0cb; font-weight: lighter;">
-                                        <label class="control-label">Número de Parte ${contador}</label>
-                                <input name="Almacenamientos[${contador - 1}].NumeroParteAlmacenamiento" class="form-control" placeholder="Ingresa el Número de Parte del Disco Duro" />
-                                <span class="text-danger"></span>
-                            </li>
-                            <hr>`;
+                                        <label class="control-label">Número de Serie ${contador}</label>
+                                        <input name="Almacenamientos[${contador - 1}].NumeroSerieAlmacenamiento" class="form-control" placeholder="Ingresa el Número de Serie del Disco Duro" />
+                                        <span class="text-danger"></span>
+                                    </li>
+                                                <li style="color: #ffc0cb; font-weight: lighter;">
+                                                <label class="control-label">Número de Parte ${contador}</label>
+                                        <input name="Almacenamientos[${contador - 1}].NumeroParteAlmacenamiento" class="form-control" placeholder="Ingresa el Número de Parte del Disco Duro" />
+                                        <span class="text-danger"></span>
+                                    </li>
+                                    <hr>`;
                 $("#listaAlmacenamiento").append(nuevoCampo);
             });
 
@@ -775,19 +783,19 @@
 
             verificarSeleccion();
         });
-        //-------------------------------------------------------------------------------------------------------//        
+        //-------------------------------------------------------------------------------------------------------//
         //---------------------------------------NOMBRE NUEVO----------------------------------------------------//
-            document.addEventListener('DOMContentLoaded', function () {
-                document.getElementById('mostrarNombreNuevo').addEventListener('click', function () {
-                    var inputNombreNuevo = document.getElementById('NombreNuevo');
-                    var labelNombreNuevo = document.querySelector('label[for="NombreNuevo"]');
+        document.addEventListener('DOMContentLoaded', function () {
+            document.getElementById('mostrarNombreNuevo').addEventListener('click', function () {
+                var inputNombreNuevo = document.getElementById('NombreNuevo');
+                var labelNombreNuevo = document.querySelector('label[for="NombreNuevo"]');
 
-                    inputNombreNuevo.style.display = 'block';
-                    labelNombreNuevo.style.display = 'block';
+                inputNombreNuevo.style.display = 'block';
+                labelNombreNuevo.style.display = 'block';
 
-                    inputNombreNuevo.value = "";
-                });
+                inputNombreNuevo.value = "";
             });
+        });
 
         document.addEventListener('DOMContentLoaded', function () {
             var inputNombreNuevo = document.getElementById('NombreNuevo');
@@ -800,7 +808,22 @@
                 labelNombreNuevo.style.display = 'none';
             });
         });
-        //-------------------------------------------------------------------------------------------------------//
+
+        function soloNumeros(event) {
+            var charCode = (event.which) ? event.which : event.keyCode;
+
+            if ((charCode >= 48 && charCode <= 57) || charCode === 44 || charCode === 46) {
+                if (charCode === 44 || charCode === 46) {
+                    if (event.target.value.indexOf(',') !== -1 || event.target.value.indexOf('.') !== -1) {
+                        return false;
+                    }
+                }
+                return true;
+            } else {
+                return false;
+            }
+        }
+                //-------------------------------------------------------------------------------------------------------//
     </script>
 }
 
@@ -827,17 +850,17 @@
         border: 0px solid #ffffff; /* Añadir borde a los campos de texto */
     }
 
-    .form-control:disabled {
-        background-color: #565656; /* Cambiar el color de fondo de los campos de texto deshabilitados */
-        color: #fff; /* Cambiar el color del texto dentro de los campos de texto deshabilitados */
-    }
+        .form-control:disabled {
+            background-color: #565656; /* Cambiar el color de fondo de los campos de texto deshabilitados */
+            color: #fff; /* Cambiar el color del texto dentro de los campos de texto deshabilitados */
+        }
 
-    .form-control:focus {
-        background-color: #565656; /* Cambiar el color de fondo de los campos de texto deshabilitados */
-        border: 0px solid #ffffff; /* Añadir borde a los campos de texto */
-        outline: 0; /* Eliminar contorno al enfocar */
-        box-shadow: #fff; /* Sombra al enfocar */
-    }
+        .form-control:focus {
+            background-color: #565656; /* Cambiar el color de fondo de los campos de texto deshabilitados */
+            border: 0px solid #ffffff; /* Añadir borde a los campos de texto */
+            outline: 0; /* Eliminar contorno al enfocar */
+            box-shadow: #fff; /* Sombra al enfocar */
+        }
 
     select.form-control {
         background-color: #808080; /* Cambiar el color de fondo del combo box */
